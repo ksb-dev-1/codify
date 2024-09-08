@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const { amount, description } = await request.json();
 
-    //Ensure that a description is provided
     if (!description) {
       return NextResponse.json(
         { error: "Description is required for export transactions." },
@@ -16,15 +15,15 @@ export async function POST(request: NextRequest) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: "inr",
-      description: "Your transaction description here", // Provide a description for the transaction as per Stripe documentation
-      receipt_email: "customer@example.com", // Provide the customer's email address
+      description,
+      receipt_email: "customer@example.com",
       shipping: {
         name: "abc",
         address: {
           line1: "xyz",
-          city: "City", // Provide the city information
-          postal_code: "Postal Code", // Provide the postal code information
-          country: "IN", // Provide the country code for India (IN)
+          city: "City",
+          postal_code: "Postal Code",
+          country: "IN",
         },
       },
     });
@@ -37,4 +36,17 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+export async function OPTIONS(request: Request) {
+  const response = new NextResponse(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*", // Adjust as needed for security
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+
+  return response;
 }
