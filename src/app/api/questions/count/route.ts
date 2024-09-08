@@ -20,12 +20,12 @@ export async function GET() {
     const [
       totalQuestionsCount,
 
-      // Count "Started" questions by difficulty
+      // Count "Started" questions by difficulty for the authenticated user
       startedEasyCount,
       startedMediumCount,
       startedHardCount,
 
-      // Count "Completed" questions by difficulty
+      // Count "Completed" questions by difficulty for the authenticated user
       completedEasyCount,
       completedMediumCount,
       completedHardCount,
@@ -38,9 +38,10 @@ export async function GET() {
       // Count the total number of questions
       prisma.question.count(),
 
-      // Count "Started" questions by difficulty
+      // Count "Started" questions by difficulty for this user
       prisma.questionStatus.count({
         where: {
+          userId: userID, // Filter by userID
           status: "Started",
           question: {
             difficulty: "Easy",
@@ -49,6 +50,7 @@ export async function GET() {
       }),
       prisma.questionStatus.count({
         where: {
+          userId: userID, // Filter by userID
           status: "Started",
           question: {
             difficulty: "Medium",
@@ -57,6 +59,7 @@ export async function GET() {
       }),
       prisma.questionStatus.count({
         where: {
+          userId: userID, // Filter by userID
           status: "Started",
           question: {
             difficulty: "Hard",
@@ -64,9 +67,10 @@ export async function GET() {
         },
       }),
 
-      // Count "Completed" questions by difficulty
+      // Count "Completed" questions by difficulty for this user
       prisma.questionStatus.count({
         where: {
+          userId: userID, // Filter by userID
           status: "Completed",
           question: {
             difficulty: "Easy",
@@ -75,6 +79,7 @@ export async function GET() {
       }),
       prisma.questionStatus.count({
         where: {
+          userId: userID, // Filter by userID
           status: "Completed",
           question: {
             difficulty: "Medium",
@@ -83,6 +88,7 @@ export async function GET() {
       }),
       prisma.questionStatus.count({
         where: {
+          userId: userID, // Filter by userID
           status: "Completed",
           question: {
             difficulty: "Hard",
@@ -90,7 +96,7 @@ export async function GET() {
         },
       }),
 
-      // Count total questions by difficulty
+      // Count total questions by difficulty (this can be global, without user filtering)
       prisma.question.count({
         where: {
           difficulty: "Easy",
@@ -189,11 +195,21 @@ export async function GET() {
 //   }
 
 //   try {
-//     // Fetch status-based counts and difficulty-based counts concurrently using Promise.all
+//     // Fetch all counts concurrently using Promise.all
 //     const [
 //       totalQuestionsCount,
-//       startedStatusCount,
-//       completedStatusCount,
+
+//       // Count "Started" questions by difficulty
+//       startedEasyCount,
+//       startedMediumCount,
+//       startedHardCount,
+
+//       // Count "Completed" questions by difficulty
+//       completedEasyCount,
+//       completedMediumCount,
+//       completedHardCount,
+
+//       // Count total questions by difficulty
 //       easyDifficultyCount,
 //       mediumDifficultyCount,
 //       hardDifficultyCount,
@@ -201,32 +217,69 @@ export async function GET() {
 //       // Count the total number of questions
 //       prisma.question.count(),
 
-//       // Count the number of questions for Started and Completed status
+//       // Count "Started" questions by difficulty
 //       prisma.questionStatus.count({
 //         where: {
 //           status: "Started",
+//           question: {
+//             difficulty: "Easy",
+//           },
+//         },
+//       }),
+//       prisma.questionStatus.count({
+//         where: {
+//           status: "Started",
+//           question: {
+//             difficulty: "Medium",
+//           },
+//         },
+//       }),
+//       prisma.questionStatus.count({
+//         where: {
+//           status: "Started",
+//           question: {
+//             difficulty: "Hard",
+//           },
 //         },
 //       }),
 
+//       // Count "Completed" questions by difficulty
 //       prisma.questionStatus.count({
 //         where: {
 //           status: "Completed",
+//           question: {
+//             difficulty: "Easy",
+//           },
+//         },
+//       }),
+//       prisma.questionStatus.count({
+//         where: {
+//           status: "Completed",
+//           question: {
+//             difficulty: "Medium",
+//           },
+//         },
+//       }),
+//       prisma.questionStatus.count({
+//         where: {
+//           status: "Completed",
+//           question: {
+//             difficulty: "Hard",
+//           },
 //         },
 //       }),
 
-//       // Count the number of questions for each difficulty level
+//       // Count total questions by difficulty
 //       prisma.question.count({
 //         where: {
 //           difficulty: "Easy",
 //         },
 //       }),
-
 //       prisma.question.count({
 //         where: {
 //           difficulty: "Medium",
 //         },
 //       }),
-
 //       prisma.question.count({
 //         where: {
 //           difficulty: "Hard",
@@ -234,33 +287,57 @@ export async function GET() {
 //       }),
 //     ]);
 
-//     // Calculate the Todo status count as total questions minus started and completed
-//     const todoStatusCount =
-//       totalQuestionsCount - (startedStatusCount + completedStatusCount);
+//     // Calculate the Todo status count for each difficulty level
+//     const todoEasyCount =
+//       easyDifficultyCount - (startedEasyCount + completedEasyCount);
+//     const todoMediumCount =
+//       mediumDifficultyCount - (startedMediumCount + completedMediumCount);
+//     const todoHardCount =
+//       hardDifficultyCount - (startedHardCount + completedHardCount);
 
-//     // If no questions found at all
-//     if (
-//       totalQuestionsCount === 0 &&
-//       easyDifficultyCount === 0 &&
-//       mediumDifficultyCount === 0 &&
-//       hardDifficultyCount === 0
-//     ) {
-//       return NextResponse.json(
-//         { message: "No questions found!" },
-//         { status: 200 }
-//       );
-//     }
+//     // Total counts for each difficulty
+//     const totalEasyCount = easyDifficultyCount;
+//     const totalMediumCount = mediumDifficultyCount;
+//     const totalHardCount = hardDifficultyCount;
 
-//     // Return both status-based and difficulty-based counts
+//     // Calculate the total number of Todo, Started, and Completed questions
+//     const totalTodoCount = todoEasyCount + todoMediumCount + todoHardCount;
+//     const totalStartedCount =
+//       startedEasyCount + startedMediumCount + startedHardCount;
+//     const totalCompletedCount =
+//       completedEasyCount + completedMediumCount + completedHardCount;
+
+//     // Return the data
 //     return NextResponse.json(
 //       {
 //         totalQuestionsCount,
-//         todoStatusCount,
-//         startedStatusCount,
-//         completedStatusCount,
-//         easyDifficultyCount,
-//         mediumDifficultyCount,
-//         hardDifficultyCount,
+
+//         // Todo, Started, and Completed counts by difficulty
+//         easy: {
+//           todo: todoEasyCount,
+//           started: startedEasyCount,
+//           completed: completedEasyCount,
+//         },
+//         medium: {
+//           todo: todoMediumCount,
+//           started: startedMediumCount,
+//           completed: completedMediumCount,
+//         },
+//         hard: {
+//           todo: todoHardCount,
+//           started: startedHardCount,
+//           completed: completedHardCount,
+//         },
+
+//         // Total counts for each difficulty
+//         totalEasyCount,
+//         totalMediumCount,
+//         totalHardCount,
+
+//         // Total counts for Todo, Started, and Completed questions across all difficulties
+//         totalTodoCount,
+//         totalStartedCount,
+//         totalCompletedCount,
 //       },
 //       { status: 200 }
 //     );

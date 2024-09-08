@@ -106,8 +106,11 @@ export default function QuestionDetail({ params }: PageProps) {
       !isCorrect
     ) {
       setIsMutationCalled(true);
-      markQuestionAsStartedMutation.mutate(questionID);
-      checkBookmarStatuskMutation.mutate(questionID);
+
+      if (session?.user?.id) {
+        markQuestionAsStartedMutation.mutate(questionID);
+        checkBookmarStatuskMutation.mutate(questionID);
+      }
     }
   }, [
     sessionStatus,
@@ -116,6 +119,7 @@ export default function QuestionDetail({ params }: PageProps) {
     isCorrect,
     markQuestionAsStartedMutation,
     checkBookmarStatuskMutation,
+    session?.user?.id,
   ]);
 
   const handleSubmit = () => {
@@ -171,7 +175,7 @@ export default function QuestionDetail({ params }: PageProps) {
 
   if (question) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center px-4  pt-[6.5rem] pb-[4.5rem]">
         <div className="max-w-[750px] w-full flex items-center justify-between">
           {/* Back Link */}
           <Link href="/pages/learn" className="text-blue-500 flex items-center">
