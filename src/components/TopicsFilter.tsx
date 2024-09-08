@@ -16,7 +16,7 @@ interface TopicsProps {
 }
 
 async function fetchTopics() {
-  const response = await fetch("http://localhost:3000/api/topics");
+  const response = await fetch("/api/topics");
   if (!response.ok) {
     throw new Error("Failed to fetch topics");
   }
