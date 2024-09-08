@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body {
+  background: #f1f5f9;
+} */
+
+/* Global styles for light mode */
+body {
+  @apply bg-white text-black;
+}
+
+/* Styles for dark mode */
+html.dark body {
+  @apply bg-gray-900 text-white;
+}
+
+.gradient {
+  background: linear-gradient(to right bottom, gray 50%, #000000 50%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.placeholder-transparent {
+  color: transparent;
+}
+
+.loader {
+  border: 3px solid;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+}
+
+.modal-shadow {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.custom-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f7f7f7 25%, #ececec 50%, #f7f7f7 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 2s infinite;
+}
