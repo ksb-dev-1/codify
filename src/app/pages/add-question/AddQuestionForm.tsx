@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
 // Components
@@ -24,7 +24,7 @@ export type OptionKeys = "a" | "b" | "c" | "d";
 
 // Function to handle adding a question
 const addQuestion = async (data: AddQuestionValues) => {
-  const response = await fetch("/api/questions/question/add-question", {
+  const response = await fetch("/api/questions/question/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -40,6 +40,7 @@ const addQuestion = async (data: AddQuestionValues) => {
 };
 
 export default function AddQuestionForm() {
+  const [isPremium, setIsPremium] = useState<boolean>(false);
   const topicsRef = useRef<TopicRef>(null);
   const correctOptionRef = useRef<CorrectOptionRef>(null);
   const difficultyRef = useRef<DifficultyRef>(null);
@@ -79,7 +80,7 @@ export default function AddQuestionForm() {
 
   return (
     <div className="max-w-[750px] w-full my-[144px] px-4 md:p-0">
-      <h1 className="mb-2 font-bold text-xl">Add Question</h1>
+      <h1 className="mb-4 font-bold text-xl">Add Question</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-8 sm:p-16 w-full space-y-4 rounded-xl border border-slate-300"
@@ -203,6 +204,38 @@ export default function AddQuestionForm() {
           {errors.explanation && (
             <p className="text-sm text-red-500">{errors.explanation.message}</p>
           )}
+        </div>
+
+        <div className="flex items-center">
+          <p className="font-semibold">Premium</p>
+          <p className="flex items-center ml-8">
+            {isPremium ? (
+              <span className="h-[20px] w-[20px] rounded-full bg-black inline-block"></span>
+            ) : (
+              <span
+                onClick={() => {
+                  setIsPremium(true);
+                  setValue("isPremium", true);
+                }}
+                className="h-[20px] w-[20px] rounded-full border border-slate-300 inline-block"
+              ></span>
+            )}{" "}
+            <span className="ml-2">Yes</span>
+          </p>
+          <p className="flex items-center ml-8">
+            {!isPremium ? (
+              <span className="h-[20px] w-[20px] rounded-full bg-black inline-block"></span>
+            ) : (
+              <span
+                onClick={() => {
+                  setIsPremium(false);
+                  setValue("isPremium", false);
+                }}
+                className="h-[20px] w-[20px] rounded-full border border-slate-300 inline-block"
+              ></span>
+            )}{" "}
+            <span className="ml-2">No</span>
+          </p>
         </div>
 
         <button

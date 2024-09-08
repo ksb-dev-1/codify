@@ -82,6 +82,9 @@ export async function GET(req: NextRequest) {
         },
         topic: true,
       },
+      orderBy: {
+        createdAt: "desc", // Sort by the createdAt field in descending order
+      },
       skip: (page - 1) * limit,
       take: limit,
     });

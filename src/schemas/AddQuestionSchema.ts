@@ -16,6 +16,7 @@ export const AddQuestionSchema = z.object({
   explanation: z.string().optional(),
   topicId: z.string().min(1, "Topic is required"),
   difficulty: z.string().min(1, "Difficulty is required"),
+  isPremium: z.boolean().optional(),
 });
 
 export type AddQuestionValues = z.infer<typeof AddQuestionSchema>;

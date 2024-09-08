@@ -20,7 +20,7 @@ type TopicFormData = z.infer<typeof topicSchema>;
 
 // Create a mutation function to add a topic
 const addTopic = async (newTopic: { name: string }) => {
-  const response = await fetch("/api/topics", {
+  const response = await fetch("/api/topics/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

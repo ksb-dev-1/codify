@@ -218,13 +218,13 @@ export default function QuestionDetail({ params }: PageProps) {
             )}
           </>
         </div>
-        <div className="max-w-[750px] w-full border border-slate-300 rounded-xl p-8 mt-2">
+        <div className="max-w-[750px] w-full border border-slate-300 rounded-xl p-4 sm:p-8 mt-2">
           {/* Question */}
-          <p className="font-semibold">{question.question}</p>
+          <p className="font-semibold mb-4">{question.question}</p>
 
           {/* Code Snippet */}
           {question.codeSnippet && (
-            <div className="rounded-xl overflow-hidden my-4">
+            <div className="rounded-xl overflow-hidden">
               <MonacoEditor
                 height="200px"
                 language="javascript"
@@ -242,7 +242,7 @@ export default function QuestionDetail({ params }: PageProps) {
           )}
 
           {/* Multiple Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             {Object.entries(question.options).map(([key, value]) => {
               return (
                 <div
@@ -320,7 +320,7 @@ export default function QuestionDetail({ params }: PageProps) {
           {/* check / uncheck */}
           {(correctAnswer || isCorrect) && (
             <div className="w-fit flex items-center border border-slate-300 rounded-xl p-2 mt-4">
-              <span className="text-sm font-semibold">Complete</span>
+              <span className="text-sm font-semibold">Mark as Complete</span>
               {!isCorrect && !checkQuestionMutation.isPending && (
                 <button
                   onClick={() => checkQuestionMutation.mutate(questionID)}

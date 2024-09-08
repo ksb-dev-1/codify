@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   try {
     const { amount, description } = await request.json();
 
-    // Ensure that a description is provided
+    //Ensure that a description is provided
     if (!description) {
       return NextResponse.json(
         { error: "Description is required for export transactions." },

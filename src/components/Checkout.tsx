@@ -17,14 +17,6 @@ import convertToSubCurrency from "@/lib/convertToSubCurrency";
 
 export default function Checkout({ amount }: { amount: number }) {
   const session = useSession();
-  const userID = session.data?.user?.id;
-  const router = useRouter();
-
-  useEffect(() => {
-    if (session.status !== "loading" && !userID) {
-      router.push("/");
-    }
-  }, [userID, session.status, router]);
 
   // check for premium user
   const { data: payment, isLoading, isError } = useGetPaymentStatusQuery();
@@ -112,6 +104,16 @@ export default function Checkout({ amount }: { amount: number }) {
     );
   }
 
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-lg text-red-500 text-center font-semibold mb-2">
+          Failed to check your payment status! Refresh.
+        </h1>
+      </div>
+    );
+  }
+
   if (payment && payment.status) {
     return (
       <div className="flex flex-col items-center justify-center">
@@ -130,6 +132,9 @@ export default function Checkout({ amount }: { amount: number }) {
 
   return (
     <form onSubmit={handleSubmit} className="rounded-xl">
+      <span className="font-normal text-sm mb-2">
+        (Card No - 4242 4242 4242 4242)
+      </span>
       {clientSecret && <PaymentElement />}
 
       {errorMessage && <div>{errorMessage}</div>}

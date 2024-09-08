@@ -51,7 +51,7 @@ export async function POST(request: Request) {
         topic: { connect: { id: parsedData.topicId } },
         createdBy: { connect: { id: userId } },
         difficulty: parsedData.difficulty,
-        //isPremium: parseData.isPremium || false,
+        isPremium: parsedData.isPremium || false,
       },
     });
 
