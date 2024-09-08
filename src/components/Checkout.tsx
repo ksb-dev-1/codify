@@ -34,19 +34,16 @@ export default function Checkout({ amount }: { amount: number }) {
 
   useEffect(() => {
     const description = "Payment for service/product";
-    fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/stripe/create-payment-intent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: convertToSubCurrency(amount),
-          description,
-        }),
-      }
-    )
+    fetch(`/api/stripe/create-payment-intent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: convertToSubCurrency(amount),
+        description,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
       .catch((error) => {
@@ -75,7 +72,7 @@ export default function Checkout({ amount }: { amount: number }) {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pages/payment/success?amount=${amount}`,
+        return_url: `/pages/payment/success?amount=${amount}`,
       },
       redirect: "if_required",
     });
