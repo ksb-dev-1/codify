@@ -34,7 +34,14 @@ const PaymentPage = () => {
 
   const content = useMemo(() => {
     if (sessionStatus === "loading") {
-      return <div>Loading...</div>;
+      return (
+        <div className="w-full flex flex-col items-center justify-center">
+          <div className="skeleton py-6 rounded-xl w-full"></div>
+          <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
+          <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
+          <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
+        </div>
+      );
     }
     if (!session?.user?.id) {
       return (
@@ -60,6 +67,12 @@ const PaymentPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <p className="font-bold text-xl max-w-[500px] w-full flex items-center justify-start mb-4">
+        Payment Form{" "}
+        <span className="font-normal text-sm ml-2">
+          (card no - 4242 4242 4242 4242)
+        </span>
+      </p>
       <div className="max-w-[500px] w-full border border-slate-300 rounded-xl overflow-clip p-8">
         {content}
       </div>

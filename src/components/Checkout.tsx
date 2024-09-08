@@ -103,15 +103,11 @@ export default function Checkout({ amount }: { amount: number }) {
 
   if (!clientSecret || !stripe || !elements || isLoading) {
     return (
-      <div className="flex items-center justify-center">
-        <div
-          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
-          role="status"
-        >
-          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-            Loading...
-          </span>
-        </div>
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="skeleton py-6 rounded-xl w-full"></div>
+        <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
+        <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
+        <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
       </div>
     );
   }
