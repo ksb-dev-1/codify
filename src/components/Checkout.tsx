@@ -72,7 +72,7 @@ export default function Checkout({ amount }: { amount: number }) {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `/pages/payment/success?amount=${amount}`,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pages/payment/success?amount=${amount}`,
       },
       redirect: "if_required",
     });
