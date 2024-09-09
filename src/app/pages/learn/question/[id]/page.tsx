@@ -11,7 +11,7 @@ import {
   useUncheckQuestionMutation,
 } from "@/hooks/questions/useQuestions";
 import {
-  useCheckBookmarkStatus,
+  useCheckBookmarkStatusQuery,
   useAddBookmarkMutation,
   useRemoveBookmarkMutation,
 } from "@/hooks/bookmarks/useBookmarks";
@@ -22,10 +22,8 @@ import QuestionSkeleton from "@/components/skeletons/QuestionSkeleton";
 // 3rd party libraries
 import { useSession } from "next-auth/react";
 import MonacoEditor from "@monaco-editor/react";
-import { IoMdArrowBack } from "react-icons/io";
-import { PiBookmarkSimpleLight } from "react-icons/pi";
-import { PiBookmarkSimpleFill } from "react-icons/pi";
-import { IoIosCheckmark } from "react-icons/io";
+import { IoMdArrowBack, IoIosCheckmark } from "react-icons/io";
+import { PiBookmarkSimpleLight, PiBookmarkSimpleFill } from "react-icons/pi";
 import toast from "react-hot-toast";
 
 interface PageProps {
@@ -51,6 +49,7 @@ export default function QuestionDetail({ params }: PageProps) {
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
 
+  // If user doesn't exist redirect to home
   useEffect(() => {
     if (sessionStatus !== "loading" && !session?.user?.id) {
       router.push("/");
@@ -67,6 +66,19 @@ export default function QuestionDetail({ params }: PageProps) {
   const [wrongAnswer, setWrongAnswer] = useState<string | null>(null);
   const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
 
+  // hook for checking question is bookmarked
+  const {
+    data: bookmarkStatus,
+    isLoading: isBookmarkStatusLoading,
+    isError: isBookmarkStatusError,
+  } = useCheckBookmarkStatusQuery(questionID);
+
+  useEffect(() => {
+    if (bookmarkStatus) {
+      setIsBookmarked(bookmarkStatus.isBookmarked);
+    }
+  }, [bookmarkStatus]);
+
   // hook for changing question status as started
   const { markQuestionAsStartedMutation } = useMarkQuestionStartedMutation(
     (data) => {
@@ -74,11 +86,6 @@ export default function QuestionDetail({ params }: PageProps) {
       setIsCorrect(data.isCorrect);
     }
   );
-
-  // hook for checking question is bookmarked
-  const { checkBookmarkStatusMutation } = useCheckBookmarkStatus((data) => {
-    setIsBookmarked(data.isBookmarkAdded);
-  });
 
   // hook for check question
   const { checkQuestionMutation } = useCheckQuestionMutation(() => {
@@ -102,6 +109,7 @@ export default function QuestionDetail({ params }: PageProps) {
     setIsBookmarked(data.isBookmarked);
   });
 
+  // useEffect to call mutation only once
   useEffect(() => {
     if (
       sessionStatus !== "loading" &&
@@ -113,7 +121,6 @@ export default function QuestionDetail({ params }: PageProps) {
 
       if (session?.user?.id) {
         markQuestionAsStartedMutation.mutate(questionID);
-        checkBookmarkStatusMutation.mutate(questionID);
       }
     }
   }, [
@@ -122,10 +129,10 @@ export default function QuestionDetail({ params }: PageProps) {
     questionID,
     isCorrect,
     markQuestionAsStartedMutation,
-    checkBookmarkStatusMutation,
     session?.user?.id,
   ]);
 
+  // function fot submitting answer
   const handleSubmit = () => {
     if (!selectedOption) {
       toast.error("You must select an option!");
@@ -145,21 +152,13 @@ export default function QuestionDetail({ params }: PageProps) {
     }
   };
 
-  const handleAddBookmark = () => {
-    addBookmarkMutation.mutate(questionID);
-  };
-
-  const handleRemoveBookmark = () => {
-    removeBookmarkMutation.mutate(questionID);
-  };
-
   if (sessionStatus === "loading" || markQuestionAsStartedMutation.isPending) {
     return <QuestionSkeleton />;
   }
 
   if (!session?.user?.id) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="min-h-screen flex flex-col items-center px-4 pt-[6.5rem]">
         <div className="text-xl font-bold flex items-center justify-center">
           Logging out...
         </div>
@@ -169,7 +168,7 @@ export default function QuestionDetail({ params }: PageProps) {
 
   if (markQuestionAsStartedMutation.isError) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="min-h-screen flex flex-col items-center px-4 pt-[6.5rem]">
         <div className="text-xl font-bold flex items-center justify-center">
           Error: Failed to load question.
         </div>
@@ -179,7 +178,7 @@ export default function QuestionDetail({ params }: PageProps) {
 
   if (question) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4  pt-[6.5rem] pb-[4.5rem]">
+      <div className="min-h-screen flex flex-col items-center px-4  pt-[6.5rem] pb-[4.5rem]">
         <div className="max-w-[750px] w-full flex items-center justify-between">
           {/* Back Link */}
           <Link href="/pages/learn" className="text-blue-500 flex items-center">
@@ -190,7 +189,7 @@ export default function QuestionDetail({ params }: PageProps) {
             {(removeBookmarkMutation.isPending ||
               addBookmarkMutation.isPending) && (
               <button
-                onClick={handleRemoveBookmark}
+                //onClick={handleRemoveBookmark}
                 className="relative h-[40px] w-[40px] rounded-full border border-slate-300 hover:bg-slate-100"
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">
@@ -200,7 +199,7 @@ export default function QuestionDetail({ params }: PageProps) {
             )}
             {isBookmarked && !removeBookmarkMutation.isPending && (
               <button
-                onClick={handleRemoveBookmark}
+                onClick={() => removeBookmarkMutation.mutate(questionID)}
                 className="relative h-[40px] w-[40px] rounded-full border border-slate-300 hover:bg-slate-100"
                 aria-label="remove-bookmark"
               >
@@ -211,7 +210,7 @@ export default function QuestionDetail({ params }: PageProps) {
             )}
             {!isBookmarked && !addBookmarkMutation.isPending && (
               <button
-                onClick={handleAddBookmark}
+                onClick={() => addBookmarkMutation.mutate(questionID)}
                 className="relative h-[40px] w-[40px] rounded-full border border-slate-300 hover:bg-slate-100"
                 aria-label="add-bookmark"
               >
@@ -253,7 +252,7 @@ export default function QuestionDetail({ params }: PageProps) {
                   key={key}
                   //className={optionClasses.trim()}
                   className={`px-4 py-2 border border-slate-300 rounded-xl
-                    ${!isCorrect && "cursor-default hover:shadow-md"} 
+                    ${!isCorrect && "cursor-default hover:shadow-md"}
                     ${
                       selectedOption === key &&
                       !correctAnswer &&
@@ -266,7 +265,7 @@ export default function QuestionDetail({ params }: PageProps) {
                       selectedOption === key && selectedOption === correctAnswer
                         ? "bg-green-500 text-white"
                         : ""
-                    } 
+                    }
                     ${
                       selectedOption === key && selectedOption === wrongAnswer
                         ? "bg-red-500 text-white"

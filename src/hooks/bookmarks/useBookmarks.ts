@@ -9,6 +9,26 @@ import {
 // 3rd party libraries
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+// Fetch bookmark status
+export const useCheckBookmarkStatusQuery = (questionID: string) => {
+  return useQuery({
+    queryKey: ["bookmarkStatus", questionID],
+    queryFn: () => checkBookmarkStatus(questionID),
+    staleTime: Infinity,
+    gcTime: Infinity,
+  });
+};
+
+// useFetchBookmarksQuery hook
+export const useFetchBookmarksQuery = () => {
+  return useQuery({
+    queryKey: ["bookmarks"],
+    queryFn: fetchBookmarks,
+    staleTime: Infinity,
+    gcTime: Infinity,
+  });
+};
+
 // useAddBookmarkMutation hook
 export const useAddBookmarkMutation = (
   onBookmarkAddSuccessful: (data: any) => void
@@ -47,31 +67,4 @@ export const useRemoveBookmarkMutation = (
   });
 
   return { removeBookmarkMutation };
-};
-
-// useCheckBookmarkStatus hook
-export const useCheckBookmarkStatus = (
-  onCheckBookmarkSuccess: (data: any) => void
-) => {
-  const checkBookmarkStatusMutation = useMutation({
-    mutationFn: checkBookmarkStatus,
-    onSuccess: (data) => {
-      onCheckBookmarkSuccess(data);
-    },
-    onError: (error: any) => {
-      console.error("Error during mutation:", error);
-    },
-  });
-
-  return { checkBookmarkStatusMutation };
-};
-
-// useFetchBookmarksQuery hook
-export const useFetchBookmarksQuery = () => {
-  return useQuery({
-    queryKey: ["bookmarks"],
-    queryFn: fetchBookmarks,
-    staleTime: Infinity,
-    gcTime: Infinity,
-  });
 };

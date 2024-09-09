@@ -30,7 +30,9 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-4 py-2 mx-1 border border-slate-300 rounded-xl disabled:opacity-50 hover:bg-slate-100"
+        className={`px-4 py-2 mx-1 border border-slate-300 rounded-xl disabled:opacity-50 ${
+          currentPage === 1 ? "cursor-not-allowed" : "hover:bg-slate-100"
+        }`}
       >
         Prev
       </button>
@@ -50,7 +52,11 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 mx-1 border border-slate-300 rounded-xl disabled:opacity-50 hover:bg-slate-100"
+        className={`px-4 py-2 mx-1 border border-slate-300 rounded-xl disabled:opacity-50 ${
+          currentPage === totalPages
+            ? "cursor-not-allowed"
+            : "hover:bg-slate-100"
+        }`}
       >
         Next
       </button>

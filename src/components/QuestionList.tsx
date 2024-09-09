@@ -87,7 +87,7 @@ const QuestionsList = ({
         </div>
         <span className="font-bold">Difficulty</span>
       </div>
-      <div className="border-t border-r border-l border-slate-300 rounded-xl overflow-clip">
+      <div className="">
         {questions.map((question: any, index: any) => {
           const { bgColor, dotColor, textColor } = getStatusStyles(
             question.status
@@ -106,8 +106,8 @@ const QuestionsList = ({
                   : `/pages/learn/question/${question.id}`
               }
               key={question.id}
-              className={`flex items-center justify-between border-b border-slate-300 px-4 py-4 cursor-pointer hover:bg-slate-100 ${
-                index % 2 === 0 ? "bg-white" : "bg-white"
+              className={`flex items-center justify-between border border-slate-300 px-4 py-4 cursor-pointer hover:scale-[98%] transition-all mb-4 rounded-xl ${
+                index % 2 === 0 ? "bg-slate-100" : "bg-white"
               }`}
             >
               <div className="flex items-center">

@@ -45,9 +45,9 @@ export const useFetchQuestionsQuery = ({
         currentStatus,
         currentPage,
       }),
-    placeholderData: keepPreviousData,
-    staleTime: Infinity,
-    gcTime: Infinity,
+    //placeholderData: keepPreviousData,
+    staleTime: 0,
+    gcTime: 0,
   });
 };
 

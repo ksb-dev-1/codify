@@ -2,7 +2,7 @@ import React from "react";
 
 const QuestionSkeleton = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen flex flex-col items-center px-4 pt-[6.5rem] pb-[4.5rem]">
       <div className="max-w-[750px] w-full flex items-center justify-between">
         <div className="text-transparent w-[100px] rounded-xl skeleton">
           Back
