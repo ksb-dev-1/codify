@@ -7,8 +7,8 @@ import Pagination from "@/components/Pagination";
 import QuestionsSkeleton from "@/components/skeletons/QuestionsSkeleton";
 
 // hooks
-import { useFetchQuestionsQuery } from "@/hooks/questions/useFetchQuestionsQuery";
-import { useGetPaymentStatusQuery } from "@/hooks/payment/useGetPaymentStatusQuery";
+import { useFetchQuestionsQuery } from "@/hooks/questions/useQuestions";
+import { useGetPaymentStatusQuery } from "@/hooks/payments/usePayments";
 
 // utils
 import getStatusStyles from "@/utils/getStatusStyles";
@@ -20,7 +20,6 @@ import DifficultyTag from "./DifficultyTag";
 
 // 3rd party libraries
 import { BsFillLockFill, BsFillUnlockFill } from "react-icons/bs";
-import { HiLockClosed, HiLockOpen } from "react-icons/hi";
 
 interface QuestionsProps {
   currentTopic: string;

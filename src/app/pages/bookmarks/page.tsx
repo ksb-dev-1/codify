@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // hooks
-import { useFetchBookmarksQuery } from "@/hooks/bookmarks/useFetchBookmarksQuery";
-import { useGetPaymentStatusQuery } from "@/hooks/payment/useGetPaymentStatusQuery";
-import { useRemoveBookmarkMutation } from "@/hooks/bookmarks/useRemoveBookmarkMutation";
+import {
+  useFetchBookmarksQuery,
+  useRemoveBookmarkMutation,
+} from "@/hooks/bookmarks/useBookmarks";
+import { useGetPaymentStatusQuery } from "@/hooks/payments/usePayments";
 
 // utils
 import getStatusStyles from "@/utils/getStatusStyles";

@@ -191,13 +191,16 @@ export default function Header() {
       >
         <div className="max-w-[1280px] w-full h-[4.5rem] px-4 flex items-center justify-between">
           <div className="flex items-center">
+            <span
+              onClick={toggleSideMenu}
+              className="mr-4 sm:hidden text-2xl cursor-pointer"
+            >
+              <MdMenu />
+            </span>
             <Link
               href="/"
               className="flex items-center font-extrabold text-2xl"
             >
-              <span onClick={toggleSideMenu} className="mr-4 sm:hidden">
-                <MdMenu />
-              </span>
               {title}
             </Link>
             {linkContent}

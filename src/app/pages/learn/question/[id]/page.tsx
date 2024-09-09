@@ -5,12 +5,16 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // hooks
-import { useMarkQuestionStartedMutation } from "@/hooks/questions/useMarkQuestionStartedMutation";
-import { useCheckQuestionMutation } from "@/hooks/questions/useCheckQuestionMutation";
-import { useUncheckQuestionMutation } from "@/hooks/questions/useUncheckQuestionMutation";
-import { useCheckBookmarkStatus } from "@/hooks/bookmarks/useCheckBookmarkStatus";
-import { useAddBookmarkMutation } from "@/hooks/bookmarks/useAddBookmarkMutation";
-import { useRemoveBookmarkMutation } from "@/hooks/bookmarks/useRemoveBookmarkMutation";
+import {
+  useMarkQuestionStartedMutation,
+  useCheckQuestionMutation,
+  useUncheckQuestionMutation,
+} from "@/hooks/questions/useQuestions";
+import {
+  useCheckBookmarkStatus,
+  useAddBookmarkMutation,
+  useRemoveBookmarkMutation,
+} from "@/hooks/bookmarks/useBookmarks";
 
 // components
 import QuestionSkeleton from "@/components/skeletons/QuestionSkeleton";
@@ -72,7 +76,7 @@ export default function QuestionDetail({ params }: PageProps) {
   );
 
   // hook for checking question is bookmarked
-  const { checkBookmarStatuskMutation } = useCheckBookmarkStatus((data) => {
+  const { checkBookmarkStatusMutation } = useCheckBookmarkStatus((data) => {
     setIsBookmarked(data.isBookmarkAdded);
   });
 
@@ -109,7 +113,7 @@ export default function QuestionDetail({ params }: PageProps) {
 
       if (session?.user?.id) {
         markQuestionAsStartedMutation.mutate(questionID);
-        checkBookmarStatuskMutation.mutate(questionID);
+        checkBookmarkStatusMutation.mutate(questionID);
       }
     }
   }, [
@@ -118,7 +122,7 @@ export default function QuestionDetail({ params }: PageProps) {
     questionID,
     isCorrect,
     markQuestionAsStartedMutation,
-    checkBookmarStatuskMutation,
+    checkBookmarkStatusMutation,
     session?.user?.id,
   ]);
 

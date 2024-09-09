@@ -3,8 +3,10 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // hooks
-import { useGetPaymentStatusQuery } from "@/hooks/payment/useGetPaymentStatusQuery";
-import { useCreatePaymentMutation } from "@/hooks/payment/useCreatePaymentMutation";
+import {
+  useGetPaymentStatusQuery,
+  useCreatePaymentMutation,
+} from "@/hooks/payments/usePayments";
 
 // 3rd party libraries
 import { useSession } from "next-auth/react";
@@ -95,7 +97,7 @@ export default function Checkout({ amount }: { amount: number }) {
 
   if (!clientSecret || !stripe || !elements || isLoading) {
     return (
-      <div className="w-full flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col items-center justify-center rounded-xl border border-slate-300 p-8">
         <div className="skeleton py-6 rounded-xl w-full"></div>
         <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
         <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
@@ -116,13 +118,13 @@ export default function Checkout({ amount }: { amount: number }) {
 
   if (payment && payment.status) {
     return (
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center bg-gradient-to-tr from-orange-500 to-yellow-500 text-white p-8">
         <h1 className="text-lg text-center font-semibold mb-2">
           You are already a premium member!
         </h1>
         <Link
           href="/pages/learn?page=1"
-          className="bg-black text-white hover:bg-[#333] rounded-[50px] px-8 py-4 custom-pulse inline-block custom-pulse mt-4"
+          className="bg-white text-black hover:bg-slate-100 rounded-[50px] px-8 py-4 custom-pulse inline-block custom-pulse mt-4"
         >
           Continue Learning
         </Link>
@@ -131,9 +133,12 @@ export default function Checkout({ amount }: { amount: number }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl">
-      <span className="font-normal text-sm mb-2">
-        (Card No - 4242 4242 4242 4242)
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-xl border border-slate-300 p-8"
+    >
+      <span className="font-medium text-sm mb-4 inline-block bg-slate-100 px-4 py-2 rounded-xl">
+        Card No : 4242 4242 4242 4242
       </span>
       {clientSecret && <PaymentElement />}
 
@@ -141,7 +146,7 @@ export default function Checkout({ amount }: { amount: number }) {
 
       <button
         disabled={!stripe || loading || createPaymentMutation.isPending}
-        className="bg-black text-white w-full p-4 mt-2 rounded font-bold disabled:opacity-50"
+        className="bg-gradient-to-tr from-orange-500 to-yellow-500 text-white w-full p-4 mt-2 rounded-[7.5px] font-bold disabled:opacity-50"
       >
         {!loading && !createPaymentMutation.isPending
           ? `Pay ₹${amount}`

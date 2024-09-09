@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 // hooks
-import { useFetchQuestionsCountQuery } from "@/hooks/questions/useFetchQuestionsCountQuery";
+import { useFetchQuestionsCountQuery } from "@/hooks/questions/useQuestions";
 
 // components
 import QuestionProgressBar from "@/components/QuestionProgressBar";

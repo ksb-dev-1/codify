@@ -95,10 +95,10 @@ const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
         </div>
         <div
           onClick={closeMenu}
-          className="absolute h-[40px] w-[40px] border-[2px] border-red-500 rounded-full right-8 top-8 cursor-pointer hover:bg-slate-100"
+          className="absolute h-[40px] w-[40px] bg-red-500 rounded-full right-8 top-8 cursor-pointer hover:bg-red-400"
         >
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <IoMdClose className="text-xl text-red-500" />
+            <IoMdClose className="text-xl text-white" />
           </span>
         </div>
       </div>
