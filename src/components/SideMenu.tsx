@@ -36,7 +36,7 @@ const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
             href="/pages/add-question"
             className="px-4 py-2 hover:bg-slate-100 rounded-xl mb-2"
           >
-            Admin
+            Add
           </Link>
           <Link
             onClick={closeMenu}
@@ -62,7 +62,7 @@ const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
             href="/pages/signin"
             className="px-4 py-2 hover:bg-slate-100 rounded-xl mb-2"
           >
-            Admin
+            Add
           </Link>
           <Link
             onClick={closeMenu}

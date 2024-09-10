@@ -81,11 +81,11 @@ export default function Header() {
           href="/pages/add-question"
           className="ml-4 px-4 py-2 hover:bg-slate-100 rounded-[50px]"
         >
-          Admin
+          Add
         </Link>
         <Link
           href="/pages/payment"
-          className="ml-4 px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:bg-slate-100 rounded-[50px]"
+          className="ml-4 px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:from-yellow-500 hover:to-orange-500  rounded-[50px]"
         >
           Premium
         </Link>
@@ -163,7 +163,7 @@ export default function Header() {
           href="/pages/signin"
           className="ml-4 px-4 py-2 hover:bg-slate-100 rounded-[50px]"
         >
-          Admin
+          Add
         </Link>
         <Link
           href="/pages/signin"
@@ -176,7 +176,7 @@ export default function Header() {
     authContent = (
       <Link
         href="/pages/signin"
-        className="flex items-center justify-center bg-black text-white hover:bg-[#333] px-4 py-2 rounded-xl"
+        className="flex items-center justify-center bg-black text-white hover:bg-[#333] px-4 py-2 rounded-[50px]"
       >
         Sign in
       </Link>

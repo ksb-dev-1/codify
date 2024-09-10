@@ -22,25 +22,26 @@ export default function Home() {
             <div className="bg-white p-6 rounded-xl border border-slate-300">
               <h3 className="text-xl font-bold">Practice</h3>
               <p className="mt-2 text-gray-800">
-                Engage in practice sessions with a wide range of questions based
-                on various topics to enhance your learning.
+                Engage in practice sessions with a wide range of questions
+                across various topics, difficulty levels, and statuses to
+                enhance your learning.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-xl border border-slate-300">
               <h3 className="text-xl font-bold">Interactive Navigation</h3>
               <p className="mt-2 text-gray-800">
-                Easily move through questions with our intuitive navigation
-                buttons, allowing you to review and change your answers before
-                submitting.
+                Easily move through pages with our intuitive navigation buttons,
+                allowing you to quickly browse through questions.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-xl border border-slate-300">
               <h3 className="text-xl font-bold">Progress Tracking</h3>
               <p className="mt-2 text-gray-800">
-                Keep track of your scores and progress over time, and strive to
-                beat your personal best.
+                Keep track of your progress over time by viewing your overall
+                performance, as well as progress in easy, medium, and hard
+                categories.
               </p>
             </div>
 
@@ -48,24 +49,23 @@ export default function Home() {
               <h3 className="text-xl font-bold">Bookmark Questions</h3>
               <p className="mt-2 text-gray-800">
                 Save tricky questions to revisit later and deepen your
-                understanding.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl border border-slate-300">
-              <h3 className="text-xl font-bold">Interactive Quizzes</h3>
-              <p className="mt-2 text-gray-800">
-                Test your skills with our engaging quizzes that challenge your
-                knowledge and provide instant feedback.
+                understanding. You can remove them when they are no longer
+                needed.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-xl border border-slate-300">
               <h3 className="text-xl font-bold">Instant Feedback</h3>
               <p className="mt-2 text-gray-800">
-                After completing the quiz, get a detailed breakdown of your
-                score, see which answers you got right or wrong, and read
-                explanations for each question.
+                After choosing the correct option, view a detailed explanation
+                for each question and mark questions as checked or unchecked.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-tr from-orange-500 to-yellow-500 text-white p-6 rounded-xl">
+              <h3 className="text-xl font-bold">Premium Access</h3>
+              <p className="mt-2">
+                Unlock exclusive access by upgrading to premium.
               </p>
             </div>
           </div>

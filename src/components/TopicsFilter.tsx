@@ -81,7 +81,7 @@ export default function TopicsFilter({ currentTopic }: TopicsProps) {
       </div>
 
       <div
-        className={`w-full sm:w-[395px] flex flex-col sm:flex-row items-center sm:flex-wrap p-4 pb-2 absolute border border-slate-300 modal-shadow mt-2 bg-white transition-all duration-150 ease-out rounded-xl ${
+        className={`w-full sm:w-[365px] flex flex-col sm:flex-row items-center sm:flex-wrap p-4 pb-2 absolute border border-slate-300 modal-shadow mt-2 bg-white transition-all duration-150 ease-out rounded-xl ${
           isDropdownOpen
             ? "scale-100 z-10 opacity-100"
             : "scale-95 -z-10 opacity-0 pointer-events-none"

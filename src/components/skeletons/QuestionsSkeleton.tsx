@@ -11,34 +11,34 @@ const QuestionsSkeleton = () => {
         <span className="font-bold">Difficulty</span>
       </div>
       <div className="">
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 1
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 2
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 3
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 4
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 5
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 6
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 7
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 8
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 9
         </div>
-        <div className="px-4 h-[60px] border border-slate-300 text-transparent rounded-xl mb-4 skeleton">
+        <div className="px-4 h-[60px] text-transparent rounded-xl mb-4 skeleton">
           Question 10
         </div>
       </div>
