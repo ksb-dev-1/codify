@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Public_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "./Providers";
+import { Suspense } from "react";
 
 // components
 import Header from "@/components/Header";
@@ -26,9 +27,11 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Providers>
-          <Header />
-          {children}
-          <Footer />
+          <Suspense>
+            <Header />
+            {children}
+            <Footer />
+          </Suspense>
         </Providers>
       </body>
     </html>

@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-
-// lib
 import prisma from "@/lib/prisma";
 
 export async function GET() {
@@ -23,10 +21,6 @@ export async function GET() {
           select: {
             id: true,
             question: true,
-            codeSnippet: true,
-            options: true,
-            correctOption: true,
-            explanation: true,
             difficulty: true,
             isPremium: true,
             topic: {
@@ -35,6 +29,9 @@ export async function GET() {
               },
             },
             questionStatuses: {
+              where: {
+                userId: userID,
+              },
               select: {
                 status: true,
               },
@@ -51,7 +48,20 @@ export async function GET() {
       );
     }
 
-    return NextResponse.json({ bookmarks }, { status: 200 });
+    const formattedBookmarks = bookmarks.map((bookmark) => {
+      return {
+        id: bookmark.question.id,
+        difficulty: bookmark.question.difficulty,
+        isPremium: bookmark.question.isPremium,
+        topic: bookmark.question.topic.name,
+        status: bookmark.question.questionStatuses[0]?.status,
+      };
+    });
+
+    return NextResponse.json(
+      { bookmarks: formattedBookmarks },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error fetching bookmarks with question details:", error);
     return NextResponse.json(

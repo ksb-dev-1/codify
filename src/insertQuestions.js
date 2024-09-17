@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const userId = "66d7e1837f171c597005df3c";
+const userId = "66e860c36ffcf5e726e8267c";
 
 async function insertQuestions() {
   try {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 // hooks
@@ -9,7 +9,6 @@ import {
 } from "@/hooks/payments/usePayments";
 
 // 3rd party libraries
-import { useSession } from "next-auth/react";
 import {
   useStripe,
   useElements,
@@ -18,7 +17,8 @@ import {
 import convertToSubCurrency from "@/lib/convertToSubCurrency";
 
 export default function Checkout({ amount }: { amount: number }) {
-  const session = useSession();
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
 
   // check for premium user
   const { data: payment, isLoading, isError } = useGetPaymentStatusQuery();
@@ -97,11 +97,31 @@ export default function Checkout({ amount }: { amount: number }) {
 
   if (!clientSecret || !stripe || !elements || isLoading) {
     return (
-      <div className="w-full flex flex-col items-center justify-center rounded-xl border border-slate-300 p-8">
-        <div className="skeleton py-6 rounded-xl w-full"></div>
-        <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
-        <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
-        <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
+      <div
+        className={`${
+          theme === "light" ? "lightBg1" : "darkBg1"
+        } w-full flex flex-col items-center justify-center rounded-custom p-8`}
+      >
+        <div
+          className={`${
+            theme === "light" ? "skeleton-light" : "skeleton-dark"
+          } skeleton py-6 rounded-custom w-full`}
+        ></div>
+        <div
+          className={`${
+            theme === "light" ? "skeleton-light" : "skeleton-dark"
+          } skeleton py-6 rounded-custom w-full mt-2`}
+        ></div>
+        <div
+          className={`${
+            theme === "light" ? "skeleton-light" : "skeleton-dark"
+          } skeleton py-6 rounded-custom w-full mt-2`}
+        ></div>
+        <div
+          className={`${
+            theme === "light" ? "skeleton-light" : "skeleton-dark"
+          } skeleton py-6 rounded-custom w-full mt-2`}
+        ></div>
       </div>
     );
   }
@@ -123,8 +143,8 @@ export default function Checkout({ amount }: { amount: number }) {
           You are already a premium member!
         </h1>
         <Link
-          href="/pages/learn?page=1"
-          className="bg-white text-black hover:bg-slate-100 rounded-[50px] px-8 py-4 custom-pulse inline-block custom-pulse mt-4"
+          href={`/pages/questions?theme=${theme}&page=1`}
+          className="bg-white text-black hover:bg-slate-100 rounded-[50px] px-8 py-4 inline-block mt-4"
         >
           Continue Learning
         </Link>
@@ -135,9 +155,11 @@ export default function Checkout({ amount }: { amount: number }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-slate-300 p-8"
+      className={`${
+        theme === "light" ? "lightBg1" : "darkBg1"
+      } rounded-custom p-8`}
     >
-      <span className="font-medium text-sm mb-4 inline-block bg-slate-100 px-4 py-2 rounded-xl">
+      <span className="font-medium text-sm mb-4 inline-block bg-slate-100 px-4 py-2 rounded-custom">
         Card No : 4242 4242 4242 4242
       </span>
       {clientSecret && <PaymentElement />}
@@ -146,7 +168,7 @@ export default function Checkout({ amount }: { amount: number }) {
 
       <button
         disabled={!stripe || loading || createPaymentMutation.isPending}
-        className="bg-gradient-to-tr from-orange-500 to-yellow-500 text-white w-full p-4 mt-2 rounded-[7.5px] font-bold disabled:opacity-50"
+        className="bg-gradient-to-tr from-orange-500 to-yellow-500 text-white w-full p-4 mt-2 rounded-custom font-bold disabled:opacity-50"
       >
         {!loading && !createPaymentMutation.isPending
           ? `Pay ₹${amount}`

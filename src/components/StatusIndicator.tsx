@@ -3,14 +3,20 @@ export default function StatusIndicator({
   bgColor,
   dotColor,
   textColor,
+  isProfilePage,
 }: {
   status: string;
   bgColor: string;
   dotColor: string;
   textColor: string;
+  isProfilePage?: boolean;
 }) {
   return (
-    <div className="w-[20px] sm:w-[150px] flex items-center">
+    <div
+      className={`w-[20px] ${
+        isProfilePage ? "lg:w-[150px]" : "sm:w-[150px]"
+      } flex items-center`}
+    >
       <div
         className={`${bgColor} relative h-[15px] w-[15px] rounded-full mr-2`}
       >
@@ -19,7 +25,9 @@ export default function StatusIndicator({
         ></span>
       </div>
       <span
-        className={`${textColor} font-semibold text-sm tracking-wide hidden sm:inline-block`}
+        className={`${textColor} font-semibold text-sm tracking-wide hidden ${
+          isProfilePage ? "lg:inline-block" : "sm:inline-block"
+        }`}
       >
         {status}
       </span>

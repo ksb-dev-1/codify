@@ -2,18 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  background: #f1f5f9;
-} */
-
-/* Global styles for light mode */
-body {
-  @apply bg-white text-black;
+.lightBg1 {
+  background: #ffffff;
 }
 
-/* Styles for dark mode */
-html.dark body {
-  @apply bg-gray-900 text-white;
+.lightBg2 {
+  background: #f1f5f9;
+}
+
+.darkBg1 {
+  background: #282828;
+  background: rgb(40, 40, 40);
+}
+
+.darkBg2 {
+  background: #1a1a1a;
+}
+
+.lightColor1 {
+  color: #ffffff;
+}
+
+.darkColor1 {
+  color: #555555;
+}
+
+.lightColor2 {
+  color: #e3e3e3;
+}
+
+.darkColor2 {
+  color: #333333;
+}
+
+.custom-shadow {
+  box-shadow: 0 6px 12px rgba(30, 10, 58, 0.04);
+}
+
+.custom-radius {
+  border-radius: 7.5px;
 }
 
 .gradient {
@@ -37,6 +64,7 @@ html.dark body {
 
 .modal-shadow {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.1); */
 }
 
 @keyframes spin {
@@ -101,8 +129,16 @@ html.dark body {
   }
 }
 
-.skeleton {
+.skeleton-light {
   background: linear-gradient(90deg, #f7f7f7 25%, #ececec 50%, #f7f7f7 75%);
+  background: linear-gradient(90deg, #e0e7ff 25%, #cbd5e1 50%, #e0e7ff 75%);
+  background: linear-gradient(90deg, #e5e7eb 25%, #d1d5db 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 2s infinite;
+}
+
+.skeleton-dark {
+  background: linear-gradient(90deg, #3a3a3a 25%, #4d4d4d 50%, #3a3a3a 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 2s infinite;
 }

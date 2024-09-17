@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 // hooks
@@ -46,15 +46,17 @@ interface Question {
 }
 
 export default function QuestionDetail({ params }: PageProps) {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
 
   // If user doesn't exist redirect to home
   useEffect(() => {
     if (sessionStatus !== "loading" && !session?.user?.id) {
-      router.push("/");
+      router.push(`/?theme=${theme}`);
     }
-  }, [sessionStatus, session?.user?.id, router]);
+  }, [sessionStatus, session?.user?.id, router, theme]);
 
   const questionID = params.id;
 
@@ -71,7 +73,10 @@ export default function QuestionDetail({ params }: PageProps) {
     data: bookmarkStatus,
     isLoading: isBookmarkStatusLoading,
     isError: isBookmarkStatusError,
-  } = useCheckBookmarkStatusQuery(questionID);
+  } = useCheckBookmarkStatusQuery(
+    questionID,
+    sessionStatus !== "loading" && session?.user?.id !== undefined
+  );
 
   useEffect(() => {
     if (bookmarkStatus) {
@@ -158,9 +163,13 @@ export default function QuestionDetail({ params }: PageProps) {
 
   if (!session?.user?.id) {
     return (
-      <div className="min-h-screen flex flex-col items-center px-4 pt-[6.5rem]">
+      <div
+        className={`${
+          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        } min-h-screen flex flex-col items-center px-4 pt-[6.5rem]`}
+      >
         <div className="text-xl font-bold flex items-center justify-center">
-          Logging out...
+          <span className="font-bold text-xl"> Logging out...</span>
         </div>
       </div>
     );
@@ -168,9 +177,15 @@ export default function QuestionDetail({ params }: PageProps) {
 
   if (markQuestionAsStartedMutation.isError) {
     return (
-      <div className="min-h-screen flex flex-col items-center px-4 pt-[6.5rem]">
+      <div
+        className={`${
+          theme === "light" ? "lightBg2" : "darkBg2"
+        } min-h-screen flex flex-col items-center px-4 pt-[6.5rem]`}
+      >
         <div className="text-xl font-bold flex items-center justify-center">
-          Error: Failed to load question.
+          <span className="text-red-400 font-semibold">
+            Error: Failed to load question.
+          </span>
         </div>
       </div>
     );
@@ -178,56 +193,78 @@ export default function QuestionDetail({ params }: PageProps) {
 
   if (question) {
     return (
-      <div className="min-h-screen flex flex-col items-center px-4  pt-[6.5rem] pb-[4.5rem]">
+      <div
+        className={`${
+          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        } min-h-screen flex flex-col items-center px-4 pt-[6.5rem] pb-[4.5rem]`}
+      >
         <div className="max-w-[750px] w-full flex items-center justify-between">
           {/* Back Link */}
-          <Link href="/pages/learn" className="text-blue-500 flex items-center">
+          <Link
+            href={`/pages/questions?theme=${theme}`}
+            className="text-blue-500 flex items-center"
+          >
             <IoMdArrowBack className="mr-2 mt-1" /> Back
           </Link>
           {/* Bookmark Button */}
           <>
-            {(removeBookmarkMutation.isPending ||
-              addBookmarkMutation.isPending) && (
+            {(isBookmarked && removeBookmarkMutation.isPending) ||
+            (!isBookmarked && addBookmarkMutation.isPending) ? (
               <button
-                //onClick={handleRemoveBookmark}
-                className="relative h-[40px] w-[40px] rounded-full border border-slate-300 hover:bg-slate-100"
+                className={`${
+                  theme === "light" ? "lightBg1" : "darkBg1"
+                } relative h-[40px] w-[40px] rounded-full hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">
                   <span className="block loader"></span>
                 </span>
               </button>
+            ) : (
+              ""
             )}
-            {isBookmarked && !removeBookmarkMutation.isPending && (
+            {isBookmarked && !removeBookmarkMutation.isPending ? (
               <button
                 onClick={() => removeBookmarkMutation.mutate(questionID)}
-                className="relative h-[40px] w-[40px] rounded-full border border-slate-300 hover:bg-slate-100"
+                className={`${
+                  theme === "light" ? "lightBg1" : "darkBg1"
+                } relative h-[40px] w-[40px] rounded-full hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
                 aria-label="remove-bookmark"
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">
-                  <PiBookmarkSimpleFill className="text-red-500" />
+                  <PiBookmarkSimpleFill className="text-red-400" />
                 </span>
               </button>
+            ) : (
+              ""
             )}
-            {!isBookmarked && !addBookmarkMutation.isPending && (
+            {!isBookmarked && !addBookmarkMutation.isPending ? (
               <button
                 onClick={() => addBookmarkMutation.mutate(questionID)}
-                className="relative h-[40px] w-[40px] rounded-full border border-slate-300 hover:bg-slate-100"
+                className={`${
+                  theme === "light" ? "lightBg1" : "darkBg1"
+                } relative h-[40px] w-[40px] rounded-full hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
                 aria-label="add-bookmark"
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">
                   <PiBookmarkSimpleLight />
                 </span>
               </button>
+            ) : (
+              ""
             )}
           </>
         </div>
-        <div className="max-w-[750px] w-full border border-slate-300 rounded-xl p-4 sm:p-8 mt-2">
+        <div
+          className={`${
+            theme === "light" ? "lightBg1" : "darkBg1"
+          } max-w-[750px] w-full rounded-custom p-4 sm:p-8 mt-2`}
+        >
           {/* Question */}
           <p className="font-semibold mb-4">{question.question}</p>
 
           {/* Code Snippet */}
           {question.codeSnippet && (
-            <div className="rounded-xl overflow-hidden">
+            <div className="rounded-custom overflow-hidden">
               <MonacoEditor
                 height="200px"
                 language="javascript"
@@ -251,34 +288,51 @@ export default function QuestionDetail({ params }: PageProps) {
                 <div
                   key={key}
                   //className={optionClasses.trim()}
-                  className={`px-4 py-2 border border-slate-300 rounded-xl
-                    ${!isCorrect && "cursor-default hover:shadow-md"}
+                  className={`px-4 py-2 rounded-custom
+                    ${
+                      !isCorrect &&
+                      "cursor-default hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+                    }
+                    ${
+                      theme === "light" && selectedOption !== key && !isCorrect
+                        ? "lightBg2"
+                        : ""
+                    }
+                    ${
+                      theme === "dark" && selectedOption !== key && !isCorrect
+                        ? "darkBg2"
+                        : ""
+                    } 
                     ${
                       selectedOption === key &&
                       !correctAnswer &&
                       !wrongAnswer &&
                       !isCorrect
-                        ? "bg-slate-100"
+                        ? `outline outline-[2px] outline-blue-500 ${
+                            theme === "light" ? "lightBg2" : "darkBg2"
+                          }`
                         : ""
                     }
                     ${
                       selectedOption === key && selectedOption === correctAnswer
-                        ? "bg-green-500 text-white"
+                        ? "bg-green-400 text-black"
                         : ""
                     }
                     ${
                       selectedOption === key && selectedOption === wrongAnswer
-                        ? "bg-red-500 text-white"
+                        ? "bg-red-400 text-black"
                         : ""
                     }
                     ${
                       isCorrect && question.correctOption === key
-                        ? "bg-green-500 text-white cursor-not-allowed"
+                        ? "bg-green-400 text-black cursor-not-allowed"
                         : ""
                     }
                     ${
                       isCorrect && question.correctOption !== key
-                        ? "opacity-50 cursor-not-allowed"
+                        ? `${
+                            theme === "light" ? "lightBg2" : "darkBg2"
+                          } opacity-50 cursor-not-allowed`
                         : ""
                     }`}
                   onClick={() => {
@@ -297,47 +351,48 @@ export default function QuestionDetail({ params }: PageProps) {
           </div>
 
           {/* Submit Button */}
-          {checkQuestionMutation.isPending ? (
-            <button
-              type="button"
-              className="h-[41.6px] flex items-center justify-center rounded-xl bg-black text-white w-full mt-4"
-            >
-              <span className="loader"></span>
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                if (!isCorrect) {
-                  handleSubmit();
-                }
-              }}
-              disabled={isCorrect ?? false}
-              className={`h-[41.6px] flex items-center justify-center rounded-xl bg-black text-white w-full mt-4 ${
-                isCorrect ? "opacity-50 cursor-not-allowed" : "hover:bg-[#333]"
-              }`}
-            >
-              Submit
-            </button>
-          )}
+          <button
+            onClick={() => {
+              if (!isCorrect) {
+                handleSubmit();
+              }
+            }}
+            disabled={isCorrect ?? false}
+            className={`h-[41.6px] flex items-center justify-center rounded-custom bg-blue-500 text-white w-full mt-4 ${
+              isCorrect ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-400"
+            }`}
+          >
+            Submit
+          </button>
 
           {/* check / uncheck */}
           {(correctAnswer || isCorrect) && (
-            <div className="w-fit flex items-center border border-slate-300 rounded-xl p-2 mt-4">
+            <div
+              className={`${
+                theme === "light" ? "lightBg2" : "darkBg2"
+              } w-fit flex items-center rounded-custom p-2 mt-4`}
+            >
               <span className="text-sm font-semibold">Mark as Complete</span>
               {!isCorrect && !checkQuestionMutation.isPending && (
                 <button
                   onClick={() => checkQuestionMutation.mutate(questionID)}
-                  className="h-[19px] w-[19px] rounded border border-green-500 ml-2"
+                  className={`${
+                    theme === "light" ? "lightBg1" : "darkBg1"
+                  } h-[25px] w-[25px] rounded ml-2 shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
                 ></button>
               )}
               {(checkQuestionMutation.isPending ||
                 uncheckQuestionMutation.isPending) && (
-                <span className="h-[19px] w-[19px] rounded border border-slate-300 ml-2 skeleton"></span>
+                <span
+                  className={`${
+                    theme === "light" ? "skeleton-light" : "skeleton-dark"
+                  } h-[25px] w-[25px] rounded ml-2 shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
+                ></span>
               )}
               {isCorrect && !uncheckQuestionMutation.isPending && (
                 <button
                   onClick={() => uncheckQuestionMutation.mutate(questionID)}
-                  className="relative h-[20px] w-[20px] rounded bg-green-500 text-white ml-2"
+                  className="relative h-[25px] w-[25px] rounded bg-green-500 text-white ml-2 shadow-[0_0_3px_rgba(195,195,195,0.75)]"
                 >
                   <IoIosCheckmark className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl" />
                 </button>
@@ -346,13 +401,21 @@ export default function QuestionDetail({ params }: PageProps) {
           )}
 
           {/* Explanation */}
-          {isCorrect && (
+          {isCorrect && question.explanation ? (
             <div className="mt-4">
               <div className="font-semibold">Explanation:</div>
-              <div className="bg-slate-100 rounded-xl px-4 py-2 mt-2">
+              <div
+                className={`${
+                  theme === "light"
+                    ? "lightBg2 darkColor2"
+                    : "darkBg2 lightColor1"
+                } rounded-custom px-4 py-2 mt-2`}
+              >
                 {question.explanation}
               </div>
             </div>
+          ) : (
+            ""
           )}
         </div>
       </div>

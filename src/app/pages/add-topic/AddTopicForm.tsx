@@ -68,7 +68,7 @@ export default function AddTopicForm() {
       <h1 className="mb-4 font-bold text-xl">Add Topic</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="p-8 sm:p-16 w-full bg-white space-y-4 rounded-xl border border-slate-300"
+        className="p-8 sm:p-16 w-full bg-white space-y-4 rounded-custom border border-slate-300"
       >
         <div>
           <label htmlFor="name" className="block font-bold">
@@ -78,7 +78,7 @@ export default function AddTopicForm() {
             id="name"
             type="text"
             {...register("name")}
-            className={`mt-2 block w-full border p-2 focus:outline-blue-300 rounded-xl ${
+            className={`mt-2 block w-full border p-2 focus:outline-blue-300 rounded-custom ${
               errors.name ? "border-[3px] border-red-200" : "border-slate-300"
             }`}
             placeholder="Enter new topic"
@@ -91,7 +91,7 @@ export default function AddTopicForm() {
         </div>
         <button
           type={isPending ? "button" : "submit"}
-          className="w-full h-[40px] rounded-xl border flex items-center justify-center hover:bg-[#333] bg-black text-white"
+          className="w-full h-[40px] rounded-custom border flex items-center justify-center hover:bg-[#333] bg-black text-white"
         >
           {isPending ? <span className="loader"></span> : "Submit"}
         </button>

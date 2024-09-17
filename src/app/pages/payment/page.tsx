@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // lib
 import convertToSubCurrency from "@/lib/convertToSubCurrency";
@@ -21,31 +21,58 @@ if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const PaymentPage = () => {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
 
+  // If user doesn't exist redirect to home
   useEffect(() => {
     if (sessionStatus !== "loading" && !session?.user?.id) {
-      router.push("/");
+      router.push(`/?theme=${theme}`);
     }
-  }, [sessionStatus, session?.user?.id, router]);
+  }, [sessionStatus, session?.user?.id, router, theme]);
 
   const amount: number = 499;
 
   const content = useMemo(() => {
     if (sessionStatus === "loading") {
       return (
-        <div className="w-full flex flex-col items-center justify-center rounded-xl border border-slate-300 p-8">
-          <div className="skeleton py-6 rounded-xl w-full"></div>
-          <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
-          <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
-          <div className="skeleton py-6 rounded-xl w-full mt-2"></div>
+        <div
+          className={`${
+            theme === "light" ? "lightBg1" : "darkBg1"
+          } w-full flex flex-col items-center justify-center rounded-custom p-8`}
+        >
+          <div
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } skeleton py-6 rounded-custom w-full`}
+          ></div>
+          <div
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } skeleton py-6 rounded-custom w-full mt-2`}
+          ></div>
+          <div
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } skeleton py-6 rounded-custom w-full mt-2`}
+          ></div>
+          <div
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } skeleton py-6 rounded-custom w-full mt-2`}
+          ></div>
         </div>
       );
     }
     if (!session?.user?.id) {
       return (
-        <div className="text-xl font-bold flex items-center justify-center">
+        <div
+          className={`${
+            theme === "light" ? "lightBg2" : "darkBg2"
+          } text-xl font-bold flex items-center justify-center`}
+        >
           Logging out...
         </div>
       );
@@ -63,14 +90,18 @@ const PaymentPage = () => {
         <Checkout amount={amount} />
       </Elements>
     );
-  }, [sessionStatus, session?.user?.id]);
+  }, [sessionStatus, session?.user?.id, theme]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+    <div
+      className={`${
+        theme === "light" ? "lightBg2" : "darkBg2"
+      } min-h-screen flex flex-col items-center justify-center px-4`}
+    >
       {/* <p className="font-bold text-xl max-w-[500px] w-full flex justify-start mb-4">
         Payment
       </p> */}
-      <div className="max-w-[500px] w-full rounded-xl overflow-clip">
+      <div className="max-w-[500px] w-full rounded-custom overflow-clip">
         {content}
       </div>
     </div>

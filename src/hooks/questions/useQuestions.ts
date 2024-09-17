@@ -2,9 +2,11 @@
 import {
   fetchQuestions,
   fetchQuestionsCount,
+  fetchUserAddedQuestioins,
   markQuestionAsStarted,
   checkQuestion,
   uncheckQuestion,
+  removeUserAddedQuestion,
 } from "@/lib/questions/questions";
 
 // 3rd party libraries
@@ -45,40 +47,32 @@ export const useFetchQuestionsQuery = ({
         currentStatus,
         currentPage,
       }),
-    //placeholderData: keepPreviousData,
-    staleTime: 0,
-    gcTime: 0,
-  });
-};
-
-// useFetchQuestionsCountQuery hook
-export const useFetchQuestionsCountQuery = () => {
-  return useQuery({
-    queryKey: ["count"],
-    queryFn: fetchQuestionsCount,
+    placeholderData: keepPreviousData,
     staleTime: Infinity,
     gcTime: Infinity,
   });
 };
 
-// useCheckQuestionMutation hook
-export const useCheckQuestionMutation = (onCompletedSuccess: () => void) => {
-  const queryClient = useQueryClient();
-
-  const checkQuestionMutation = useMutation({
-    mutationFn: checkQuestion,
-    onSuccess: async () => {
-      onCompletedSuccess();
-      queryClient.invalidateQueries({ queryKey: ["questions"] });
-      queryClient.invalidateQueries({ queryKey: ["count"] });
-    },
-    onError: (error: any) => {
-      console.error("Failed to mark question as completed:", error);
-      toast.error("Failed to mark question as completed.");
-    },
+// useFetchQuestionsCountQuery hook
+export const useFetchQuestionsCountQuery = (enabled: boolean) => {
+  return useQuery({
+    queryKey: ["count"],
+    queryFn: fetchQuestionsCount,
+    staleTime: Infinity,
+    gcTime: Infinity,
+    enabled,
   });
+};
 
-  return { checkQuestionMutation };
+// useFetchQuestionsCountQuery hook
+export const useFetchUserAddedQuestionsQuery = (enabled: boolean) => {
+  return useQuery({
+    queryKey: ["user-questions"],
+    queryFn: fetchUserAddedQuestioins,
+    staleTime: Infinity,
+    gcTime: Infinity,
+    enabled,
+  });
 };
 
 // useMarkQuestionStartedMutation hook
@@ -89,16 +83,52 @@ export const useMarkQuestionStartedMutation = (
 
   const markQuestionAsStartedMutation = useMutation({
     mutationFn: markQuestionAsStarted,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       onStartedSuccess(data);
-      queryClient.invalidateQueries({ queryKey: ["questions"] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["questions"] }),
+        queryClient.invalidateQueries({ queryKey: ["user-questions"] }),
+        queryClient.invalidateQueries({ queryKey: ["bookmarks"] }),
+      ]);
     },
-    onError: (error: any) => {
-      console.error("Error during mutation:", error);
+    onError: (error: unknown) => {
+      console.error("Failed to mark question as started :", error);
+      if (error instanceof Error) {
+        toast.error(`Failed to mark question as started : ${error.message}`);
+      } else {
+        toast.error("Failed to mark question as started .");
+      }
     },
   });
 
   return { markQuestionAsStartedMutation };
+};
+
+// useCheckQuestionMutation hook
+export const useCheckQuestionMutation = (onCompletedSuccess: () => void) => {
+  const queryClient = useQueryClient();
+
+  const checkQuestionMutation = useMutation({
+    mutationFn: checkQuestion,
+    onSuccess: async () => {
+      onCompletedSuccess();
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["questions"] }),
+        queryClient.invalidateQueries({ queryKey: ["count"] }),
+        queryClient.invalidateQueries({ queryKey: ["bookmarks"] }),
+      ]);
+    },
+    onError: (error: unknown) => {
+      console.error("Failed to check question:", error);
+      if (error instanceof Error) {
+        toast.error(`Failed to check question: ${error.message}`);
+      } else {
+        toast.error("Failed to check question.");
+      }
+    },
+  });
+
+  return { checkQuestionMutation };
 };
 
 // useUncheckQuestionMutation hook
@@ -109,14 +139,51 @@ export const useUncheckQuestionMutation = (onCompletedSuccess: () => void) => {
     mutationFn: uncheckQuestion,
     onSuccess: async () => {
       onCompletedSuccess();
-      queryClient.invalidateQueries({ queryKey: ["questions"] });
-      queryClient.invalidateQueries({ queryKey: ["count"] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["questions"] }),
+        queryClient.invalidateQueries({ queryKey: ["count"] }),
+        queryClient.invalidateQueries({ queryKey: ["bookmarks"] }),
+      ]);
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       console.error("Failed to uncheck question:", error);
-      toast.error("Failed to uncheck question.");
+      if (error instanceof Error) {
+        toast.error(`Failed to uncheck question: ${error.message}`);
+      } else {
+        toast.error("Failed to uncheck question.");
+      }
     },
   });
 
   return { uncheckQuestionMutation };
+};
+
+// useRemoveBookmarkMutation hook
+export const useRemoveUserAddedQuestionkMutation = (
+  onBookmarkRemoveSuccessful: (data: any) => void
+) => {
+  const queryClient = useQueryClient();
+
+  const removeUserAddedQuestionkMutation = useMutation({
+    mutationFn: removeUserAddedQuestion,
+    onSuccess: async (data) => {
+      onBookmarkRemoveSuccessful(data);
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["questions"] }),
+        queryClient.invalidateQueries({ queryKey: ["user-questions"] }),
+        queryClient.invalidateQueries({ queryKey: ["bookmarks"] }),
+        queryClient.invalidateQueries({ queryKey: ["count"] }),
+      ]);
+    },
+    onError: (error: unknown) => {
+      console.error("Failed to remove user added question:", error);
+      if (error instanceof Error) {
+        toast.error(`Failed to remove user added question: ${error.message}`);
+      } else {
+        toast.error("Failed to remove user added question.");
+      }
+    },
+  });
+
+  return { removeUserAddedQuestionkMutation };
 };

@@ -38,15 +38,15 @@ export async function POST(request: Request) {
   }
 }
 
-export async function OPTIONS(request: Request) {
-  const response = new NextResponse(null, {
-    status: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*", // Adjust as needed for security
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    },
-  });
+// export async function OPTIONS(request: Request) {
+//   const response = new NextResponse(null, {
+//     status: 200,
+//     headers: {
+//       "Access-Control-Allow-Origin": "*", // Adjust as needed for security
+//       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+//       "Access-Control-Allow-Headers": "Content-Type, Authorization",
+//     },
+//   });
 
-  return response;
-}
+//   return response;
+// }

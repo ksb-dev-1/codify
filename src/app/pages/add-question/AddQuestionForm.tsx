@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // Components
 import Topics, { TopicRef } from "./Topics";
@@ -39,12 +39,13 @@ const addQuestion = async (data: AddQuestionValues) => {
   return response.json();
 };
 
-export default function AddQuestionForm() {
+export default function AddQuestionForm({ theme }: { theme: string }) {
   const [isPremium, setIsPremium] = useState<boolean>(false);
   const topicsRef = useRef<TopicRef>(null);
   const correctOptionRef = useRef<CorrectOptionRef>(null);
   const difficultyRef = useRef<DifficultyRef>(null);
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const {
     register,
@@ -62,11 +63,14 @@ export default function AddQuestionForm() {
     mutationFn: addQuestion,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["questions"] });
+      queryClient.invalidateQueries({ queryKey: ["count"] });
+      queryClient.invalidateQueries({ queryKey: ["user-questions"] });
       toast.success("Question added successfully");
       reset();
       correctOptionRef.current?.resetCorrectOption();
       difficultyRef.current?.resetDifficulty();
       topicsRef.current?.resetTopic();
+      router.push(`/pages/questions?theme=${theme}&page=1`);
     },
     onError: (error) => {
       toast.error("Failed to add question. Please try again.");
@@ -83,7 +87,9 @@ export default function AddQuestionForm() {
       <h1 className="mb-4 font-bold text-xl">Add Question</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 sm:p-16 w-full space-y-4 rounded-xl border border-slate-300"
+        className={`${
+          theme === "light" ? "lightBg1" : "darkBg1"
+        } p-8 sm:p-16 w-full space-y-4 rounded-custom`}
       >
         {/* Question */}
         <div className="flex flex-col">
@@ -94,10 +100,10 @@ export default function AddQuestionForm() {
             type="text"
             id="question"
             {...register("question")}
-            className={`mt-1 block w-full border p-2 focus:outline-blue-300 focus:placeholder-transparent rounded-xl ${
-              errors.question
-                ? "border-[3px] border-red-300"
-                : "border-slate-300"
+            className={`${
+              theme === "light" ? "lightBg2" : "darkBg2"
+            } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+              errors.question ? "border-[3px] border-red-300" : ""
             }`}
             placeholder="Enter your question"
           />
@@ -110,14 +116,15 @@ export default function AddQuestionForm() {
 
         {/* Topics */}
         <Topics
+          theme={theme}
           setValue={setValue}
           error={errors.topicId && errors.topicId.message}
           clearErrors={clearErrors}
           ref={topicsRef}
         />
-        <Link href="/pages/add-topic" className="text-blue-500">
+        {/* <Link href="/pages/add-topic" className="text-blue-500">
           Do you want to add new topic?
-        </Link>
+        </Link> */}
 
         {/* Code Snippet */}
         <div className="flex flex-col">
@@ -128,10 +135,10 @@ export default function AddQuestionForm() {
             rows={3}
             id="codeSnippet"
             {...register("codeSnippet")}
-            className={`mt-1 block w-full border p-2 focus:outline-blue-300 focus:placeholder-transparent rounded-xl ${
-              errors.codeSnippet
-                ? "border-[3px] border-red-300"
-                : "border-slate-300"
+            className={`${
+              theme === "light" ? "lightBg2" : "darkBg2"
+            } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+              errors.codeSnippet ? "border-[3px] border-red-300" : ""
             }`}
             placeholder="Enter your code snippet"
           />
@@ -152,10 +159,10 @@ export default function AddQuestionForm() {
                   type="text"
                   id={`options.${option}`}
                   {...register(`options.${option}` as `options.${OptionKeys}`)}
-                  className={`mt-1 block w-full border p-2 focus:outline-blue-300 focus:placeholder-transparent rounded-xl ${
-                    errors.options
-                      ? "border-[3px] border-red-300"
-                      : "border-slate-300"
+                  className={`${
+                    theme === "light" ? "lightBg2" : "darkBg2"
+                  } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+                    errors.options ? "border-[3px] border-red-300" : ""
                   }`}
                   placeholder={`Enter option ${option.toLocaleUpperCase()}`}
                 />
@@ -171,6 +178,7 @@ export default function AddQuestionForm() {
 
         {/* Correct Option */}
         <CorrectOption
+          theme={theme}
           setValue={setValue}
           error={errors.correctOption && errors.correctOption.message}
           clearErrors={clearErrors}
@@ -179,6 +187,7 @@ export default function AddQuestionForm() {
 
         {/* Difficulty */}
         <Difficulty
+          theme={theme}
           setValue={setValue}
           error={errors.difficulty && errors.difficulty.message}
           clearErrors={clearErrors}
@@ -194,10 +203,10 @@ export default function AddQuestionForm() {
             rows={3}
             id="explanation"
             {...register("explanation")}
-            className={`mt-1 block w-full border p-2 focus:outline-blue-300 focus:placeholder-transparent rounded-xl ${
-              errors.explanation
-                ? "border-[3px] border-red-300"
-                : "border-slate-300"
+            className={`${
+              theme === "light" ? "lightBg2" : "darkBg2"
+            } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+              errors.explanation ? "border-[3px] border-red-300" : ""
             }`}
             placeholder="Enter an explanation"
           />
@@ -206,7 +215,7 @@ export default function AddQuestionForm() {
           )}
         </div>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <p className="font-semibold">Premium</p>
           <p className="flex items-center ml-8">
             {isPremium ? (
@@ -236,11 +245,11 @@ export default function AddQuestionForm() {
             )}{" "}
             <span className="ml-2">No</span>
           </p>
-        </div>
+        </div> */}
 
         <button
           type={isPending ? "button" : "submit"}
-          className="w-full h-[40px] rounded-xl border flex items-center justify-center hover:bg-[#333] bg-black text-white"
+          className={`bg-blue-500 text-white hover:bg-blue-400 w-full h-[40px] rounded-custom flex items-center justify-center`}
         >
           {isPending ? <span className="loader"></span> : "Submit"}
         </button>

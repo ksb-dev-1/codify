@@ -8,24 +8,30 @@ import {
 
 // 3rd party libraries
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-// Fetch bookmark status
-export const useCheckBookmarkStatusQuery = (questionID: string) => {
-  return useQuery({
-    queryKey: ["bookmarkStatus", questionID],
-    queryFn: () => checkBookmarkStatus(questionID),
-    staleTime: Infinity,
-    gcTime: Infinity,
-  });
-};
+import toast from "react-hot-toast";
 
 // useFetchBookmarksQuery hook
-export const useFetchBookmarksQuery = () => {
+export const useFetchBookmarksQuery = (enabled: boolean) => {
   return useQuery({
     queryKey: ["bookmarks"],
     queryFn: fetchBookmarks,
     staleTime: Infinity,
     gcTime: Infinity,
+    enabled,
+  });
+};
+
+// Fetch bookmark status
+export const useCheckBookmarkStatusQuery = (
+  questionID: string,
+  enabled: boolean
+) => {
+  return useQuery({
+    queryKey: ["bookmark-status", questionID],
+    queryFn: () => checkBookmarkStatus(questionID),
+    staleTime: Infinity,
+    gcTime: Infinity,
+    enabled,
   });
 };
 
@@ -37,12 +43,20 @@ export const useAddBookmarkMutation = (
 
   const addBookmarkMutation = useMutation({
     mutationFn: addBookmark,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       onBookmarkAddSuccessful(data);
-      queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["bookmarks"] }),
+        queryClient.invalidateQueries({ queryKey: ["bookmark-status"] }),
+      ]);
     },
-    onError: (error: any) => {
-      console.error("Error during mutation:", error);
+    onError: (error: unknown) => {
+      console.error("Failed to add bookmark:", error);
+      if (error instanceof Error) {
+        toast.error(`Failed to add bookmark: ${error.message}`);
+      } else {
+        toast.error("Failed to add bookmark.");
+      }
     },
   });
 
@@ -57,12 +71,20 @@ export const useRemoveBookmarkMutation = (
 
   const removeBookmarkMutation = useMutation({
     mutationFn: removeBookmark,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       onBookmarkRemoveSuccessful(data);
-      queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["bookmarks"] }),
+        queryClient.invalidateQueries({ queryKey: ["bookmark-status"] }),
+      ]);
     },
-    onError: (error: any) => {
-      console.error("Error during mutation:", error);
+    onError: (error: unknown) => {
+      console.error("Failed to remove bookmark:", error);
+      if (error instanceof Error) {
+        toast.error(`Failed to remove bookmark: ${error.message}`);
+      } else {
+        toast.error("Failed to remove bookmark.");
+      }
     },
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+//import { Suspense } from "react";
 import { useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -42,18 +42,25 @@ const Learn = () => {
 };
 
 const LearnPage = () => {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
 
+  // If user doesn't exist redirect to home
   useEffect(() => {
     if (sessionStatus !== "loading" && !session?.user?.id) {
-      router.push("/");
+      router.push(`/?theme=${theme}`);
     }
-  }, [sessionStatus, session?.user?.id, router]);
+  }, [sessionStatus, session?.user?.id, router, theme]);
 
   if (sessionStatus === "loading") {
     return (
-      <div className="min-h-screen flex justify-center">
+      <div
+        className={`${
+          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        } min-h-screen flex justify-center`}
+      >
         <LearnSkeleton />
       </div>
     );
@@ -61,7 +68,11 @@ const LearnPage = () => {
 
   if (!session?.user?.id) {
     return (
-      <div className="min-h-screen flex justify-center">
+      <div
+        className={`${
+          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        } min-h-screen flex justify-center`}
+      >
         <div className="text-xl font-bold flex items-center justify-center">
           Logging out...
         </div>
@@ -70,10 +81,12 @@ const LearnPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex justify-center">
-      <Suspense>
-        <Learn />
-      </Suspense>
+    <div
+      className={`${
+        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+      } min-h-screen flex justify-center`}
+    >
+      <Learn />
     </div>
   );
 };

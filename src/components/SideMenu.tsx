@@ -1,5 +1,8 @@
-import React, { forwardRef, RefObject } from "react";
+import React, { forwardRef } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+
+// 3rd party libraries
 import { useSession } from "next-auth/react";
 import { IoMdClose } from "react-icons/io";
 
@@ -10,15 +13,24 @@ interface SideMenuProps {
 
 const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
   ({ isVisible, closeMenu }, ref) => {
+    const searchParams = useSearchParams();
+    const theme = searchParams.get("theme") || "light";
     const { data: session, status } = useSession();
     let linkContent: React.ReactNode;
 
     if (status === "loading") {
       linkContent = (
         <>
-          <div className="h-[40px] w-[80px] skeleton rounded-xl mb-2"></div>
-          <div className="h-[40px] w-[80px] skeleton rounded-xl mb-2"></div>
-          <div className="h-[40px] w-[80px] skeleton rounded-xl mb-2"></div>
+          <div
+            className={`h-[40px] w-[100px]  ml-8 rounded-[50px] ${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            }`}
+          ></div>
+          <div
+            className={`h-[40px] w-[100px]  ml-4 rounded-[50px] ${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            }`}
+          ></div>
         </>
       );
     } else if (session?.user) {
@@ -26,24 +38,19 @@ const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
         <>
           <Link
             onClick={closeMenu}
-            href={`/pages/learn?page=1`}
-            className="px-4 py-2 hover:bg-slate-100 rounded-xl mb-2"
+            href={`/pages/questions?theme=${theme}&page=1`}
+            className={`${
+              theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
+            } px-4 py-2 rounded-xl mb-2 font-medium text-sm`}
           >
-            Learn
+            QUESTIONS
           </Link>
           <Link
             onClick={closeMenu}
-            href="/pages/add-question"
-            className="px-4 py-2 hover:bg-slate-100 rounded-xl mb-2"
+            href={`/pages/payment?theme=${theme}`}
+            className="px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:from-yellow-500 hover:to-orange-500 rounded-xl mb-2 font-medium text-sm"
           >
-            Add
-          </Link>
-          <Link
-            onClick={closeMenu}
-            href="/pages/payment"
-            className="px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:bg-slate-100 rounded-xl mb-2"
-          >
-            Premium
+            PREMIUM
           </Link>
         </>
       );
@@ -52,24 +59,19 @@ const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
         <>
           <Link
             onClick={closeMenu}
-            href="/pages/signin"
-            className="px-4 py-2 hover:bg-slate-100 rounded-xl mb-2"
+            href={`/pages/questions?theme=${theme}&page=1`}
+            className={`${
+              theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
+            } px-4 py-2 rounded-xl mb-2 font-medium text-sm`}
           >
-            Learn
+            QUESTIONS
           </Link>
           <Link
             onClick={closeMenu}
-            href="/pages/signin"
-            className="px-4 py-2 hover:bg-slate-100 rounded-xl mb-2"
+            href={`/pages/payment?theme=${theme}`}
+            className="px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:from-yellow-500 hover:to-orange-500 rounded-xl mb-2 font-medium text-sm"
           >
-            Add
-          </Link>
-          <Link
-            onClick={closeMenu}
-            href="/pages/signin"
-            className="px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:bg-slate-100 rounded-xl mb-2"
-          >
-            Premium
+            PREMIUM
           </Link>
         </>
       );
@@ -78,11 +80,19 @@ const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
     return (
       <div
         ref={ref}
-        className={`sm:hidden fixed z-50 top-0 left-0 right-0 bottom-0 bg-[rgba(255,255,255,0.95)] transition-transform duration-300 ${
+        className={`${
+          theme === "light"
+            ? "bg-[rgba(241,245,249,0.95)]"
+            : "bg-[rgba(26,26,26,0.95)]"
+        } sm:hidden fixed z-50 top-0 left-0 right-0 bottom-0 transition-transform duration-300 ${
           isVisible ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="bg-white p-8 h-full w-[250px] shadow-md">
+        <div
+          className={`${
+            theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+          } p-8 h-full w-[250px]`}
+        >
           <Link
             onClick={closeMenu}
             href="/"

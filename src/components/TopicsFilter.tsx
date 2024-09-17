@@ -9,7 +9,7 @@ import { useHandleOutsideClick } from "@/hooks/useHandleOutsideClick";
 
 // 3rd party libraries
 import { useQuery } from "@tanstack/react-query";
-import { RxCaretDown } from "react-icons/rx";
+import { PiCaretDownBold } from "react-icons/pi";
 
 interface TopicsProps {
   currentTopic: string;
@@ -28,6 +28,7 @@ export default function TopicsFilter({ currentTopic }: TopicsProps) {
   const topicDivRef = useRef<HTMLDivElement>(null);
 
   const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["topics"],
@@ -51,18 +52,17 @@ export default function TopicsFilter({ currentTopic }: TopicsProps) {
   }
 
   return (
-    <div ref={topicDivRef} className="relative w-full sm:w-fit">
+    <div ref={topicDivRef} className={`relative w-full sm:w-fit`}>
       <label htmlFor="topics" className="font-medium mb-2 inline-block">
         Topics
       </label>
-      <div
-        className="relative border border-slate-300 rounded-xl"
-        onClick={toggleDropdown}
-      >
+      <div className={`relative rounded-custom`} onClick={toggleDropdown}>
         <input
           id="topics"
           type="text"
-          className="w-full px-4 py-2 focus:outline-blue-300 cursor-pointer rounded-xl"
+          className={`${
+            theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+          } w-full px-4 py-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom`}
           placeholder="Select Topics"
           value={currentTopic}
           readOnly
@@ -71,8 +71,8 @@ export default function TopicsFilter({ currentTopic }: TopicsProps) {
             toggleDropdown();
           }}
         />
-        <span className="absolute right-2 top-[30%] pointer-events-none">
-          <RxCaretDown
+        <span className="absolute right-4 top-[30%] pointer-events-none">
+          <PiCaretDownBold
             className={`transition-transform duration-300 ${
               isDropdownOpen ? "rotate-180" : "rotate-0"
             }`}
@@ -81,7 +81,11 @@ export default function TopicsFilter({ currentTopic }: TopicsProps) {
       </div>
 
       <div
-        className={`w-full sm:w-[365px] flex flex-col sm:flex-row items-center sm:flex-wrap p-4 pb-2 absolute border border-slate-300 modal-shadow mt-2 bg-white transition-all duration-150 ease-out rounded-xl ${
+        className={`${
+          theme === "light"
+            ? "lightBg1 darkColor2 border-[2px] border-[#e1e1e1]"
+            : "darkBg1 lightColor1 border-[2px] border-[#555]"
+        } w-full sm:w-[365px] flex flex-col sm:flex-row items-center sm:flex-wrap p-4 pb-2 absolute modal-shadow mt-2 rounded-custom ${
           isDropdownOpen
             ? "scale-100 z-10 opacity-100"
             : "scale-95 -z-10 opacity-0 pointer-events-none"
@@ -94,12 +98,36 @@ export default function TopicsFilter({ currentTopic }: TopicsProps) {
         )}
         {isLoading ? (
           <>
-            <div className="w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-xl skeleton mr-2 mb-2"></div>
-            <div className="w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-xl skeleton mr-2 mb-2"></div>
-            <div className="w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-xl skeleton mr-2 mb-2"></div>
-            <div className="w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-xl skeleton mr-2 mb-2"></div>
-            <div className="w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-xl skeleton mr-2 mb-2"></div>
-            <div className="w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-xl skeleton mr-2 mb-2"></div>
+            <div
+              className={`w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-custom ${
+                theme === "light" ? "skeleton-light" : "skeleton-dark"
+              } mr-2 mb-2`}
+            ></div>
+            <div
+              className={`w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-custom ${
+                theme === "light" ? "skeleton-light" : "skeleton-dark"
+              } mr-2 mb-2`}
+            ></div>
+            <div
+              className={`w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-custom ${
+                theme === "light" ? "skeleton-light" : "skeleton-dark"
+              } mr-2 mb-2`}
+            ></div>
+            <div
+              className={`w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-custom ${
+                theme === "light" ? "skeleton-light" : "skeleton-dark"
+              } mr-2 mb-2`}
+            ></div>
+            <div
+              className={`w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-custom ${
+                theme === "light" ? "skeleton-light" : "skeleton-dark"
+              } mr-2 mb-2`}
+            ></div>
+            <div
+              className={`w-full sm:w-[112px] border-none h-[40px] focus:outline-none rounded-custom ${
+                theme === "light" ? "skeleton-light" : "skeleton-dark"
+              } mr-2 mb-2`}
+            ></div>
           </>
         ) : allTopics.length === 0 ? (
           <p className="font-semibold mb-2">{data.message}</p>
@@ -111,9 +139,13 @@ export default function TopicsFilter({ currentTopic }: TopicsProps) {
 
             return (
               <Link
-                href={`/pages/learn?${newParams.toString()}`}
+                href={`/pages/questions?${newParams.toString()}`}
                 key={topic.id}
-                className="w-full sm:w-fit px-4 py-2 border border-slate-300 hover:bg-slate-100 cursor-pointer rounded-xl mr-0 sm:mr-2 mb-2"
+                className={`${
+                  theme === "light"
+                    ? "border-[2px] border-[#e1e1e1] hover:bg-[#f1f5f9]"
+                    : "border-[2px] border-[#555] hover:bg-[#1a1a1a]"
+                } w-full sm:w-fit px-4 py-2 cursor-pointer rounded-custom mr-0 sm:mr-2 mb-2`}
                 onClick={() => {
                   toggleDropdown();
                 }}

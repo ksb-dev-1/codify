@@ -6,6 +6,17 @@ import { getPaymentStatus, createPayment } from "@/lib/payments/payments";
 // 3rd party libraries
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+// useGetPaymentStatusQuery hook
+export const useGetPaymentStatusQuery = (enabled?: boolean) => {
+  return useQuery({
+    queryKey: ["payment-status"],
+    queryFn: getPaymentStatus,
+    staleTime: Infinity,
+    gcTime: Infinity,
+    enabled,
+  });
+};
+
 // useCreatePaymentMutation hook
 export const useCreatePaymentMutation = (
   onPaymentSuccess: (data: any) => void
@@ -33,14 +44,4 @@ export const useCreatePaymentMutation = (
   return {
     createPaymentMutation,
   };
-};
-
-// useGetPaymentStatusQuery hook
-export const useGetPaymentStatusQuery = () => {
-  return useQuery({
-    queryKey: ["payment-status"],
-    queryFn: getPaymentStatus,
-    staleTime: Infinity,
-    gcTime: Infinity,
-  });
 };

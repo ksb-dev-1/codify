@@ -1,70 +1,171 @@
-// components
-import StartButton from "@/components/StartButton";
+"use client";
+
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+
+// 3rd party libraries
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session } = useSession();
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
+
+  //console.log(session?.user?.id);
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
+    <div
+      className={`${
+        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+      } min-h-screen flex flex-col items-center justify-center`}
+    >
       <div className="max-w-7xl p-[144px] px-4 sm:px-8 lg:px-16">
         <header className="flex flex-col items-center fade-in">
-          <h3 className="text-2xl font-extrabold mb-4 slide-in">
+          <h3 className="text-2xl font-bold mb-4 slide-in">
             Welcome to Codify
           </h3>
-          <p className="max-w-[500px] w-full text-center mb-8 slide-in">
+          <p
+            className={`${
+              theme === "light" ? "darkColor1" : "lightColor2"
+            } max-w-[500px] w-full text-center mb-8 slide-in`}
+          >
             <span className="font-bold">Codify</span> is your go-to platform for
             mastering JavaScript. We make learning interactive and enjoyable,
             turning coding into a fun and rewarding experience.
           </p>
-          <StartButton />
+          {!session?.user?.id ? (
+            <Link
+              href={`/pages/signin?theme=${theme}`}
+              className={`${
+                theme === "light"
+                  ? "darkBg2 lightColor1 hover:bg-[#555]"
+                  : "lightBg1 darkColor2 hover:bg-slate-100"
+              }  rounded-[50px] px-8 py-4`}
+            >
+              Start Learning
+            </Link>
+          ) : (
+            <Link
+              href={`/pages/questions?theme=${theme}&page=1`}
+              className={`${
+                theme === "light"
+                  ? "darkBg2 lightColor1 hover:bg-[#555]"
+                  : "lightBg1 darkColor2 hover:bg-slate-100"
+              }  rounded-[50px] px-8 py-4`}
+            >
+              Start Learning
+            </Link>
+          )}
         </header>
 
         <section className="mt-10 fade-in">
           <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white p-6 rounded-xl border border-slate-300">
+            <div
+              className={`${
+                theme === "light"
+                  ? "lightBg1 darkColor2"
+                  : "darkBg1 lightColor1"
+              } p-6 rounded-custom`}
+            >
               <h3 className="text-xl font-bold">Practice</h3>
-              <p className="mt-2 text-gray-800">
+              <p
+                className={`${
+                  theme === "light" ? "darkColor1" : "lightColor2"
+                } mt-2`}
+              >
                 Engage in practice sessions with a wide range of questions
                 across various topics, difficulty levels, and statuses to
                 enhance your learning.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-slate-300">
+            <div
+              className={`${
+                theme === "light"
+                  ? "lightBg1 darkColor2"
+                  : "darkBg1 lightColor1"
+              } p-6 rounded-custom`}
+            >
               <h3 className="text-xl font-bold">Interactive Navigation</h3>
-              <p className="mt-2 text-gray-800">
+              <p
+                className={`${
+                  theme === "light" ? "darkColor1" : "lightColor2"
+                } mt-2`}
+              >
                 Easily move through pages with our intuitive navigation buttons,
                 allowing you to quickly browse through questions.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-slate-300">
+            <div
+              className={`${
+                theme === "light"
+                  ? "lightBg1 darkColor2"
+                  : "darkBg1 lightColor1"
+              } p-6 rounded-custom`}
+            >
               <h3 className="text-xl font-bold">Progress Tracking</h3>
-              <p className="mt-2 text-gray-800">
+              <p
+                className={`${
+                  theme === "light" ? "darkColor1" : "lightColor2"
+                } mt-2`}
+              >
                 Keep track of your progress over time by viewing your overall
                 performance, as well as progress in easy, medium, and hard
                 categories.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-slate-300">
+            <div
+              className={`${
+                theme === "light"
+                  ? "lightBg1 darkColor2"
+                  : "darkBg1 lightColor1"
+              } p-6 rounded-custom`}
+            >
               <h3 className="text-xl font-bold">Bookmark Questions</h3>
-              <p className="mt-2 text-gray-800">
+              <p
+                className={`${
+                  theme === "light" ? "darkColor1" : "lightColor2"
+                } mt-2`}
+              >
                 Save tricky questions to revisit later and deepen your
                 understanding. You can remove them when they are no longer
                 needed.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-slate-300">
+            <div
+              className={`${
+                theme === "light"
+                  ? "lightBg1 darkColor2"
+                  : "darkBg1 lightColor1"
+              } p-6 rounded-custom`}
+            >
               <h3 className="text-xl font-bold">Instant Feedback</h3>
-              <p className="mt-2 text-gray-800">
+              <p
+                className={`${
+                  theme === "light" ? "darkColor1" : "lightColor2"
+                } mt-2`}
+              >
                 After choosing the correct option, view a detailed explanation
                 for each question and mark questions as checked or unchecked.
               </p>
             </div>
 
-            <div className="bg-gradient-to-tr from-orange-500 to-yellow-500 text-white p-6 rounded-xl">
+            <div
+              className={`${
+                theme === "light"
+                  ? "lightBg1 darkColor2"
+                  : "darkBg1 lightColor1"
+              } p-6 rounded-custom`}
+            >
               <h3 className="text-xl font-bold">Premium Access</h3>
-              <p className="mt-2">
+              <p
+                className={`${
+                  theme === "light" ? "darkColor1" : "lightColor2"
+                } mt-2`}
+              >
                 Unlock exclusive access by upgrading to premium.
               </p>
             </div>

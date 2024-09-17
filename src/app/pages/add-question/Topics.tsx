@@ -14,6 +14,7 @@ import { UseFormSetValue, UseFormClearErrors } from "react-hook-form";
 import { RxCaretDown } from "react-icons/rx";
 
 interface TopicsProps {
+  theme: string;
   setValue: UseFormSetValue<AddQuestionValues>;
   clearErrors: UseFormClearErrors<AddQuestionValues>;
   error?: string;
@@ -32,7 +33,7 @@ async function fetchTopics() {
 }
 
 const Topics = forwardRef(function Topics(
-  { setValue, clearErrors, error }: TopicsProps,
+  { theme, setValue, clearErrors, error }: TopicsProps,
   ref
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -74,9 +75,11 @@ const Topics = forwardRef(function Topics(
             <input
               id="topic"
               type="text"
-              className={`mt-1 block w-full border p-2 focus:outline-blue-300 cursor-pointer rounded-xl ${
-                error ? "border-[3px] border-red-300" : "border-slate-300"
-              }`}
+              className={`${
+                theme === "light" ? "lightBg2" : "darkBg2"
+              } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom ${
+                inputValue === "Select Topic" ? "text-gray-400" : ""
+              } ${error ? "border-[3px] border-red-300" : ""}`}
               placeholder="Select correct option"
               value={inputValue}
               readOnly
@@ -94,7 +97,11 @@ const Topics = forwardRef(function Topics(
             </span>
           </div>
           <ul
-            className={`p-2 absolute w-full border border-slate-300 modal-shadow mt-2 bg-white transition-all duration-150 ease-out rounded-xl ${
+            className={`${
+              theme === "light"
+                ? "lightBg2 border-[2px] border-[#e1e1e1]"
+                : "darkBg2 border-[2px] border-[#555]"
+            } p-2 absolute w-full modal-shadow mt-2 transition-all duration-150 ease-out rounded-custom modal-shadow ${
               isDropdownOpen ? "scale-100 z-10" : "scale-95 -z-10"
             } overflow-hidden`}
           >
@@ -105,10 +112,26 @@ const Topics = forwardRef(function Topics(
             )}
             {isLoading ? (
               <>
-                <div className="w-full border-none h-[40px] focus:outline-none rounded-xl skeleton"></div>
-                <div className="w-full border-none h-[40px] focus:outline-none rounded-xl skeleton mt-2"></div>
-                <div className="w-full border-none h-[40px] focus:outline-none rounded-xl skeleton mt-2"></div>
-                <div className="w-full border-none h-[40px] focus:outline-none rounded-xl skeleton mt-2"></div>
+                <div
+                  className={`${
+                    theme === "light" ? "skeleton-light" : "skeleton-dark"
+                  } w-full border-none h-[40px] focus:outline-none rounded-custom`}
+                ></div>
+                <div
+                  className={`${
+                    theme === "light" ? "skeleton-light" : "skeleton-dark"
+                  } w-full border-none h-[40px] focus:outline-none rounded-custom mt-2`}
+                ></div>
+                <div
+                  className={`${
+                    theme === "light" ? "skeleton-light" : "skeleton-dark"
+                  } w-full border-none h-[40px] focus:outline-none rounded-custom mt-2`}
+                ></div>
+                <div
+                  className={`${
+                    theme === "light" ? "skeleton-light" : "skeleton-dark"
+                  } w-full border-none h-[40px] focus:outline-none rounded-custom mt-2`}
+                ></div>
               </>
             ) : data?.topics.length === 0 ? (
               <p className="">No topics available. Please check back later.</p>
@@ -116,7 +139,9 @@ const Topics = forwardRef(function Topics(
               data.topics.map((topic: any) => (
                 <li
                   key={topic.id}
-                  className="p-2 hover:bg-slate-100 cursor-pointer rounded-xl"
+                  className={`${
+                    theme === "light" ? "hover:bg-[#fff]" : "hover:bg-[#282828]"
+                  } p-2 cursor-pointer rounded-custom`}
                   onClick={() => {
                     setTopic(topic.name);
                     setValue("topicId", topic.id);

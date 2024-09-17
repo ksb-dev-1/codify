@@ -47,6 +47,12 @@ export const fetchQuestionsCount = async () => {
   return response.data;
 };
 
+// fetch user added questions
+export const fetchUserAddedQuestioins = async () => {
+  const response = await axios.get("/api/questions/user");
+  return response.data;
+};
+
 // Mark Question as Started API call
 export const markQuestionAsStarted = async (questionID: string) => {
   const response = await axios.post("/api/questions/question/started", {
@@ -66,6 +72,14 @@ export const checkQuestion = async (questionID: string) => {
 // Uncheck Question API call
 export const uncheckQuestion = async (questionID: string) => {
   const response = await axios.post("/api/questions/question/uncheck", {
+    questionID,
+  });
+  return response.data;
+};
+
+// remove user added question
+export const removeUserAddedQuestion = async (questionID: string) => {
+  const response = await axios.post("/api/questions/user/remove", {
     questionID,
   });
   return response.data;

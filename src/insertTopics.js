@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Replace with a valid user ID from your User table
-  const userId = "66d7e1837f171c597005df3c";
+  const userId = "66e860c36ffcf5e726e8267c";
 
   // Define the topics you want to insert
   const topics = [

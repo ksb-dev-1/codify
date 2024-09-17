@@ -12,7 +12,7 @@ export default function DifficultyTag({
   return (
     <div className="ml-2 flex items-center justify-end">
       <span
-        className={`${bgColor}  ${borderColor} ${textColor} border-[2px] px-2 py-1 rounded-xl font-semibold text-xs tracking-wide`}
+        className={`${bgColor}  ${borderColor} ${textColor} border-2 px-2 py-1 rounded-xl font-semibold text-xs tracking-wide`}
       >
         {difficulty}
       </span>

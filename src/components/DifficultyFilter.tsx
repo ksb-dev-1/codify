@@ -8,7 +8,7 @@ import { useHandleOutsideClick } from "@/hooks/useHandleOutsideClick";
 
 // 3rd party libraries
 import { useSearchParams } from "next/navigation";
-import { RxCaretDown } from "react-icons/rx";
+import { PiCaretDownBold } from "react-icons/pi";
 
 interface DifficultyProps {
   currentDifficulty: string;
@@ -23,6 +23,7 @@ export default function DifficultyFilter({
   const difficultyDivRef = useRef<HTMLDivElement>(null);
 
   const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
 
   useHandleOutsideClick(difficultyDivRef, setIsDropdownOpen);
 
@@ -38,14 +39,13 @@ export default function DifficultyFilter({
       <label htmlFor="difficulty" className="font-medium mb-2 inline-block">
         Difficulty
       </label>
-      <div
-        className="relative border border-slate-300 rounded-xl"
-        onClick={toggleDropdown}
-      >
+      <div className="relative rounded-custom" onClick={toggleDropdown}>
         <input
           id="difficulty"
           type="text"
-          className="w-full px-4 py-2 focus:outline-blue-300 cursor-pointer rounded-xl"
+          className={`${
+            theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+          } w-full px-4 py-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom`}
           value={currentDifficulty}
           readOnly
           onClick={(e) => {
@@ -53,8 +53,8 @@ export default function DifficultyFilter({
             toggleDropdown();
           }}
         />
-        <span className="absolute right-2 top-[30%] pointer-events-none">
-          <RxCaretDown
+        <span className="absolute right-4 top-[30%] pointer-events-none">
+          <PiCaretDownBold
             className={`transition-transform duration-300 ${
               isDropdownOpen ? "rotate-180" : "rotate-0"
             }`}
@@ -63,7 +63,11 @@ export default function DifficultyFilter({
       </div>
 
       <div
-        className={`flex flex-col w-full p-2 absolute border border-slate-300 modal-shadow mt-2 bg-white transition-all duration-150 ease-out rounded-xl ${
+        className={`${
+          theme === "light"
+            ? "lightBg1 darkColor2 border-[2px] border-[#e1e1e1]"
+            : "darkBg1 lightColor1 border-[2px] border-[#555]"
+        } flex flex-col w-full p-2 absolute modal-shadow mt-2 bg-white rounded-custom ${
           isDropdownOpen
             ? "scale-100 z-10 opacity-100"
             : "scale-95 -z-10 opacity-0 pointer-events-none"
@@ -77,8 +81,10 @@ export default function DifficultyFilter({
           return (
             <Link
               key={difficulty}
-              href={`/pages/learn?${newParams.toString()}`}
-              className="px-4 py-2 hover:bg-slate-100 rounded-xl"
+              href={`/pages/questions?${newParams.toString()}`}
+              className={`${
+                theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
+              } px-4 py-2 rounded-custom`}
               onClick={() => {
                 toggleDropdown();
               }}

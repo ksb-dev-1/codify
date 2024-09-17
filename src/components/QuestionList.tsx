@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 // componens
 import Pagination from "@/components/Pagination";
@@ -34,6 +35,9 @@ const QuestionsList = ({
   currentStatus,
   currentPage,
 }: QuestionsProps) => {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
+
   // Fetch questions
   const {
     data: questionList,
@@ -80,7 +84,7 @@ const QuestionsList = ({
 
   return (
     <div className="mt-8">
-      <div className="flex items-center justify-between border border-black bg-black text-white px-4 py-4 rounded-xl mb-4">
+      <div className="flex items-center justify-between border border-black bg-black text-white px-4 py-4 rounded-custom mb-4">
         <div className="flex items-center">
           <span className="hidden sm:block sm:w-[150px] font-bold">Status</span>
           <span className="w-fit sm:w-[250px] font-bold">Topic</span>
@@ -102,12 +106,14 @@ const QuestionsList = ({
             <Link
               href={
                 question.isPremium && payment && !payment.status
-                  ? "/pages/payment"
-                  : `/pages/learn/question/${question.id}`
+                  ? `/pages/payment?theme=${theme}`
+                  : `/pages/questions/question/${question.id}?theme=${theme}`
               }
               key={question.id}
-              className={`flex items-center justify-between border border-slate-300 px-4 py-4 cursor-pointer hover:bg-slate-100 transition-all mb-4 rounded-xl ${
-                index % 2 === 0 ? "bg-white" : "bg-white"
+              className={`flex items-center justify-between px-4 py-4 cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] mb-4 rounded-custom ${
+                theme === "light"
+                  ? "lightBg1 darkColor2"
+                  : "darkBg1 lightColor1"
               }`}
             >
               <div className="flex items-center">

@@ -2,41 +2,76 @@
 
 export type OptionKeys = "a" | "b" | "c" | "d";
 
-export default function AddQuestionSkeleton() {
+export default function AddQuestionSkeleton({ theme }: { theme: string }) {
   return (
-    <div className="max-w-[750px] w-full my-[144px] px-8 md:p-0">
-      <h1 className="w-fit mb-2 text-transparent rounded-xl text-xl skeleton">
+    <div
+      className={`${
+        theme === "light" ? "lightBg2" : "darkBg2"
+      } max-w-[750px] w-full my-[144px] px-8 md:p-0`}
+    >
+      <h1
+        className={`${
+          theme === "light" ? "skeleton-light" : "skeleton-dark"
+        } w-fit mb-4 text-transparent rounded-xl text-xl`}
+      >
         Add Question
       </h1>
-      <form className="bg-white p-8 sm:p-16 w-full space-y-4 rounded-xl border border-slate-300">
+      <form
+        className={`${
+          theme === "light" ? "lightBg1" : "darkBg1"
+        } p-8 sm:p-16 w-full space-y-4 rounded-custom`}
+      >
         {/* Question */}
         <div className="flex flex-col">
-          <label className="w-fit text-transparent rounded-xl skeleton">
+          <label
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-fit text-transparent rounded-xl`}
+          >
             Question
           </label>
-          <input className="w-full py-2 rounded-xl skeleton mt-2" />
+          <input
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-full py-2 rounded-custom mt-2`}
+          />
         </div>
 
         {/* Topics */}
         <div className="flex flex-col">
-          <label className="w-fit text-transparent rounded-xl skeleton">
+          <label
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-fit text-transparent rounded-xl`}
+          >
             Topics
           </label>
-          <input className="w-full py-2 rounded-xl skeleton mt-2" />
+          <input
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-full py-2 rounded-custom mt-2`}
+          />
         </div>
-        <div className="text-transparent rounded-xl skeleton">
+        {/* <div className="text-transparent rounded-custom skeleton">
           Do you want to add new topic?
-        </div>
+        </div> */}
 
         {/* Code Snippet */}
         <div className="flex flex-col">
           <label
             htmlFor="codeSnippet"
-            className="w-fit text-transparent rounded-xl skeleton"
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-fit text-transparent rounded-xl`}
           >
             Code Snippet (Optional)
           </label>
-          <textarea rows={3} className="w-full rounded-xl skeleton p-2 mt-2" />
+          <textarea
+            rows={3}
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-full rounded-custom p-2 mt-2`}
+          />
         </div>
 
         {/* 4 Options */}
@@ -46,11 +81,17 @@ export default function AddQuestionSkeleton() {
               <div key={option} className="flex flex-col">
                 <label
                   htmlFor={`options.${option}`}
-                  className="w-fit text-transparent rounded-xl skeleton"
+                  className={`${
+                    theme === "light" ? "skeleton-light" : "skeleton-dark"
+                  } w-fit text-transparent rounded-xl`}
                 >
                   Option {option.toUpperCase()}
                 </label>
-                <input className="w-full py-2 rounded-xl skeleton mt-2" />
+                <input
+                  className={`${
+                    theme === "light" ? "skeleton-light" : "skeleton-dark"
+                  } w-full py-2 rounded-custom skeleton mt-2`}
+                />
               </div>
             ))}
           </div>
@@ -58,30 +99,59 @@ export default function AddQuestionSkeleton() {
 
         {/* Correct Option */}
         <div className="flex flex-col">
-          <label className="w-fit text-transparent rounded-xl skeleton">
+          <label
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-fit text-transparent rounded-xl`}
+          >
             Correct Option
           </label>
-          <input className="w-full py-2 rounded-xl skeleton mt-2" />
+          <input
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-full py-2 rounded-custom mt-2`}
+          />
         </div>
 
         {/* Difficulty */}
         <div className="flex flex-col">
-          <label className="w-fit text-transparent rounded-xl skeleton">
+          <label
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-fit text-transparent rounded-xl`}
+          >
             Difficulty
           </label>
-          <input className="w-full py-2 rounded-xl skeleton mt-2" />
+          <input
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-full py-2 rounded-custom mt-2`}
+          />
         </div>
 
         {/* Explanation */}
         <div className="flex flex-col">
-          <label className="w-fit text-transparent font-semibold rounded-xl skeleton">
+          <label
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-fit text-transparent font-semibold rounded-xl`}
+          >
             Explanation (Optional)
           </label>
-          <textarea rows={3} className="w-full rounded-xl skeleton mt-2" />
+          <textarea
+            rows={3}
+            className={`${
+              theme === "light" ? "skeleton-light" : "skeleton-dark"
+            } w-full rounded-custom mt-2`}
+          />
         </div>
 
         {/* Submit */}
-        <div className="text-transparent w-full h-[41.6px] rounded-xl skeleton">
+        <div
+          className={`${
+            theme === "light" ? "skeleton-light" : "skeleton-dark"
+          } text-transparent w-full h-[41.6px] rounded-custom`}
+        >
           Submit
         </div>
       </form>

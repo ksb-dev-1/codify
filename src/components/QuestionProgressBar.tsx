@@ -38,62 +38,62 @@ const QuestionProgressBar: React.FC<QuestionProgressBarProps> = ({
 
   return (
     <>
-      <div className="mb-2">
-        <p className="font-semibold">Total - {totalQuestions}</p>
-        <div className="w-full bg-black h-8 rounded-[7.5px] relative overflow-hidden">
+      <div className="mb-4">
+        <p className="font-semibold mb-2">Total - {totalQuestions}</p>
+        <div className="w-full bg-blue-200 h-12 rounded-custom relative overflow-hidden">
           <div
-            className="absolute top-0 left-0 h-full bg-[#555] rounded"
+            className="absolute top-2 left-2 h-8 bg-blue-400 rounded-custom"
             style={{ width: `${totalCompletedPercentage}%` }}
           ></div>
 
-          <div className="flex items-center justify-between font-semibold text-white text-xs rounded-[7.5px] px-4 absolute top-0 left-0 w-full h-full">
+          <div className="flex items-center justify-between font-semibold text-black rounded-custom px-4 absolute top-0 left-0 w-full h-full">
             <span>{completedQuestions}</span>
-            <span> {remainingQuestions}</span>
+            <span>{remainingQuestions}</span>
           </div>
         </div>
       </div>
 
-      <div className="mb-2">
-        <p className="font-bold">Easy - {totalEasyQuestions}</p>
-        <div className="w-full bg-green-400 h-8 rounded-[7.5px] relative overflow-hidden">
+      <div className="mb-4">
+        <p className="font-semibold mb-2">Easy - {totalEasyQuestions}</p>
+        <div className="w-full bg-green-200 h-12 rounded-custom relative overflow-hidden">
           <div
-            className="absolute top-0 left-0 h-full bg-green-500 rounded"
+            className="absolute top-2 left-2 h-8 bg-green-400 rounded-custom"
             style={{ width: `${totalEasyCompletedPercentage}%` }}
           ></div>
 
-          <div className="flex items-center justify-between font-semibold text-white text-xs rounded-[7.5px] px-4 absolute top-0 left-0 w-full h-full">
+          <div className="flex items-center justify-between font-semibold text-black rounded-custom px-4 absolute top-0 left-0 w-full h-full">
             <span>{completedEasyQuestions}</span>
-            <span> {remainingEasyQuestions}</span>
+            <span>{remainingEasyQuestions}</span>
           </div>
         </div>
       </div>
 
-      <div className="mb-2">
-        <p className="font-bold">Medium - {totalMediumQuestions}</p>
-        <div className="w-full bg-orange-400 h-8 rounded-[7.5px] relative overflow-hidden">
+      <div className="mb-4">
+        <p className="font-semibold mb-2">Medium - {totalMediumQuestions}</p>
+        <div className="w-full bg-orange-200 h-12 rounded-custom relative overflow-hidden">
           <div
-            className="absolute top-0 left-0 h-full bg-orange-500 rounded"
+            className="absolute top-2 left-2 h-8 bg-orange-400 rounded-custom"
             style={{ width: `${totalMediumCompletedPercentage}%` }}
           ></div>
 
-          <div className="flex items-center justify-between font-semibold text-white text-xs rounded-[7.5px] px-4 absolute top-0 left-0 w-full h-full">
+          <div className="flex items-center justify-between font-semibold text-black text-sm rounded-custom px-4 absolute top-0 left-0 w-full h-full">
             <span>{completedMediumQuestions}</span>
-            <span> {remainingMediumQuestions}</span>
+            <span>{remainingMediumQuestions}</span>
           </div>
         </div>
       </div>
 
       <div className="">
-        <p className="font-bold">Hard - {totalHardQuestions}</p>
-        <div className="w-full bg-red-400 h-8 rounded-[7.5px] relative overflow-hidden">
+        <p className="font-semibold mb-2">Hard - {totalHardQuestions}</p>
+        <div className="w-full bg-red-200 h-12 rounded-custom relative overflow-hidden">
           <div
-            className="absolute top-0 left-0 h-full bg-red-500 rounded"
+            className="absolute top-2 left-2 h-8 bg-red-400 rounded-custom"
             style={{ width: `${totalHardCompletedPercentage}%` }}
           ></div>
 
-          <div className="flex items-center justify-between font-semibold text-white text-xs rounded-[7.5px] px-4 absolute top-0 left-0 w-full h-full">
+          <div className="flex items-center justify-between font-semibold text-black text-sm rounded-custom px-4 absolute top-0 left-0 w-full h-full">
             <span>{completedHardQuestions}</span>
-            <span> {remainingHardQuestions}</span>
+            <span>{remainingHardQuestions}</span>
           </div>
         </div>
       </div>

@@ -1,38 +1,47 @@
-import { redirect } from "next/navigation";
-import { signIn } from "@/auth";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { googleSigninAction, githubSigninAction } from "./signinAction";
 
 // components
 import GoogleSignInButton from "@/components/GoogleSignInButton";
 import GitHubSignInButton from "@/components/GitHubSignInButton";
-import getSession from "@/lib/getSession";
 
-export default async function SignInPage() {
-  const session = await getSession();
-  const userID = session?.user?.id;
+// 3rd party libraries
+import { useSession } from "next-auth/react";
 
-  if (userID) {
-    redirect(`/pages/learn?page=1`);
-  }
+export default function SignInPage() {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
+  const { data: session, status: sessionStatus } = useSession();
+  const router = useRouter();
+
+  // If user doesn't exist redirect to home
+  useEffect(() => {
+    if (sessionStatus !== "loading" && session?.user?.id) {
+      router.push(`/pages/questions?theme=${theme}&page=1`);
+    }
+  }, [sessionStatus, session?.user?.id, router, theme]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
+    <div
+      className={`${
+        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+      } min-h-screen flex flex-col items-center justify-center`}
+    >
       <div>
         <h1 className="mb-2 font-bold text-xl">Sign In</h1>
-        <div className="bg-white rounded-xl p-8 sm:p-16 border border-slate-300">
-          <form
-            action={async () => {
-              "use server";
-              await signIn("google");
-            }}
-          >
-            <GoogleSignInButton />
+        <div
+          className={`${
+            theme === "light" ? "lightBg1" : "darkBg1"
+          } rounded-custom p-8 sm:p-16`}
+        >
+          <form action={googleSigninAction}>
+            <GoogleSignInButton theme={theme} />
           </form>
-          <form
-            action={async () => {
-              "use server";
-              await signIn("github");
-            }}
-          >
+          <form action={githubSigninAction}>
             <GitHubSignInButton />
           </form>
         </div>

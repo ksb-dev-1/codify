@@ -20,6 +20,7 @@ import { RxCaretDown } from "react-icons/rx";
 import { OptionKeys } from "./AddQuestionForm";
 
 interface CorrectOptionProps {
+  theme: string;
   setValue: UseFormSetValue<AddQuestionValues>;
   clearErrors: UseFormClearErrors<AddQuestionValues>;
   error?: string;
@@ -30,7 +31,7 @@ export interface CorrectOptionRef {
 }
 
 const CorrectOption = forwardRef(function CorrectOptin(
-  { setValue, clearErrors, error }: CorrectOptionProps,
+  { theme, setValue, clearErrors, error }: CorrectOptionProps,
   ref
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -67,9 +68,11 @@ const CorrectOption = forwardRef(function CorrectOptin(
             <input
               id="correctOption"
               type="text"
-              className={`mt-1 block w-full border p-2 focus:outline-blue-300 cursor-pointer rounded-xl ${
-                error ? "border-[3px] border-red-300" : "border-slate-300"
-              }`}
+              className={`${
+                theme === "light" ? "lightBg2" : "darkBg2"
+              } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom ${
+                inputValue === "Select Option" ? "text-gray-400" : ""
+              } ${error ? "border-[3px] border-red-300" : ""}`}
               placeholder="Select correct option"
               value={inputValue}
               readOnly
@@ -87,14 +90,20 @@ const CorrectOption = forwardRef(function CorrectOptin(
             </span>
           </div>
           <ul
-            className={`p-2 absolute w-full border border-slate-300 modal-shadow mt-2 bg-white transition-all duration-150 ease-out rounded-xl ${
+            className={`${
+              theme === "light"
+                ? "lightBg2 border-[2px] border-[#e1e1e1]"
+                : "darkBg2 border-[2px] border-[#555]"
+            } p-2 absolute w-full modal-shadow mt-2 transition-all duration-150 ease-out rounded-custom ${
               isDropdownOpen ? "scale-100 z-10" : "scale-95 -z-10"
             } overflow-hidden`}
           >
             {(["a", "b", "c", "d"] as OptionKeys[]).map((option) => (
               <li
                 key={option}
-                className="p-2 hover:bg-slate-100 cursor-pointer rounded-xl"
+                className={`${
+                  theme === "light" ? "hover:bg-[#fff]" : "hover:bg-[#282828]"
+                } p-2 cursor-pointer rounded-custom`}
                 onClick={() => {
                   setCorrectOption(option);
                   setValue("correctOption", option);

@@ -15,6 +15,7 @@ import { RxCaretDown } from "react-icons/rx";
 const difficulties = ["Easy", "Medium", "Hard"];
 
 interface DifficultyProps {
+  theme: string;
   setValue: UseFormSetValue<AddQuestionValues>;
   clearErrors: UseFormClearErrors<AddQuestionValues>;
   error?: string;
@@ -25,7 +26,7 @@ export interface DifficultyRef {
 }
 
 const Difficulty = forwardRef(function Difficulty(
-  { setValue, clearErrors, error }: DifficultyProps,
+  { theme, setValue, clearErrors, error }: DifficultyProps,
   ref
 ) {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -59,9 +60,11 @@ const Difficulty = forwardRef(function Difficulty(
             <input
               type="text"
               id="difficulty"
-              className={`mt-1 block w-full border p-2 focus:outline-blue-300 cursor-pointer rounded-xl ${
-                error ? "border-[3px] border-red-300" : "border-slate-300"
-              }`}
+              className={`${
+                theme === "light" ? "lightBg2" : "darkBg2"
+              } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom ${
+                inputValue === "Select Difficulty" ? "text-gray-400" : ""
+              } ${error ? "border-[3px] border-red-300" : ""}`}
               placeholder="Select Difficulty"
               value={inputValue}
               readOnly
@@ -79,14 +82,20 @@ const Difficulty = forwardRef(function Difficulty(
             </span>
           </div>
           <ul
-            className={`p-2 absolute w-full border border-slate-300 modal-shadow mt-2 bg-white transition-all duration-150 ease-out rounded-xl ${
+            className={`${
+              theme === "light"
+                ? "lightBg2 border-[2px] border-[#e1e1e1]"
+                : "darkBg2 border-[2px] border-[#555]"
+            } p-2 absolute w-full mt-2 bg-white transition-all duration-150 ease-out rounded-custom ${
               isDropdownOpen ? "scale-100 z-10" : "scale-95 -z-10"
-            } overflow-hidden`}
+            }`}
           >
             {difficulties.map((difficulty) => (
               <li
                 key={difficulty}
-                className="p-2 hover:bg-slate-100 cursor-pointer rounded-xl"
+                className={`${
+                  theme === "light" ? "hover:bg-[#fff]" : "hover:bg-[#282828]"
+                } p-2 cursor-pointer rounded-custom`}
                 onClick={() => {
                   setDifficulty(difficulty);
                   setValue("difficulty", difficulty);

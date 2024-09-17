@@ -9,6 +9,7 @@ interface PaginationProps {
 
 const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
   const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
   const router = useRouter();
 
   const getVisiblePages = () => {
@@ -30,9 +31,13 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`px-4 py-2 mx-1 border border-slate-300 rounded-xl disabled:opacity-50 ${
-          currentPage === 1 ? "cursor-not-allowed" : "hover:bg-slate-100"
-        }`}
+        className={`px-4 py-2 mx-1 rounded-custom disabled:opacity-50 ${
+          theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+        } ${
+          currentPage === 1
+            ? "cursor-not-allowed"
+            : "cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+        } w-full px-4 py-2 focus:outline-none rounded-custom`}
       >
         Prev
       </button>
@@ -40,10 +45,16 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
         <button
           key={visiblePage}
           onClick={() => handlePageChange(visiblePage)}
-          className={`px-4 py-2 mx-1 border border-slate-300 rounded-xl  ${
+          className={`px-4 py-2 mx-1 rounded-custom hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] ${
             currentPage === visiblePage
               ? "bg-black text-white hover:bg-[#333]"
-              : "hover:bg-slate-100"
+              : ""
+          }${
+            theme === "light"
+              ? currentPage === visiblePage
+                ? "text-white"
+                : "darkColor1" + " lightBg1"
+              : "darkBg1 lightColor1"
           }`}
         >
           {visiblePage}
@@ -52,11 +63,13 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-4 py-2 mx-1 border border-slate-300 rounded-xl disabled:opacity-50 ${
+        className={`px-4 py-2 mx-1 rounded-custom disabled:opacity-50 ${
+          theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+        } ${
           currentPage === totalPages
             ? "cursor-not-allowed"
-            : "hover:bg-slate-100"
-        }`}
+            : "cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+        } w-full px-4 py-2 focus:outline-none rounded-custom`}
       >
         Next
       </button>

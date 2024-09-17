@@ -7,11 +7,6 @@ export const fetchBookmarks = async () => {
 };
 
 // Check Bookmark Status API call
-// export const checkBookmarkStatus = async (questionID: string) => {
-//   const response = await axios.post("/api/bookmarks/status", { questionID });
-//   return response.data;
-// };
-
 export const checkBookmarkStatus = async (questionID: string) => {
   const response = await axios.get(
     `/api/bookmarks/status?questionID=${questionID}`
