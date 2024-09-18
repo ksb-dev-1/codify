@@ -203,7 +203,11 @@ export default function Header() {
     authContent = (
       <Link
         href={`/pages/signin?theme=${theme}`}
-        className="flex items-center justify-center bg-black text-white hover:bg-[#111] px-4 py-2 rounded-[50px]"
+        className={`${
+          theme === "light"
+            ? "bg-darker text-lighter hover:bg-dark"
+            : "bg-lighter text-darker hover:bg-light"
+        } flex items-center justify-center px-4 py-2 rounded-[50px]`}
       >
         Sign in
       </Link>
