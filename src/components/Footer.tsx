@@ -10,6 +10,7 @@ export default function Footer() {
         {/* Branding */}
         <Link
           href="/"
+          aria-label="home link"
           className="font-extrabold text-white text-2xl mb-4 md:mb-0 hover:text-yellow-300"
         >
           Codify
@@ -17,14 +18,15 @@ export default function Footer() {
 
         {/* Social Media and Copyright */}
         <div className="flex flex-col items-center mb-4 md:mb-0">
-          <a
+          <Link
             href="https://github.com"
+            aria-label="github link"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white text-3xl mb-2 hover:text-yellow-300"
           >
             <RxGithubLogo />
-          </a>
+          </Link>
           <p className="hidden md:block text-sm text-gray-400">
             &copy; {new Date().getFullYear()} Codify. All rights reserved.
           </p>

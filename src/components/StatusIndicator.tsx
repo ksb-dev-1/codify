@@ -13,7 +13,7 @@ export default function StatusIndicator({
 }) {
   return (
     <div
-      className={`w-[20px] ${
+      className={`w-[25px] ${
         isProfilePage ? "lg:w-[150px]" : "sm:w-[150px]"
       } flex items-center`}
     >

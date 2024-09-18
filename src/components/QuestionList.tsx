@@ -83,76 +83,88 @@ const QuestionsList = ({
   }
 
   return (
-    <div className="mt-8">
-      <div className="flex items-center justify-between border border-black bg-black text-white px-4 py-4 rounded-custom mb-4">
-        <div className="flex items-center">
-          <span className="hidden sm:block sm:w-[150px] font-bold">Status</span>
-          <span className="w-fit sm:w-[250px] font-bold">Topic</span>
+    <>
+      <div
+        className={`border ${
+          theme === "light" ? "border-light" : "border-dark"
+        } mt-8 rounded-custom overflow-hidden`}
+      >
+        <div
+          className={`${
+            theme === "light" ? "bg-lighter" : "bg-darker"
+          } flex items-center justify-between px-4 py-4`}
+        >
+          <div className="flex items-center">
+            <span className="hidden sm:block sm:w-[150px] font-semibold">
+              Status
+            </span>
+            <span className="w-fit sm:w-[250px] font-semibold">Topic</span>
+          </div>
+          <span className="font-semibold">Difficulty</span>
         </div>
-        <span className="font-bold">Difficulty</span>
-      </div>
-      <div className="">
-        {questions.map((question: any, index: any) => {
-          const { bgColor, dotColor, textColor } = getStatusStyles(
-            question.status
-          );
-          const {
-            bgColor: dBgColor,
-            borderColor,
-            textColor: dTextColor,
-          } = getDifficultyStyles(question.difficulty);
+        <div className={``}>
+          {questions.map((question: any, index: any) => {
+            const { bgColor, dotColor, textColor } = getStatusStyles(
+              question.status
+            );
+            const {
+              bgColor: dBgColor,
+              borderColor,
+              textColor: dTextColor,
+            } = getDifficultyStyles(question.difficulty);
 
-          return (
-            <Link
-              href={
-                question.isPremium && payment && !payment.status
-                  ? `/pages/payment?theme=${theme}`
-                  : `/pages/questions/question/${question.id}?theme=${theme}`
-              }
-              key={question.id}
-              className={`flex items-center justify-between px-4 py-4 cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] mb-4 rounded-custom ${
-                theme === "light"
-                  ? "lightBg1 darkColor2"
-                  : "darkBg1 lightColor1"
-              }`}
-            >
-              <div className="flex items-center">
-                <StatusIndicator
-                  status={question.status}
-                  bgColor={bgColor}
-                  dotColor={dotColor}
-                  textColor={textColor}
-                />
+            return (
+              <Link
+                href={
+                  question.isPremium && payment && !payment.status
+                    ? `/pages/payment?theme=${theme}`
+                    : `/pages/questions/question/${question.id}?theme=${theme}`
+                }
+                key={question.id}
+                className={`flex items-center justify-between px-4 py-4 cursor-pointer ${
+                  theme === "light" && index % 2 === 0 ? "bg-light" : ""
+                } ${theme === "light" && index % 2 !== 0 ? "bg-lighter" : ""}${
+                  theme === "dark" && index % 2 === 0 ? "bg-dark" : ""
+                }${theme === "dark" && index % 2 !== 0 ? "bg-darker" : ""}`}
+              >
+                <div className="flex items-center">
+                  <StatusIndicator
+                    status={question.status}
+                    bgColor={bgColor}
+                    dotColor={dotColor}
+                    textColor={textColor}
+                  />
 
-                <div className="w-fit sm:w-[250px] flex items-center">
-                  <p>{question.topicName}</p>
-                  {question.isPremium && isPaymentStatusLoading && (
-                    <span className="inline-block h-[20px] w-[20px] rounded-full skeleton ml-4"></span>
-                  )}
-                  {question.isPremium && payment && !payment.status && (
-                    <BsFillLockFill className="ml-4 text-lg" />
-                  )}
-                  {question.isPremium && payment && payment.status && (
-                    <BsFillUnlockFill className="ml-4 text-lg" />
-                  )}
+                  <div className="w-fit sm:w-[250px] flex items-center">
+                    <p>{question.topicName}</p>
+                    {question.isPremium && isPaymentStatusLoading && (
+                      <span className="inline-block h-[20px] w-[20px] rounded-full skeleton ml-4"></span>
+                    )}
+                    {question.isPremium && payment && !payment.status && (
+                      <BsFillLockFill className="ml-4 text-lg" />
+                    )}
+                    {question.isPremium && payment && payment.status && (
+                      <BsFillUnlockFill className="ml-4 text-lg" />
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              <DifficultyTag
-                difficulty={question.difficulty}
-                bgColor={dBgColor}
-                borderColor={borderColor}
-                textColor={dTextColor}
-              />
-            </Link>
-          );
-        })}
+                <DifficultyTag
+                  difficulty={question.difficulty}
+                  bgColor={dBgColor}
+                  borderColor={borderColor}
+                  textColor={dTextColor}
+                />
+              </Link>
+            );
+          })}
+        </div>
+        {/* Pagination */}
       </div>
-      {/* Pagination */}
       <div className="w-full mt-4 flex justify-center sm:justify-end">
         <Pagination currentPage={currentPage} totalPages={totalPages} />
       </div>
-    </div>
+    </>
   );
 };
 

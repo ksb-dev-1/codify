@@ -98,8 +98,10 @@ export default function Checkout({ amount }: { amount: number }) {
   if (!clientSecret || !stripe || !elements || isLoading) {
     return (
       <div
-        className={`${
-          theme === "light" ? "lightBg1" : "darkBg1"
+        className={`border ${
+          theme === "light"
+            ? "bg-lighter border-light"
+            : "bg-darker border-dark"
         } w-full flex flex-col items-center justify-center rounded-custom p-8`}
       >
         <div
@@ -155,11 +157,17 @@ export default function Checkout({ amount }: { amount: number }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`${
-        theme === "light" ? "lightBg1" : "darkBg1"
+      className={`border ${
+        theme === "light"
+          ? "bg-lighter text-darker border-light"
+          : "bg-lighter text-darker border-dark"
       } rounded-custom p-8`}
     >
-      <span className="font-medium text-sm mb-4 inline-block bg-slate-100 px-4 py-2 rounded-custom">
+      <span
+        className={`${
+          theme === "light" ? "bg-light" : "bg-dark text-lighter"
+        } font-medium text-sm mb-4 inline-block px-4 py-2 rounded-custom`}
+      >
         Card No : 4242 4242 4242 4242
       </span>
       {clientSecret && <PaymentElement />}

@@ -8,7 +8,7 @@ const QuestionSkeleton = () => {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        theme === "light" ? "bg-lighter text-darker" : "bg-darker text-lighter"
       } min-h-screen flex flex-col items-center px-4 pt-[6.5rem] pb-[4.5rem]`}
     >
       <div className="max-w-[750px] w-full flex items-center justify-between">
@@ -26,9 +26,9 @@ const QuestionSkeleton = () => {
         ></div>
       </div>
       <div
-        className={`${
-          theme === "light" ? "lightBg1" : "darkBg1"
-        } max-w-[750px] w-full rounded-xl p-8 mt-2`}
+        className={`border ${
+          theme === "light" ? "border-light" : "border-dark"
+        } max-w-[750px] w-full rounded-custom p-4 sm:p-8 mt-2`}
       >
         <p
           className={`${

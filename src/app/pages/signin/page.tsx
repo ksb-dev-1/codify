@@ -28,15 +28,15 @@ export default function SignInPage() {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        theme === "light" ? "bg-lighter text-darker" : "bg-darker text-lighter"
       } min-h-screen flex flex-col items-center justify-center`}
     >
       <div>
         <h1 className="mb-2 font-bold text-xl">Sign In</h1>
         <div
-          className={`${
-            theme === "light" ? "lightBg1" : "darkBg1"
-          } rounded-custom p-8 sm:p-16`}
+          className={`border ${
+            theme === "light" ? "border-light" : "border-dark"
+          } rounded-custom p-8`}
         >
           <form action={googleSigninAction}>
             <GoogleSignInButton theme={theme} />

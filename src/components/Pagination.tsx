@@ -31,12 +31,16 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`px-4 py-2 mx-1 rounded-custom disabled:opacity-50 ${
-          theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+        className={`border font-semibold px-4 py-2 mx-1 rounded-custom disabled:opacity-50 ${
+          theme === "light"
+            ? "bg-lighter text-darker border-light"
+            : "bg-darker text-lighter border-dark"
         } ${
           currentPage === 1
             ? "cursor-not-allowed"
-            : "cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+            : `cursor-pointer ${
+                theme === "light" ? "hover:bg-light" : "hover:bg-dark"
+              }`
         } w-full px-4 py-2 focus:outline-none rounded-custom`}
       >
         Prev
@@ -45,16 +49,16 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
         <button
           key={visiblePage}
           onClick={() => handlePageChange(visiblePage)}
-          className={`px-4 py-2 mx-1 rounded-custom hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] ${
+          className={`border font-semibold px-4 py-2 mx-1 rounded-custom ${
             currentPage === visiblePage
-              ? "bg-black text-white hover:bg-[#333]"
+              ? "bg-black text-white hover:bg-[#111]"
               : ""
           }${
             theme === "light"
               ? currentPage === visiblePage
                 ? "text-white"
-                : "darkColor1" + " lightBg1"
-              : "darkBg1 lightColor1"
+                : "text-darker  border-light hover:bg-light"
+              : "text-lighter border-dark hover:bg-dark"
           }`}
         >
           {visiblePage}
@@ -63,12 +67,16 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-4 py-2 mx-1 rounded-custom disabled:opacity-50 ${
-          theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+        className={`border font-semibold px-4 py-2 mx-1 rounded-custom disabled:opacity-50 ${
+          theme === "light"
+            ? "bg-lighter text-darker border-light"
+            : "bg-darker text-lighter border-dark"
         } ${
           currentPage === totalPages
             ? "cursor-not-allowed"
-            : "cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+            : `cursor-pointer ${
+                theme === "light" ? "hover:bg-light" : "hover:bg-dark"
+              }`
         } w-full px-4 py-2 focus:outline-none rounded-custom`}
       >
         Next

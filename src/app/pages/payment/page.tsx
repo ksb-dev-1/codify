@@ -39,8 +39,10 @@ const PaymentPage = () => {
     if (sessionStatus === "loading") {
       return (
         <div
-          className={`${
-            theme === "light" ? "lightBg1" : "darkBg1"
+          className={`border ${
+            theme === "light"
+              ? "bg-lighter border-light"
+              : "bg-darker border-dark"
           } w-full flex flex-col items-center justify-center rounded-custom p-8`}
         >
           <div
@@ -70,7 +72,7 @@ const PaymentPage = () => {
       return (
         <div
           className={`${
-            theme === "light" ? "lightBg2" : "darkBg2"
+            theme === "light" ? "bg-lighter" : "bg-darker"
           } text-xl font-bold flex items-center justify-center`}
         >
           Logging out...
@@ -95,13 +97,13 @@ const PaymentPage = () => {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2" : "darkBg2"
+        theme === "light" ? "bg-lighter text-darker" : "bg-darker text-lighter"
       } min-h-screen flex flex-col items-center justify-center px-4`}
     >
       {/* <p className="font-bold text-xl max-w-[500px] w-full flex justify-start mb-4">
         Payment
       </p> */}
-      <div className="max-w-[500px] w-full rounded-custom overflow-clip">
+      <div className={`max-w-[500px] w-full rounded-custom overflow-clip`}>
         {content}
       </div>
     </div>

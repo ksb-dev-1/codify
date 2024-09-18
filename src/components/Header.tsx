@@ -37,7 +37,7 @@ export default function Header() {
   let linkContent: React.ReactNode;
   let authContent: React.ReactNode;
 
-  useHeaderScroll(headerRef);
+  //useHeaderScroll(headerRef);
   useHandleOutsideClick(dropdownRef, setIsDropdownOpen);
 
   // to handle window resize
@@ -97,16 +97,16 @@ export default function Header() {
         <Link
           href={`/pages/questions?theme=${theme}&page=1`}
           className={`${
-            theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
-          } ml-8 px-4 py-2 rounded-[50px] font-medium text-sm`}
+            theme === "light" ? "hover:bg-light" : "hover:bg-dark"
+          } ml-8 px-4 py-2 rounded-[50px] font-medium`}
         >
-          QUESTIONS
+          Questions
         </Link>
         <Link
           href={`/pages/payment?theme=${theme}`}
-          className="ml-4 px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:from-yellow-500 hover:to-orange-500  rounded-[50px] font-medium text-sm"
+          className="ml-4 px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:from-yellow-500 hover:to-orange-500  rounded-[50px] font-medium"
         >
-          PREMIUM
+          Premium
         </Link>
       </div>
     );
@@ -124,7 +124,7 @@ export default function Header() {
         ) : (
           <div
             className={`${
-              theme === "light" ? "lightBg2" : "darkBg2"
+              theme === "light" ? "bg-light" : "bg-darker"
             } relative h-[40px] w-[40px] rounded-full cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
@@ -135,20 +135,20 @@ export default function Header() {
         )}
         {/* Dropdown */}
         <div
-          className={`absolute right-0 mt-2 w-48 bg-white rounded-custom modal-shadow p-2 z-10 transition-transform duration-150 ease-out transform origin-top-right ${
+          className={`absolute right-0 mt-2 w-48 rounded-custom modal-shadow p-2 z-10 transition-transform origin-top-right border ${
             isDropdownOpen
               ? "scale-100 opacity-100"
               : "scale-95 opacity-0 pointer-events-none"
           } ${
             theme === "light"
-              ? "lightBg1 darkColor2 border-2 border-[#e1e1e1]"
-              : "darkBg1 lightColor1 border-2 border-[#555]"
+              ? "bg-lighter border-light"
+              : "bg-darker border-dark"
           }`}
         >
           <Link
             href={`/pages/profile?theme=${theme}`}
             className={`${
-              theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
+              theme === "light" ? "hover:bg-light" : "hover:bg-dark"
             } flex items-center px-4 py-2 rounded-custom`}
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
@@ -158,7 +158,7 @@ export default function Header() {
           <Link
             href={`/pages/bookmarks?theme=${theme}`}
             className={`${
-              theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
+              theme === "light" ? "hover:bg-light" : "hover:bg-dark"
             } flex items-center px-4 py-2 rounded-custom`}
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
@@ -168,7 +168,7 @@ export default function Header() {
           <Link
             href="#"
             className={`${
-              theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
+              theme === "light" ? "hover:bg-light" : "hover:bg-dark"
             } flex items-center px-4 py-2 rounded-custom`}
             onClick={() => {
               handleSignOut();
@@ -187,16 +187,16 @@ export default function Header() {
         <Link
           href={`/pages/signin?theme=${theme}`}
           className={`${
-            theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
-          } ml-8 px-4 py-2 hover:bg-[#f1f5f9] rounded-[50px] font-medium text-sm`}
+            theme === "light" ? "hover:bg-light" : "hover:bg-dark"
+          } ml-8 px-4 py-2 rounded-[50px] font-medium`}
         >
-          QUESTIONS
+          Questions
         </Link>
         <Link
           href={`/pages/signin?theme=${theme}`}
-          className="ml-4 px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:from-yellow-500 hover:to-orange-500 rounded-[50px] font-medium text-sm"
+          className="ml-4 px-4 py-2 bg-gradient-to-tr from-orange-500 to-yellow-500 text-white hover:from-yellow-500 hover:to-orange-500 rounded-[50px] font-medium"
         >
-          PREMIUM
+          Premium
         </Link>
       </div>
     );
@@ -214,8 +214,10 @@ export default function Header() {
     <>
       <header
         ref={headerRef}
-        className={`${
-          theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
+        className={`border-b ${
+          theme === "light"
+            ? "bg-lighter text-darker border-light"
+            : "bg-darker text-lighter border-dark"
         } fixed top-0 left-0 z-20 w-full flex items-center justify-center`}
       >
         <div className="max-w-[1280px] w-full h-[4.5rem] px-4 flex items-center justify-between">
@@ -238,7 +240,7 @@ export default function Header() {
             {theme === "light" ? (
               <div
                 onClick={toggleTheme}
-                className="lightBg2 relative h-[40px] w-[40px] rounded-full mr-4 cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+                className="hover:bg-light relative h-[40px] w-[40px] rounded-full mr-4 cursor-pointer"
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
                   <PiMoon />
@@ -247,7 +249,7 @@ export default function Header() {
             ) : (
               <div
                 onClick={toggleTheme}
-                className="darkBg2 relative h-[40px] w-[40px] rounded-full mr-4 cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+                className="hover:bg-dark relative h-[40px] w-[40px] rounded-full mr-4 cursor-pointer"
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block text-xl">
                   <CgSun />

@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        theme === "light" ? "bg-lighter text-dark" : "bg-darker text-lighter"
       } min-h-screen flex flex-col items-center justify-center`}
     >
       <div className="max-w-7xl p-[144px] px-4 sm:px-8 lg:px-16">
@@ -24,11 +24,7 @@ export default function Home() {
           <h3 className="text-2xl font-bold mb-4 slide-in">
             Welcome to Codify
           </h3>
-          <p
-            className={`${
-              theme === "light" ? "darkColor1" : "lightColor2"
-            } max-w-[500px] w-full text-center mb-8 slide-in`}
-          >
+          <p className="max-w-[500px] w-full text-center mb-8 slide-in">
             <span className="font-bold">Codify</span> is your go-to platform for
             mastering JavaScript. We make learning interactive and enjoyable,
             turning coding into a fun and rewarding experience.
@@ -38,8 +34,8 @@ export default function Home() {
               href={`/pages/signin?theme=${theme}`}
               className={`${
                 theme === "light"
-                  ? "darkBg2 lightColor1 hover:bg-[#555]"
-                  : "lightBg1 darkColor2 hover:bg-slate-100"
+                  ? "bg-dark text-lighter hover:bg-darker"
+                  : "bg-lighter text-darker hover:bg-light"
               }  rounded-[50px] px-8 py-4`}
             >
               Start Learning
@@ -49,8 +45,8 @@ export default function Home() {
               href={`/pages/questions?theme=${theme}&page=1`}
               className={`${
                 theme === "light"
-                  ? "darkBg2 lightColor1 hover:bg-[#555]"
-                  : "lightBg1 darkColor2 hover:bg-slate-100"
+                  ? "bg-dark text-lighter hover:bg-darker"
+                  : "bg-lighter text-darker hover:bg-light"
               }  rounded-[50px] px-8 py-4`}
             >
               Start Learning
@@ -62,17 +58,11 @@ export default function Home() {
           <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div
               className={`${
-                theme === "light"
-                  ? "lightBg1 darkColor2"
-                  : "darkBg1 lightColor1"
-              } p-6 rounded-custom`}
+                theme === "light" ? "border-light" : "border-dark"
+              } border p-6 rounded-custom`}
             >
               <h3 className="text-xl font-bold">Practice</h3>
-              <p
-                className={`${
-                  theme === "light" ? "darkColor1" : "lightColor2"
-                } mt-2`}
-              >
+              <p className="mt-2">
                 Engage in practice sessions with a wide range of questions
                 across various topics, difficulty levels, and statuses to
                 enhance your learning.
@@ -81,17 +71,11 @@ export default function Home() {
 
             <div
               className={`${
-                theme === "light"
-                  ? "lightBg1 darkColor2"
-                  : "darkBg1 lightColor1"
-              } p-6 rounded-custom`}
+                theme === "light" ? "border-light" : "border-dark"
+              } border p-6 rounded-custom`}
             >
               <h3 className="text-xl font-bold">Interactive Navigation</h3>
-              <p
-                className={`${
-                  theme === "light" ? "darkColor1" : "lightColor2"
-                } mt-2`}
-              >
+              <p className="mt-2">
                 Easily move through pages with our intuitive navigation buttons,
                 allowing you to quickly browse through questions.
               </p>
@@ -99,17 +83,11 @@ export default function Home() {
 
             <div
               className={`${
-                theme === "light"
-                  ? "lightBg1 darkColor2"
-                  : "darkBg1 lightColor1"
-              } p-6 rounded-custom`}
+                theme === "light" ? "border-light" : "border-dark"
+              } border p-6 rounded-custom`}
             >
               <h3 className="text-xl font-bold">Progress Tracking</h3>
-              <p
-                className={`${
-                  theme === "light" ? "darkColor1" : "lightColor2"
-                } mt-2`}
-              >
+              <p className="mt-2">
                 Keep track of your progress over time by viewing your overall
                 performance, as well as progress in easy, medium, and hard
                 categories.
@@ -118,17 +96,11 @@ export default function Home() {
 
             <div
               className={`${
-                theme === "light"
-                  ? "lightBg1 darkColor2"
-                  : "darkBg1 lightColor1"
-              } p-6 rounded-custom`}
+                theme === "light" ? "border-light" : "border-dark"
+              } border p-6 rounded-custom`}
             >
               <h3 className="text-xl font-bold">Bookmark Questions</h3>
-              <p
-                className={`${
-                  theme === "light" ? "darkColor1" : "lightColor2"
-                } mt-2`}
-              >
+              <p className="mt-2">
                 Save tricky questions to revisit later and deepen your
                 understanding. You can remove them when they are no longer
                 needed.
@@ -137,17 +109,11 @@ export default function Home() {
 
             <div
               className={`${
-                theme === "light"
-                  ? "lightBg1 darkColor2"
-                  : "darkBg1 lightColor1"
-              } p-6 rounded-custom`}
+                theme === "light" ? "border-light" : "border-dark"
+              } border p-6 rounded-custom`}
             >
               <h3 className="text-xl font-bold">Instant Feedback</h3>
-              <p
-                className={`${
-                  theme === "light" ? "darkColor1" : "lightColor2"
-                } mt-2`}
-              >
+              <p className="mt-2">
                 After choosing the correct option, view a detailed explanation
                 for each question and mark questions as checked or unchecked.
               </p>
@@ -155,17 +121,11 @@ export default function Home() {
 
             <div
               className={`${
-                theme === "light"
-                  ? "lightBg1 darkColor2"
-                  : "darkBg1 lightColor1"
-              } p-6 rounded-custom`}
+                theme === "light" ? "border-light" : "border-dark"
+              } border p-6 rounded-custom`}
             >
               <h3 className="text-xl font-bold">Premium Access</h3>
-              <p
-                className={`${
-                  theme === "light" ? "darkColor1" : "lightColor2"
-                } mt-2`}
-              >
+              <p className="mt-2">
                 Unlock exclusive access by upgrading to premium.
               </p>
             </div>

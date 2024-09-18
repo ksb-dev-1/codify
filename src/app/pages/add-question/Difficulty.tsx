@@ -60,9 +60,11 @@ const Difficulty = forwardRef(function Difficulty(
             <input
               type="text"
               id="difficulty"
-              className={`${
-                theme === "light" ? "lightBg2" : "darkBg2"
-              } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom ${
+              className={`border ${
+                theme === "light"
+                  ? "bg-lighter border-light"
+                  : "bg-darker border-dark"
+              } mt-1 block w-full p-2 focus:outline-none cursor-pointer rounded-custom ${
                 inputValue === "Select Difficulty" ? "text-gray-400" : ""
               } ${error ? "border-[3px] border-red-300" : ""}`}
               placeholder="Select Difficulty"
@@ -81,12 +83,14 @@ const Difficulty = forwardRef(function Difficulty(
               />
             </span>
           </div>
+
+          {/* Dropdown */}
           <ul
-            className={`${
+            className={`border origin-top-left ${
               theme === "light"
-                ? "lightBg2 border-[2px] border-[#e1e1e1]"
-                : "darkBg2 border-[2px] border-[#555]"
-            } p-2 absolute w-full mt-2 bg-white transition-all duration-150 ease-out rounded-custom ${
+                ? "bg-lighter border-light"
+                : "bg-darker border-dark"
+            } p-2 absolute w-full mt-2 transition-all duration-150 ease-out rounded-custom ${
               isDropdownOpen ? "scale-100 z-10" : "scale-95 -z-10"
             }`}
           >
@@ -94,7 +98,7 @@ const Difficulty = forwardRef(function Difficulty(
               <li
                 key={difficulty}
                 className={`${
-                  theme === "light" ? "hover:bg-[#fff]" : "hover:bg-[#282828]"
+                  theme === "light" ? "hover:bg-light" : "hover:bg-dark"
                 } p-2 cursor-pointer rounded-custom`}
                 onClick={() => {
                   setDifficulty(difficulty);

@@ -41,9 +41,11 @@ export default function StatusFilter({ currentStatus }: StatusProps) {
         <input
           id="status"
           type="text"
-          className={`${
-            theme === "light" ? "lightBg1 darkColor2" : "darkBg1 lightColor1"
-          } w-full px-4 py-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom`}
+          className={`border ${
+            theme === "light"
+              ? "bg-lighter border-light"
+              : "bg-darker border-dark"
+          } w-full px-4 py-2 focus:outline-none cursor-pointer rounded-custom`}
           value={currentStatus}
           readOnly
           onClick={(e) => {
@@ -60,16 +62,17 @@ export default function StatusFilter({ currentStatus }: StatusProps) {
         </span>
       </div>
 
+      {/* Dropdown */}
       <div
-        className={`${
+        className={`border origin-top-left ${
           theme === "light"
-            ? "lightBg1 darkColor2 border-[2px] border-[#e1e1e1]"
-            : "darkBg1 lightColor1 border-[2px] border-[#555]"
-        } flex flex-col w-full p-2 absolute modal-shadow mt-2 bg-white rounded-custom ${
+            ? "bg-lighter text-darker border-light"
+            : "bg-darker text-lighter border-dark"
+        } flex flex-col w-full p-2 absolute modal-shadow mt-2 rounded-custom ${
           isDropdownOpen
             ? "scale-100 z-10 opacity-100"
             : "scale-95 -z-10 opacity-0 pointer-events-none"
-        }} overflow-hidden`}
+        }} transition-transform overflow-hidden`}
       >
         {statuses.map((status) => {
           const newParams = new URLSearchParams(searchParams.toString());
@@ -81,7 +84,7 @@ export default function StatusFilter({ currentStatus }: StatusProps) {
               key={status}
               href={`/pages/questions?${newParams.toString()}`}
               className={`${
-                theme === "light" ? "hover:bg-[#f1f5f9]" : "hover:bg-[#1a1a1a]"
+                theme === "light" ? "hover:bg-light" : "hover:bg-dark"
               } px-4 py-2 rounded-custom`}
               onClick={() => {
                 toggleDropdown();

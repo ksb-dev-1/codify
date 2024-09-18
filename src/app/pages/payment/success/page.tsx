@@ -11,7 +11,7 @@ export default function PaymentSuccess() {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2" : "darkBg2"
+        theme === "light" ? "bg-lighter" : "bg-darker"
       } min-h-screen flex flex-col items-center justify-center`}
     >
       <div className="text-center p-8 rounded-custom bg-gradient-to-tr from-orange-500 to-yellow-500 text-white">

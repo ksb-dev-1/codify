@@ -80,7 +80,9 @@ const BookmarksPage = () => {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex justify-center`}
       >
         <div className="relative max-w-[1280px] w-full px-4 my-[6.5rem]">
@@ -94,7 +96,9 @@ const BookmarksPage = () => {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex justify-center`}
       >
         <div className="relative max-w-[1280px] w-full px-4 my-[6.5rem]">
@@ -109,7 +113,9 @@ const BookmarksPage = () => {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex justify-center`}
       >
         <div className="relative max-w-[1280px] w-full px-4 my-[6.5rem]">
@@ -123,7 +129,7 @@ const BookmarksPage = () => {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        theme === "light" ? "bg-lighter text-darker" : "bg-darker text-lighter"
       } min-h-screen flex justify-center`}
     >
       <div className="relative max-w-[1280px] w-full px-4 my-[6.5rem]">
@@ -147,8 +153,10 @@ const BookmarksPage = () => {
                       ? "/pages/payment"
                       : `/pages/questions/question/${bookmark.id}`
                   }
-                  className={`flex items-center justify-between rounded-tl-custom rounded-tr-custom hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] px-4 py-4 cursor-pointer ${
-                    theme === "light" ? "lightBg1" : "darkBg1"
+                  className={`border flex items-center justify-between rounded-tl-custom rounded-tr-custom px-4 py-4 cursor-pointer ${
+                    theme === "light"
+                      ? "border-light hover:bg-light"
+                      : "border-dark hover:bg-dark"
                   }`}
                 >
                   <div className="flex items-center">
@@ -184,7 +192,7 @@ const BookmarksPage = () => {
                   <button
                     onClick={() => handleRemoveBookmark(bookmark.id)}
                     disabled={pendingBookmarkId === bookmark.id}
-                    className={`w-[100px] flex justify-center bg-red-500 text-white hover:bg-red-300 py-2 rounded-bl-custom rounded-br-custom font-semibold ${
+                    className={`w-[100px] flex justify-center bg-red-500 text-white hover:bg-red-400 py-2 rounded-bl-custom rounded-br-custom font-semibold ${
                       pendingBookmarkId === bookmark.id ? "opacity-50" : ""
                     }`}
                   >

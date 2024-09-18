@@ -165,7 +165,9 @@ export default function QuestionDetail({ params }: PageProps) {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex flex-col items-center px-4 pt-[6.5rem]`}
       >
         <div className="text-xl font-bold flex items-center justify-center">
@@ -195,7 +197,9 @@ export default function QuestionDetail({ params }: PageProps) {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex flex-col items-center px-4 pt-[6.5rem] pb-[4.5rem]`}
       >
         <div className="max-w-[750px] w-full flex items-center justify-between">
@@ -211,8 +215,8 @@ export default function QuestionDetail({ params }: PageProps) {
             {(isBookmarked && removeBookmarkMutation.isPending) ||
             (!isBookmarked && addBookmarkMutation.isPending) ? (
               <button
-                className={`${
-                  theme === "light" ? "lightBg1" : "darkBg1"
+                className={`border ${
+                  theme === "light" ? "border-light" : "border-dark"
                 } relative h-[40px] w-[40px] rounded-full hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
               >
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">
@@ -225,8 +229,8 @@ export default function QuestionDetail({ params }: PageProps) {
             {isBookmarked && !removeBookmarkMutation.isPending ? (
               <button
                 onClick={() => removeBookmarkMutation.mutate(questionID)}
-                className={`${
-                  theme === "light" ? "lightBg1" : "darkBg1"
+                className={`border ${
+                  theme === "light" ? "border-light" : "border-dark"
                 } relative h-[40px] w-[40px] rounded-full hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
                 aria-label="remove-bookmark"
               >
@@ -240,8 +244,8 @@ export default function QuestionDetail({ params }: PageProps) {
             {!isBookmarked && !addBookmarkMutation.isPending ? (
               <button
                 onClick={() => addBookmarkMutation.mutate(questionID)}
-                className={`${
-                  theme === "light" ? "lightBg1" : "darkBg1"
+                className={`border ${
+                  theme === "light" ? "border-light" : "border-dark"
                 } relative h-[40px] w-[40px] rounded-full hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
                 aria-label="add-bookmark"
               >
@@ -255,8 +259,8 @@ export default function QuestionDetail({ params }: PageProps) {
           </>
         </div>
         <div
-          className={`${
-            theme === "light" ? "lightBg1" : "darkBg1"
+          className={`border ${
+            theme === "light" ? "border-light" : "border-dark"
           } max-w-[750px] w-full rounded-custom p-4 sm:p-8 mt-2`}
         >
           {/* Question */}
@@ -288,19 +292,23 @@ export default function QuestionDetail({ params }: PageProps) {
                 <div
                   key={key}
                   //className={optionClasses.trim()}
-                  className={`px-4 py-2 rounded-custom
+                  className={`border ${
+                    theme === "light" ? "border-light" : "border-dark"
+                  } px-4 py-2 rounded-custom
                     ${
                       !isCorrect &&
-                      "cursor-default hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]"
+                      `cursor-pointer ${
+                        theme === "light" ? "hover:bg-light" : "hover:bg-dark"
+                      }`
                     }
                     ${
                       theme === "light" && selectedOption !== key && !isCorrect
-                        ? "lightBg2"
+                        ? "bg-lighter"
                         : ""
                     }
                     ${
                       theme === "dark" && selectedOption !== key && !isCorrect
-                        ? "darkBg2"
+                        ? "bg-darker"
                         : ""
                     } 
                     ${
@@ -308,9 +316,7 @@ export default function QuestionDetail({ params }: PageProps) {
                       !correctAnswer &&
                       !wrongAnswer &&
                       !isCorrect
-                        ? `outline outline-[2px] outline-blue-500 ${
-                            theme === "light" ? "lightBg2" : "darkBg2"
-                          }`
+                        ? `${theme === "light" ? "bg-light" : "bg-dark"}`
                         : ""
                     }
                     ${
@@ -407,8 +413,8 @@ export default function QuestionDetail({ params }: PageProps) {
               <div
                 className={`${
                   theme === "light"
-                    ? "lightBg2 darkColor2"
-                    : "darkBg2 lightColor1"
+                    ? "bg-lighter text-darker"
+                    : "bg-darker text-lighter"
                 } rounded-custom px-4 py-2 mt-2`}
               >
                 {question.explanation}

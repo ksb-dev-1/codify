@@ -2,21 +2,21 @@ export default function getDifficultyStyles(status: string) {
   switch (status) {
     case "Easy":
       return {
-        bgColor: "bg-green-50",
-        borderColor: "border-green-200",
-        textColor: "text-green-600",
+        bgColor: "bg-green-600",
+        borderColor: "border-green-600",
+        textColor: "text-white",
       };
     case "Medium":
       return {
-        bgColor: "bg-orange-50",
-        borderColor: "border-orange-200",
-        textColor: "text-orange-600",
+        bgColor: "bg-orange-600",
+        borderColor: "border-orange-600",
+        textColor: "text-white",
       };
     default:
       return {
-        bgColor: "bg-red-50",
-        borderColor: "border-red-200",
-        textColor: "text-red-600",
+        bgColor: "bg-red-600",
+        borderColor: "border-red-600",
+        textColor: "text-white",
       };
   }
 }

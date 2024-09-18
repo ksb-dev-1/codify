@@ -87,8 +87,8 @@ export default function AddQuestionForm({ theme }: { theme: string }) {
       <h1 className="mb-4 font-bold text-xl">Add Question</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`${
-          theme === "light" ? "lightBg1" : "darkBg1"
+        className={`border ${
+          theme === "light" ? "border-light" : "border-dark"
         } p-8 sm:p-16 w-full space-y-4 rounded-custom`}
       >
         {/* Question */}
@@ -100,9 +100,11 @@ export default function AddQuestionForm({ theme }: { theme: string }) {
             type="text"
             id="question"
             {...register("question")}
-            className={`${
-              theme === "light" ? "lightBg2" : "darkBg2"
-            } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+            className={`border ${
+              theme === "light"
+                ? "bg-lighter border-light"
+                : "bg-darker border-dark"
+            } mt-1 block w-full p-2 focus:outline-none focus:placeholder-transparent rounded-custom ${
               errors.question ? "border-[3px] border-red-300" : ""
             }`}
             placeholder="Enter your question"
@@ -135,9 +137,11 @@ export default function AddQuestionForm({ theme }: { theme: string }) {
             rows={3}
             id="codeSnippet"
             {...register("codeSnippet")}
-            className={`${
-              theme === "light" ? "lightBg2" : "darkBg2"
-            } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+            className={`border ${
+              theme === "light"
+                ? "bg-lighter border-light"
+                : "bg-darker border-dark"
+            } mt-1 block w-full p-2 focus:outline-none focus:placeholder-transparent rounded-custom ${
               errors.codeSnippet ? "border-[3px] border-red-300" : ""
             }`}
             placeholder="Enter your code snippet"
@@ -159,9 +163,11 @@ export default function AddQuestionForm({ theme }: { theme: string }) {
                   type="text"
                   id={`options.${option}`}
                   {...register(`options.${option}` as `options.${OptionKeys}`)}
-                  className={`${
-                    theme === "light" ? "lightBg2" : "darkBg2"
-                  } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+                  className={`border ${
+                    theme === "light"
+                      ? "bg-lighter border-light"
+                      : "bg-darker border-dark"
+                  } mt-1 block w-full p-2 focus:outline-none focus:placeholder-transparent rounded-custom ${
                     errors.options ? "border-[3px] border-red-300" : ""
                   }`}
                   placeholder={`Enter option ${option.toLocaleUpperCase()}`}
@@ -203,9 +209,11 @@ export default function AddQuestionForm({ theme }: { theme: string }) {
             rows={3}
             id="explanation"
             {...register("explanation")}
-            className={`${
-              theme === "light" ? "lightBg2" : "darkBg2"
-            } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] focus:placeholder-transparent rounded-custom ${
+            className={`border ${
+              theme === "light"
+                ? "bg-lighter border-light"
+                : "bg-darker border-dark"
+            } mt-1 block w-full p-2 focus:outline-none focus:placeholder-transparent rounded-custom ${
               errors.explanation ? "border-[3px] border-red-300" : ""
             }`}
             placeholder="Enter an explanation"
@@ -249,7 +257,11 @@ export default function AddQuestionForm({ theme }: { theme: string }) {
 
         <button
           type={isPending ? "button" : "submit"}
-          className={`bg-blue-500 text-white hover:bg-blue-400 w-full h-[40px] rounded-custom flex items-center justify-center`}
+          className={`${
+            theme === "light"
+              ? "bg-darker text-lighter hover:bg-dark"
+              : "bg-lighter text-darker hover:bg-light"
+          } w-full h-[40px] rounded-custom flex items-center justify-center font-semibold`}
         >
           {isPending ? <span className="loader"></span> : "Submit"}
         </button>

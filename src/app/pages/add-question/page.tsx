@@ -36,7 +36,7 @@ export default function AddQuestionPage() {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        theme === "light" ? "bg-lighter text-darker" : "bg-darker text-lighter"
       } min-h-screen flex flex-col items-center justify-center`}
     >
       {content}

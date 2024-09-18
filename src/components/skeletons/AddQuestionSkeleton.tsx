@@ -4,11 +4,7 @@ export type OptionKeys = "a" | "b" | "c" | "d";
 
 export default function AddQuestionSkeleton({ theme }: { theme: string }) {
   return (
-    <div
-      className={`${
-        theme === "light" ? "lightBg2" : "darkBg2"
-      } max-w-[750px] w-full my-[144px] px-8 md:p-0`}
-    >
+    <div className={`max-w-[750px] w-full my-[144px] px-8 md:p-0`}>
       <h1
         className={`${
           theme === "light" ? "skeleton-light" : "skeleton-dark"
@@ -17,8 +13,8 @@ export default function AddQuestionSkeleton({ theme }: { theme: string }) {
         Add Question
       </h1>
       <form
-        className={`${
-          theme === "light" ? "lightBg1" : "darkBg1"
+        className={`border ${
+          theme === "light" ? "border-light" : "border-dark"
         } p-8 sm:p-16 w-full space-y-4 rounded-custom`}
       >
         {/* Question */}

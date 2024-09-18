@@ -24,7 +24,7 @@ const Learn = () => {
 
   return (
     <div className="relative max-w-[1280px] w-full px-4 my-[4.5rem]">
-      <div className="flex flex-col sm:flex-row sm:items-center mt-[2rem]">
+      <div className="w-full flex flex-col sm:flex-row sm:items-center mt-[2rem]">
         <TopicsFilter currentTopic={topic.toString()} />
         <div className="mt-4 sm:mt-0 flex items-center">
           <DifficultyFilter currentDifficulty={difficulty.toString()} />
@@ -58,7 +58,9 @@ const LearnPage = () => {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex justify-center`}
       >
         <LearnSkeleton />
@@ -70,7 +72,9 @@ const LearnPage = () => {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex justify-center`}
       >
         <div className="text-xl font-bold flex items-center justify-center">
@@ -83,7 +87,7 @@ const LearnPage = () => {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        theme === "light" ? "bg-lighter text-darker" : "bg-darker text-lighter"
       } min-h-screen flex justify-center`}
     >
       <Learn />

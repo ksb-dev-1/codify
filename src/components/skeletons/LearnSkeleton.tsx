@@ -1,4 +1,5 @@
 import { useSearchParams } from "next/navigation";
+import QuestionsSkeleton from "./QuestionsSkeleton";
 
 const LearnSkeleton = () => {
   const searchParams = useSearchParams();
@@ -14,7 +15,7 @@ const LearnSkeleton = () => {
             }`}
           ></div>
           <div
-            className={`w-full sm:w-[200px] px-4 h-[40px] rounded-custom ${
+            className={`w-full sm:w-[200px] px-4 h-[41.6px] rounded-custom ${
               theme === "light" ? "skeleton-light" : "skeleton-dark"
             } text-transparent`}
           >
@@ -29,7 +30,7 @@ const LearnSkeleton = () => {
               }`}
             ></div>
             <div
-              className={`w-full sm:w-[150px] px-4 h-[40px] rounded-custom ${
+              className={`w-full sm:w-[150px] px-4 h-[41.6px] rounded-custom ${
                 theme === "light" ? "skeleton-light" : "skeleton-dark"
               } text-transparent`}
             >
@@ -43,7 +44,7 @@ const LearnSkeleton = () => {
               }`}
             ></div>
             <div
-              className={`w-full sm:w-[150px] px-4 h-[40px] rounded-custom ${
+              className={`w-full sm:w-[150px] px-4 h-[41.6px] rounded-custom ${
                 theme === "light" ? "skeleton-light" : "skeleton-dark"
               } text-transparent`}
             >
@@ -52,87 +53,7 @@ const LearnSkeleton = () => {
           </div>
         </div>
       </div>
-      <div className="mt-8">
-        <div
-          className={`px-4 h-[57.6px] rounded-custom text-transparent ${
-            theme === "light" ? "skeleton-light" : "skeleton-dark"
-          } mb-4`}
-        >
-          header
-        </div>
-        <div className="">
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 1
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 2
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 3
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 4
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 5
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 6
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 7
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 8
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 9
-          </div>
-          <div
-            className={`px-4 h-[59.2px] text-transparent rounded-custom mb-4 ${
-              theme === "light" ? "skeleton-light" : "skeleton-dark"
-            }`}
-          >
-            Question 10
-          </div>
-        </div>
-      </div>
+      <QuestionsSkeleton />
     </div>
   );
 };

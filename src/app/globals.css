@@ -8,10 +8,10 @@
 
 .lightBg2 {
   background: #f1f5f9;
+  background: #fbfcfe;
 }
 
 .darkBg1 {
-  background: #282828;
   background: rgb(40, 40, 40);
 }
 
@@ -131,7 +131,7 @@
 
 .skeleton-light {
   background: linear-gradient(90deg, #f7f7f7 25%, #ececec 50%, #f7f7f7 75%);
-  background: linear-gradient(90deg, #e0e7ff 25%, #cbd5e1 50%, #e0e7ff 75%);
+  /* background: linear-gradient(90deg, #e0e7ff 25%, #cbd5e1 50%, #e0e7ff 75%); */
   background: linear-gradient(90deg, #e5e7eb 25%, #d1d5db 50%, #e5e7eb 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 2s infinite;

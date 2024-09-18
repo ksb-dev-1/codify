@@ -68,9 +68,11 @@ const CorrectOption = forwardRef(function CorrectOptin(
             <input
               id="correctOption"
               type="text"
-              className={`${
-                theme === "light" ? "lightBg2" : "darkBg2"
-              } mt-1 block w-full p-2 focus:outline-none focus:shadow-[0_0_3px_rgba(195,195,195,0.75)] cursor-pointer rounded-custom ${
+              className={`border ${
+                theme === "light"
+                  ? "bg-lighter border-light"
+                  : "bg-darker border-dark"
+              } mt-1 block w-full p-2 focus:outline-none cursor-pointer rounded-custom ${
                 inputValue === "Select Option" ? "text-gray-400" : ""
               } ${error ? "border-[3px] border-red-300" : ""}`}
               placeholder="Select correct option"
@@ -89,11 +91,13 @@ const CorrectOption = forwardRef(function CorrectOptin(
               />
             </span>
           </div>
+
+          {/* Dropdown */}
           <ul
-            className={`${
+            className={`border origin-top-left ${
               theme === "light"
-                ? "lightBg2 border-[2px] border-[#e1e1e1]"
-                : "darkBg2 border-[2px] border-[#555]"
+                ? "bg-lighter border-light"
+                : "bg-darker border-dark"
             } p-2 absolute w-full modal-shadow mt-2 transition-all duration-150 ease-out rounded-custom ${
               isDropdownOpen ? "scale-100 z-10" : "scale-95 -z-10"
             } overflow-hidden`}
@@ -102,7 +106,7 @@ const CorrectOption = forwardRef(function CorrectOptin(
               <li
                 key={option}
                 className={`${
-                  theme === "light" ? "hover:bg-[#fff]" : "hover:bg-[#282828]"
+                  theme === "light" ? "hover:bg-light" : "hover:bg-dark"
                 } p-2 cursor-pointer rounded-custom`}
                 onClick={() => {
                   setCorrectOption(option);

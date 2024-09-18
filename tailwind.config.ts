@@ -57,7 +57,23 @@ const config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        custom: "5px",
+        custom: "13px",
+      },
+      backgroundColor: {
+        light: "#f1f5f9",
+        lighter: "#ffffff",
+        dark: "#282828",
+        darker: "#1a1a1a",
+      },
+      textColor: {
+        light: "#f1f5f9",
+        lighter: "#ffffff",
+        dark: "#282828",
+        darker: "#1a1a1a",
+      },
+      borderColor: {
+        light: "#cbd5e1",
+        dark: "#57534e",
       },
       keyframes: {
         "accordion-down": {

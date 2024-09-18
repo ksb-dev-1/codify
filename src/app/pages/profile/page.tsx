@@ -142,7 +142,9 @@ const ProfilePage = () => {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex items-center justify-center`}
       >
         <p className="font-bold text-xl">Logging Out...</p>
@@ -154,7 +156,9 @@ const ProfilePage = () => {
     return (
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex justify-center`}
       >
         <div className="relative max-w-[1280px] w-full px-4 my-[6.5rem]">
@@ -171,15 +175,17 @@ const ProfilePage = () => {
     <>
       <div
         className={`${
-          theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+          theme === "light"
+            ? "bg-lighter text-darker"
+            : "bg-darker text-lighter"
         } min-h-screen flex justify-center`}
       >
         <div className="relative max-w-[1280px] w-full px-4 my-[6.5rem]">
           <p className="font-bold mb-4 text-xl">Profile</p>
           <div className="flex flex-col md:flex-row md:items-start">
             <div
-              className={`${
-                theme === "light" ? "lightBg1" : "darkBg1"
+              className={`border ${
+                theme === "light" ? "border-light" : "border-dark"
               } md:max-w-[350px] w-full flex flex-col p-4 md:p-8 rounded-custom`}
             >
               <div className="flex flex-col items-center">
@@ -238,8 +244,10 @@ const ProfilePage = () => {
                 <Link
                   href={`/pages/add-question?theme=${theme}`}
                   className={`${
-                    theme === "light" ? "lightBg2" : "darkBg2"
-                  } mt-4 font-semibold px-4 py-2 rounded-custom text-center hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] flex items-center justify-center`}
+                    theme === "light"
+                      ? "bg-darker text-lighter hover:bg-dark"
+                      : "bg-lighter text-darker hover:bg-light"
+                  } mt-4 font-semibold px-4 py-2 rounded-custom text-center flex items-center justify-center`}
                 >
                   Add Question <BsFillUnlockFill className="text-lg ml-2" />
                 </Link>
@@ -249,15 +257,15 @@ const ProfilePage = () => {
               <button
                 ref={deleteAccountBtnRef}
                 onClick={(e) => showModal(e)}
-                className={`mt-2 font-semibold bg-red-500 text-white px-4 py-2 rounded-custom hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
+                className={`mt-2 font-semibold bg-red-500 hover:bg-red-400 text-white px-4 py-2 rounded-custom`}
               >
                 Delete Account
               </button>
             </div>
             <div className="w-full flex flex-col">
               <div
-                className={`${
-                  theme === "light" ? "lightBg1" : "darkBg1"
+                className={`border ${
+                  theme === "light" ? "border-light" : "border-dark"
                 } mt-4 md:mt-0 md:ml-4 p-4 md:p-8 rounded-custom`}
               >
                 {questionsCount && (
@@ -302,10 +310,10 @@ const ProfilePage = () => {
                               ? `/pages/payment?theme=${theme}`
                               : `/pages/questions/question/${question.id}?theme=${theme}`
                           }
-                          className={`flex items-center justify-between px-4 py-4 cursor-pointer hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] rounded-tl-custom rounded-tr-custom ${
+                          className={`border flex items-center justify-between px-4 py-4 cursor-pointer  rounded-tl-custom rounded-tr-custom ${
                             theme === "light"
-                              ? "lightBg1 darkColor2"
-                              : "darkBg1 lightColor1"
+                              ? "border-light text-darker hover:bg-light"
+                              : "border-dark text-lighter hover:bg-dark"
                           }`}
                         >
                           <div className="flex items-center">
@@ -356,7 +364,7 @@ const ProfilePage = () => {
                               pendingQuestionId === question.id
                                 ? "opacity-50"
                                 : ""
-                            } w-[100px] flex justify-center bg-red-500 text-white hover:bg-red-300 py-2 rounded-bl-custom rounded-br-custom font-semibold`}
+                            } w-[100px] flex justify-center bg-red-500 text-white hover:bg-red-400 py-2 rounded-bl-custom rounded-br-custom font-semibold`}
                           >
                             {pendingQuestionId === question.id ? (
                               <span className="loader block"></span>
@@ -414,7 +422,7 @@ const ProfilePage = () => {
               className={`${
                 theme === "light"
                   ? "darkBg1 lightColor1"
-                  : "lightBg1 darkColor2"
+                  : "bg-light text-darker"
               } rounded-custom px-4 py-2 ml-2 hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
             >
               Cancel

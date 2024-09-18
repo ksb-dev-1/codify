@@ -7,7 +7,7 @@ const ProfileSkeleton = () => {
   return (
     <div
       className={`${
-        theme === "light" ? "lightBg2 darkColor2" : "darkBg2 lightColor1"
+        theme === "light" ? "bg-lighter text-darker" : "bg-darker text-lighter"
       } min-h-screen flex justify-center`}
     >
       <div className="relative max-w-[1280px] w-full px-4 my-[6.5rem]">
@@ -20,8 +20,8 @@ const ProfileSkeleton = () => {
         </p>
         <div className="flex flex-col md:flex-row md:items-start">
           <div
-            className={`${
-              theme === "light" ? "lightBg1" : "darkBg1"
+            className={`border ${
+              theme === "light" ? "border-light" : "border-dark"
             } md:max-w-[350px] w-full flex flex-col p-4 md:p-8 rounded-custom`}
           >
             <div className="flex flex-col items-center">
@@ -66,8 +66,8 @@ const ProfileSkeleton = () => {
           </div>
           <div className="w-full flex flex-col">
             <div
-              className={`${
-                theme === "light" ? "lightBg1" : "darkBg1"
+              className={`border ${
+                theme === "light" ? "border-light" : "border-dark"
               } mt-4 md:mt-0 md:ml-4 p-4 md:p-8 rounded-custom`}
             >
               <div className="mb-4">
