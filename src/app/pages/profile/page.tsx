@@ -232,7 +232,9 @@ const ProfilePage = () => {
                 <Link
                   href={`/pages/payment?theme=${theme}`}
                   className={`${
-                    theme === "light" ? "lightBg2" : "darkBg2"
+                    theme === "light"
+                      ? "bg-darker text-lighter hover:bg-dark"
+                      : "bg-lighter text-darker hover:bg-light"
                   } mt-4 font-semibold px-4 py-2 rounded-custom text-center hover:shadow-[0_0_3px_rgba(195,195,195,0.75)] flex items-center justify-center`}
                 >
                   Add Question <BsFillLockFill className="text-lg ml-2" />
@@ -385,15 +387,15 @@ const ProfilePage = () => {
         ref={deleteAccountModalRef}
         className={`${
           theme === "light"
-            ? "bg-[rgba(241,245,249,0.95)] darkColor2"
-            : "bg-[rgba(26,26,26,0.95)] lightColor1"
-        } fixed z-30 top-0 left-0 right-0 bottom-0 flex items-center justify-center scale-0 transition px-4`}
+            ? "bg-[rgba(255,255,255,0.75)] darkColor2"
+            : "bg-[rgba(26,26,26,0.75)] lightColor1"
+        } fixed z-30 top-0 left-0 right-0 bottom-0 scale-0 transition`}
       >
         <div
           ref={deleteAccountInnerRef}
           className={`${
             theme === "light" ? "lightBg1" : "darkBg1"
-          } w-fit rounded-custom p-8 flex flex-col items-center modal-shadow`}
+          } w-full py-8 flex flex-col items-center modal-shadow`}
         >
           <p className="text-red-500 font-semibold">
             Do you want to delete your account?
@@ -411,7 +413,7 @@ const ProfilePage = () => {
                 ref={yesOptionRef}
                 onClick={handleDeleteAccount}
                 //disabled={deleteAccountMutation.isPending}
-                className={`bg-red-500 text-white rounded-custom px-4 py-2 mr-2 hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
+                className={`bg-red-500 text-white rounded-custom px-4 py-2 mr-2 hover:bg-red-400`}
               >
                 Delete
               </button>
@@ -421,9 +423,9 @@ const ProfilePage = () => {
               ref={noOptionRef}
               className={`${
                 theme === "light"
-                  ? "darkBg1 lightColor1"
-                  : "bg-light text-darker"
-              } rounded-custom px-4 py-2 ml-2 hover:shadow-[0_0_3px_rgba(195,195,195,0.75)]`}
+                  ? "bg-darker text-lighter hover:bg-dark"
+                  : "bg-lighter text-darker hover:bg-light"
+              } rounded-custom px-4 py-2 ml-2`}
             >
               Cancel
             </button>
