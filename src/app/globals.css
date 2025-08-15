@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-figtree), sans-serif;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* font-family: cursive; */
+  font-weight: 500;
+  color: #555;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f2f4f8 25%, #e3e6eb 50%, #f2f4f8 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1s infinite;
+  color: transparent;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* nprogress styles */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #ea3f40;
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transition: all 0.3s ease;
+}

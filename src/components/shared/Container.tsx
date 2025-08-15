@@ -1,0 +1,13 @@
+export default function Container({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`max-w-6xl w-full mx-auto overflow-hidden ${className}`}>
+      {children}
+    </div>
+  );
+}

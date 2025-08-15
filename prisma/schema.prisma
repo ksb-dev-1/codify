@@ -1,0 +1,144 @@
+// === Datasource & Generator ===
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// === Enums ===
+enum QuestionStatusEnum {
+  TODO
+  ATTEMPTED
+  SOLVED
+}
+
+enum DifficultyLevelEnum {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// === Models ===
+
+model User {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?          @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  savedQuestions   SavedQuestion[]
+  questionStatuses QuestionStatus[]
+  payment          Payment? // One-to-One relation
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model Account {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.String
+  access_token      String?  @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  @db.String
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Topic {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String     @unique
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  questions   Question[]
+}
+
+model Question {
+  id               String              @id @default(auto()) @map("_id") @db.ObjectId
+  qNo              Int                 @unique
+  question         String
+  codeSnippet      String?
+  options          Json
+  correctOption    String
+  explanation      String?
+  difficulty       DifficultyLevelEnum @default(EASY)
+  isPremium        Boolean             @default(false)
+  topicId          String              @db.ObjectId
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  topic            Topic               @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  savedQuestions   SavedQuestion[]
+  questionStatuses QuestionStatus[]
+
+  @@index([topicId])
+}
+
+model SavedQuestion {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  questionId String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+  @@index([userId])
+  @@index([questionId])
+}
+
+model QuestionStatus {
+  id          String             @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String             @db.ObjectId
+  questionId  String             @db.ObjectId
+  status      QuestionStatusEnum @default(TODO)
+  isCorrect   Boolean            @default(false)
+  completedAt DateTime?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question    Question           @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+  @@index([userId])
+  @@index([questionId])
+}
+
+model Payment {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String   @unique @db.ObjectId
+  paymentIntentId String   @unique
+  isPaid          Boolean  @default(false)
+  amount          Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
