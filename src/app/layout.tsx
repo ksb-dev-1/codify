@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
-// import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Providers from "./Providers";
 
@@ -33,7 +33,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          {/* <SpeedInsights /> */}
+          <SpeedInsights />
         </Providers>
       </body>
     </html>

@@ -6,6 +6,16 @@ import { auth } from "@/auth";
 import Container from "@/components/shared/Container";
 import QuestionDetails from "@/components/QuestionDetails";
 
+// lib
+import { fetchQuestionDetails } from "@/lib/fetchQuestionDetails";
+
+// utils
+import { queryKeys } from "@/utils/queryKeys";
+
+// 3rd party
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient } from "@/lib/getQueryClient";
+
 export const metadata: Metadata = {
   title: "Question Details",
   description:
@@ -15,17 +25,26 @@ export const metadata: Metadata = {
 export default async function QuestionDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await auth();
   const userId = session?.user?.id;
   if (!userId) redirect("/sign-in");
 
-  const { id } = params;
+  const { id } = await params;
+
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: queryKeys.questionDetails(userId, id),
+    queryFn: () => fetchQuestionDetails({ userId, questionId: id }),
+  });
 
   return (
-    <Container className="min-h-screen border-x px-6 sm:px-8 md:px-16 pb-16 pt-32">
-      <QuestionDetails userId={userId} questionId={id} />
-    </Container>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Container className="min-h-screen border-x px-6 sm:px-8 md:px-16 pb-16 pt-32">
+        <QuestionDetails userId={userId} questionId={id} />
+      </Container>
+    </HydrationBoundary>
   );
 }
