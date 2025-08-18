@@ -43,7 +43,7 @@ export default function PaymentSuccess({ userId }: { userId: string }) {
   return (
     <>
       <h1 className="text-xl font-bold mb-8 border-b pb-2">Payment Status</h1>
-      <div className="bg-white border p-4 sm:p-8 rounded flex flex-col items-center gap-4">
+      <div className="bg-white border px-6 sm:px-8 md:px-16 py-8 md:py-16 rounded flex flex-col items-center gap-6">
         {isPremium && (
           <>
             <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center text-green-700">

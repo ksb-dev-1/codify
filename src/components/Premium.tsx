@@ -45,16 +45,16 @@ export default function Premium({ userId }: PremiumProps) {
 
   if (data.isPremium) {
     return (
-      <div className="bg-white border p-4 sm:p-8 rounded flex flex-col items-center gap-4">
-        <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center">
+      <div className="border px-6 sm:px-8 md:px-16 py-8 md:py-16 rounded flex flex-col items-center gap-6">
+        <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center text-primary">
           You are already a premium member
         </h1>
-        <p className="sm:text-lg md:text-xl text-center font-medium">
+        <p className="sm:text-lg md:text-xl text-center font-semibold text-primary">
           Thank you for your support 🎉
         </p>
         <LinkWithProgress
           href="/questions?page=1"
-          className="px-4 py-2 text-xl rounded flex items-center bg-primary text-white hover:bg-primary_dark transition-colors"
+          className="px-6 py-3 text-xl rounded flex items-center bg-primary text-white hover:bg-indigo-500 transition-colors"
         >
           Start practicing
         </LinkWithProgress>
@@ -64,7 +64,7 @@ export default function Premium({ userId }: PremiumProps) {
 
   // Purchase button
   return (
-    <div className="bg-white border p-4 sm:p-8 rounded flex flex-col items-center gap-4">
+    <div className="bg-white border px-4 md:px-8 py-8 md:py-16 rounded flex flex-col items-center gap-6">
       <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center">
         Become a premium member
       </h1>

@@ -34,13 +34,13 @@ export default function Navbar() {
         ref={navbarRef}
         className="navbar-fixed fixed z-10 border-b bg-white left-0 top-0 right-0 h-16 flex items-center justify-center"
       >
-        <div className="max-w-6xl w-full px-4 md:px-8 flex items-center justify-between border-x h-16">
+        <div className="max-w-6xl w-full px-6 sm:px-8 md:px-16 flex items-center justify-between border-x h-16">
           <div className="flex items-center">
             {/* Menu Button */}
             <div className="md:hidden">
               {status === "loading" ? (
                 <span className="skeleton inline-block h-8 w-8 rounded mr-2" />
-              ) : (
+              ) : session?.user?.id ? (
                 <button
                   onClick={() => setIsSideNavOpen(true)}
                   aria-label="Open side navigation"
@@ -48,6 +48,8 @@ export default function Navbar() {
                 >
                   <IoMdMenu className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl" />
                 </button>
+              ) : (
+                ""
               )}
             </div>
 

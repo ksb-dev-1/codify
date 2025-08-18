@@ -36,7 +36,7 @@ export default async function PremiumPage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Container className="min-h-screen border-x px-4 sm:px-8 md:px-16 pb-16 pt-32">
+      <Container className="min-h-screen border-x px-6 sm:px-8 md:px-16 pb-16 pt-32">
         <Premium userId={userId} />
       </Container>
     </HydrationBoundary>

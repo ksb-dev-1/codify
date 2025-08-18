@@ -8,7 +8,7 @@ import FAQ from "@/components/home/FAQ";
 export default function HomePage() {
   return (
     <main>
-      <Container className="relative flex items-center justify-center min-h-screen border-x px-8 md:px-16 py-8 md:py-16">
+      <Container className="relative flex items-center justify-center min-h-screen border-x px-6 sm:px-8 md:px-16 py-8 md:py-16">
         <TopicsCloud />
 
         <div

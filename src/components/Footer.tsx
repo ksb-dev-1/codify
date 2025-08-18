@@ -3,8 +3,8 @@ import { FaGithub } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="border border-t h-16 flex items-center justify-center">
-      <div className="max-w-6xl w-full h-full flex flex-col sm:flex-row items-center sm:justify-between px-4n md:px-8 border-x">
+    <footer className="border border-t min-h-16 flex items-center justify-center">
+      <div className="max-w-6xl w-full h-full flex flex-col sm:flex-row items-center sm:justify-between px-6 sm:px-8 md:px-16 py-4 border-x">
         <span className="text-center sm:text-left text-sm">
           © {new Date().getFullYear()} Codify. All rights reserved.
         </span>

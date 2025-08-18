@@ -88,7 +88,7 @@ function Card({
 
 export default function Features() {
   return (
-    <Container className="border px-4 sm:px-8 md:px-16 py-8 md:py-16">
+    <Container className="border px-6 sm:px-8 md:px-16 py-8 md:py-16">
       <h2 className="text-xl md:text-2xl font-bold mb-8">
         <span
           className="inline-block border-b border-primary text-primary"

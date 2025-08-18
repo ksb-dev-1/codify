@@ -22,7 +22,7 @@ export default async function SignInPage() {
   if (session?.user?.id) redirect("/questions?page=1");
 
   return (
-    <Container className="min-h-screen flex items-center justify-center border-x px-4 sm:px-8">
+    <Container className="min-h-screen flex items-center justify-center border-x px-6 sm:px-8 md:px-16">
       <div className="max-w-md w-full space-y-4 border rounded p-4 sm:p-8">
         <h1 className="text-2xl font-bold text-center">
           Sign in to <span className="text-primary">codify</span>
