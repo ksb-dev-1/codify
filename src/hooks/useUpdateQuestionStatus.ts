@@ -218,11 +218,11 @@ export function useUpdateQuestionStatus(
       queryClient.invalidateQueries({ queryKey: savedQuestionsKey });
       queryClient.invalidateQueries({ queryKey: questionCountsKey });
 
-      // // Also invalidate all questions lists that might be affected
-      // queryClient.invalidateQueries({
-      //   queryKey: ["questions", userId],
-      //   exact: false,
-      // });
+      // Also invalidate all questions lists that might be affected
+      queryClient.invalidateQueries({
+        queryKey: ["questions", userId],
+        exact: false,
+      });
     },
   });
 }
