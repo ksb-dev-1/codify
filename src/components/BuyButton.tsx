@@ -78,7 +78,7 @@ export default function BuyButton({
     <button
       onClick={() => purchaseMutation.mutate()}
       disabled={purchaseMutation.isPending}
-      className="px-4 py-2 rounded flex items-center bg-primary text-white hover:bg-primary_dark transition-colors"
+      className="px-4 py-2 rounded-full flex items-center bg-primary text-white hover:opacity-80 transition-opacity"
     >
       <span>Get premium access for </span>
       <span className="ml-1 text-2xl font-bold flex items-center">499</span>

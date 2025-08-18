@@ -7,8 +7,8 @@ import NProgress from "nprogress";
 import { IoCloseSharp } from "react-icons/io5";
 
 interface AppliedFiltersProps {
-  status: string;
-  difficulty: string;
+  status: string | undefined;
+  difficulty: string | undefined;
 }
 
 export default function AppliedFilters({

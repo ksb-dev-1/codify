@@ -5,15 +5,19 @@ import { Suspense } from "react";
 // components
 import ProgressBar from "@/components/ProgressBar";
 
-// lib
-import { getQueryClient } from "@/lib/getQueryClient";
-
 // 3rd party
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const queryClient = getQueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      gcTime: Infinity,
+    },
+  },
+});
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (

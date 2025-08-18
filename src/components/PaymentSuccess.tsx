@@ -5,6 +5,7 @@ import { fetchUserPremiumData } from "@/lib/fetchUserPremiumData";
 
 // components
 import ServerError from "@/components/errors/ServerError";
+import PremiumSkeleton from "./skeletons/PremiumSkeleton";
 import LinkWithProgress from "@/components/shared/LinkWithProgress";
 
 // utils
@@ -19,7 +20,7 @@ export default function PaymentSuccess({ userId }: { userId: string }) {
     queryFn: () => fetchUserPremiumData({ userId }),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PremiumSkeleton text="Payment Success" />;
 
   if (isError)
     return (
@@ -42,8 +43,8 @@ export default function PaymentSuccess({ userId }: { userId: string }) {
 
   return (
     <>
-      <h1 className="text-xl font-bold mb-8 border-b pb-2">Payment Status</h1>
-      <div className="bg-white border px-6 sm:px-8 md:px-16 py-8 md:py-16 rounded flex flex-col items-center gap-6">
+      <h1 className="text-xl font-bold mb-8 border-b pb-4">Payment Status</h1>
+      <div className="bg-white border px-6 sm:px-8 md:px-16 py-8 rounded flex flex-col items-center gap-6">
         {isPremium && (
           <>
             <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center text-green-700">
@@ -54,7 +55,7 @@ export default function PaymentSuccess({ userId }: { userId: string }) {
             </p>
             <LinkWithProgress
               href="/questions?page=1"
-              className="px-4 py-2 text-xl rounded flex items-center bg-primary text-white hover:bg-primary_dark transition-colors"
+              className="px-6 py-3 text-xl rounded-full flex items-center bg-primary text-white hover:opacity-80 transition-opacity"
             >
               Start practicing
             </LinkWithProgress>

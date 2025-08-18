@@ -9,6 +9,7 @@ import { queryKeys } from "@/utils/queryKeys";
 // components
 import ServerError from "./errors/ServerError";
 import NotFound from "./errors/NotFound";
+import QuestionDetailsSkeleton from "./skeletons/QuestionDetailsSkeleton";
 import Details from "./Details";
 
 // 3rd party
@@ -26,7 +27,7 @@ export default function QuestionDetails({
     queryFn: () => fetchQuestionDetails({ userId, questionId }),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <QuestionDetailsSkeleton />;
 
   if (isError)
     return (

@@ -12,6 +12,7 @@ import { QuestionWithStatus } from "@/types/types";
 // components
 import ServerError from "@/components/errors/ServerError";
 import NotFound from "@/components/errors/NotFound";
+import QuestionListSkeleton from "./skeletons/QuestionListSkeleton";
 import QuestionCard from "./shared/QuestionCard/QuestionCard";
 
 // 3rd party
@@ -29,7 +30,8 @@ export default function SavedQuestionsList({
     queryFn: () => fetchSavedQuestions({ userId }),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <QuestionListSkeleton text="Saved Questions" isMobile={true} />;
 
   if (isError)
     return (
@@ -55,15 +57,20 @@ export default function SavedQuestionsList({
   const { questions = [], isPremiumUser = false } = data;
 
   return (
-    <div className="w-full grid gap-4">
-      {questions.map((question: QuestionWithStatus) => (
-        <QuestionCard
-          key={question.id}
-          question={question}
-          userId={userId}
-          isPremiumUser={isPremiumUser}
-        />
-      ))}
-    </div>
+    <>
+      <div className="mb-8 border-b pb-4 flex items-center justify-between">
+        <h1 className="text-xl font-bold">Saved Questions</h1>
+      </div>
+      <div className="w-full grid gap-4">
+        {questions.map((question: QuestionWithStatus) => (
+          <QuestionCard
+            key={question.id}
+            question={question}
+            userId={userId}
+            isPremiumUser={isPremiumUser}
+          />
+        ))}
+      </div>
+    </>
   );
 }

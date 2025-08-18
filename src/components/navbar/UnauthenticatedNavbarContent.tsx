@@ -15,7 +15,7 @@ export default function UnauthenticatedNavbarContent({
         href="/sign-in"
         className={`${
           path === "/sign-in" ? "pointer-events-none" : ""
-        } px-4 py-1 flex items-center justify-center rounded border hover:bg-slate-100 transition-colors`}
+        } px-4 py-1 flex items-center justify-center rounded-full border hover:bg-slate-100 transition-colors`}
       >
         <MdOutlineLogin className="mr-2" /> Sign in
       </LinkWithProgress>

@@ -46,6 +46,7 @@ export default function ProfileDetails({
 
   return (
     <>
+      <h1 className="text-xl font-bold mb-8 border-b pb-4">Profile Details</h1>
       <div className="relative border rounded p-4 md:p-8">
         {image && (
           <Image

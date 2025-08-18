@@ -8,6 +8,7 @@ import { queryKeys } from "@/utils/queryKeys";
 
 // components
 import ServerError from "./errors/ServerError";
+import ProgressStatsSkeleton from "./skeletons/ProgressStatsSkeleton";
 
 // 3rd party
 import { useQuery } from "@tanstack/react-query";
@@ -87,7 +88,7 @@ export default function ProgressStats({ userId }: { userId: string }) {
     queryFn: () => fetchQuestionCounts({ userId }),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <ProgressStatsSkeleton />;
 
   if (isError)
     return (

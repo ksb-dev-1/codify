@@ -16,6 +16,7 @@ import { DifficultyLevelEnum, QuestionStatusEnum } from "@prisma/client";
 import ServerError from "@/components/errors/ServerError";
 import NotFound from "@/components/errors/NotFound";
 import DocumentSearchIcon from "@/components/errors/DocumentSearchIcon";
+import QuestionListSkeleton from "./skeletons/QuestionListSkeleton";
 import QuestionCard from "@/components/shared/QuestionCard/QuestionCard";
 import AppliedFilters from "@/components/AppliedFilters";
 import DesktopFilter from "@/components/filter/DesktopFilter";
@@ -43,7 +44,14 @@ export default function QuestionsList({
     queryFn: () => fetchQuestions({ userId, page, limit, status, difficulty }),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <QuestionListSkeleton
+        status={status}
+        difficulty={difficulty}
+        text="Javascript Questions"
+      />
+    );
 
   if (isError)
     return (

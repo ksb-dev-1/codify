@@ -9,6 +9,7 @@ import { queryKeys } from "@/utils/queryKeys";
 // components
 import ServerError from "./errors/ServerError";
 import LinkWithProgress from "./shared/LinkWithProgress";
+import PremiumSkeleton from "./skeletons/PremiumSkeleton";
 import BuyButton from "./BuyButton";
 
 // 3rd party
@@ -24,7 +25,7 @@ export default function Premium({ userId }: PremiumProps) {
     queryFn: () => fetchUserPremiumData({ userId }),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <PremiumSkeleton text="Premium" />;
 
   if (isError)
     return (
@@ -45,34 +46,40 @@ export default function Premium({ userId }: PremiumProps) {
 
   if (data.isPremium) {
     return (
-      <div className="border px-6 sm:px-8 md:px-16 py-8 md:py-16 rounded flex flex-col items-center gap-6">
-        <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center text-primary">
-          You are already a premium member
-        </h1>
-        <p className="sm:text-lg md:text-xl text-center font-semibold text-primary">
-          Thank you for your support 🎉
-        </p>
-        <LinkWithProgress
-          href="/questions?page=1"
-          className="px-6 py-3 text-xl rounded flex items-center bg-primary text-white hover:bg-indigo-500 transition-colors"
-        >
-          Start practicing
-        </LinkWithProgress>
-      </div>
+      <>
+        <h1 className="text-xl font-bold mb-8 border-b pb-4">Premium</h1>
+        <div className="border px-6 sm:px-8 md:px-16 py-8 rounded flex flex-col items-center gap-6">
+          <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center text-primary">
+            You are already a premium member
+          </h1>
+          <p className="sm:text-lg md:text-xl text-center font-semibold text-primary">
+            Thank you for your support 🎉
+          </p>
+          <LinkWithProgress
+            href="/questions?page=1"
+            className="px-6 py-3 text-xl rounded-full flex items-center bg-primary text-white hover:opacity-80 transition-opacity"
+          >
+            Start practicing
+          </LinkWithProgress>
+        </div>
+      </>
     );
   }
 
   // Purchase button
   return (
-    <div className="bg-white border px-4 md:px-8 py-8 md:py-16 rounded flex flex-col items-center gap-6">
-      <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center">
-        Become a premium member
-      </h1>
-      <p className="sm:text-lg md:text-xl text-center font-medium">
-        Unlock all premium questions by becoming a premium member. This grants
-        you lifetime access to all current and future premium questions.
-      </p>
-      <BuyButton userId={userId} email={data.email} />
-    </div>
+    <>
+      <h1 className="text-xl font-bold mb-8 border-b pb-4">Premium</h1>
+      <div className="bg-white border px-4 md:px-8 py-8 rounded flex flex-col items-center gap-6">
+        <h1 className="font-bold text-xl sm:text-2xl md:text-3xl text-center">
+          Become a premium member
+        </h1>
+        <p className="sm:text-lg md:text-xl text-center font-medium">
+          Unlock all premium questions by becoming a premium member. This grants
+          you lifetime access to all current and future premium questions.
+        </p>
+        <BuyButton userId={userId} email={data.email} />
+      </div>
+    </>
   );
 }

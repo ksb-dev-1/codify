@@ -40,7 +40,7 @@ export default function Pagination({
         className={`border px-3 py-1 mr-2 rounded ${
           currentPage === 1
             ? "pointer-events-none bg-[#d6d6d6] text-white"
-            : "bg-primary border-primary text-white hover:bg-primary_dark transition-colors"
+            : "bg-primary border-primary text-white hover:opacity-80 transition-opacity"
         }`}
         aria-disabled={currentPage === 1}
       >
@@ -71,7 +71,7 @@ export default function Pagination({
         className={`border px-3 py-1 ml-2 rounded ${
           currentPage === totalPages
             ? "pointer-events-none bg-[#d6d6d6] text-white"
-            : "bg-primary border-primary text-white hover:bg-primary_dark transition-colors"
+            : "bg-primary border-primary text-white hover:opacity-80 transition-opacity"
         }`}
         aria-disabled={currentPage === totalPages}
       >
