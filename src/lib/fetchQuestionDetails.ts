@@ -5,9 +5,25 @@ export async function fetchQuestionDetails({
   userId,
   questionId,
 }: {
-  userId: string;
-  questionId: string;
+  userId: string | undefined;
+  questionId: string | undefined;
 }): Promise<FetchQuestionDetailsResult> {
+  if (!userId) {
+    return {
+      success: false,
+      message: "User id is required",
+      error: "Missing userId",
+    };
+  }
+
+  if (!questionId) {
+    return {
+      success: false,
+      message: "Question id is required",
+      error: "Missing questionId",
+    };
+  }
+
   try {
     const params = new URLSearchParams({ userId });
 
@@ -22,11 +38,11 @@ export async function fetchQuestionDetails({
 
     if (!res.ok) {
       const errorText = await res.text();
-      throw new Error(
-        `Failed to fetch question details: ${res.status} - ${
-          errorText || "Unknown error"
-        }`
-      );
+      return {
+        success: false,
+        message: `Failed to fetch question details: ${res.status}`,
+        error: errorText || "Unknown error",
+      };
     }
 
     const data: FetchQuestionDetailsResult = await res.json();

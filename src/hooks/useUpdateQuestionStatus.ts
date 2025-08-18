@@ -11,7 +11,7 @@ import {
 } from "@/types/types";
 
 export function useUpdateQuestionStatus(
-  userId: string,
+  userId: string | undefined,
   questionId: string,
   page: number,
   filterStatus: QuestionStatusEnum,

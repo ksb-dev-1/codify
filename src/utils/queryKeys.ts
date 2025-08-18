@@ -15,7 +15,8 @@ export const queryKeys = {
   questionDetails: (userId: string | undefined, questionId: string) =>
     ["question-details", userId, questionId] as const,
 
-  questionCounts: (userId: string) => ["question-counts", userId] as const,
+  questionCounts: (userId: string | undefined) =>
+    ["question-counts", userId] as const,
 
-  isPremium: (userId: string) => ["is-premium", userId] as const,
+  isPremium: (userId: string | undefined) => ["is-premium", userId] as const,
 };

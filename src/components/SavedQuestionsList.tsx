@@ -16,18 +16,14 @@ import QuestionListSkeleton from "./skeletons/QuestionListSkeleton";
 import QuestionCard from "./shared/QuestionCard/QuestionCard";
 
 // 3rd party
+
 import { useQuery } from "@tanstack/react-query";
 
-interface SavedQuestionsListProps {
-  userId: string;
-}
-
-export default function SavedQuestionsList({
-  userId,
-}: SavedQuestionsListProps) {
+export default function SavedQuestionsList({ userId }: { userId: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: queryKeys.savedQuestions(userId),
     queryFn: () => fetchSavedQuestions({ userId }),
+    enabled: !!userId,
   });
 
   if (isLoading)

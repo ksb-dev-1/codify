@@ -1,6 +1,4 @@
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
-import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Sign-in",
@@ -17,10 +15,7 @@ import {
   GitHubSignInButton,
 } from "@/components/SignInButtons";
 
-export default async function SignInPage() {
-  const session = await auth();
-  if (session?.user?.id) redirect("/questions?page=1");
-
+export default function SignInPage() {
   return (
     <Container className="min-h-screen flex items-center justify-center border-x px-6 sm:px-8 md:px-16">
       <div className="max-w-md w-full space-y-4 border rounded p-4 sm:p-8">

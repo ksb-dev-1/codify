@@ -4,8 +4,16 @@ import { FetchQuestionsResult } from "@/types/types";
 export async function fetchSavedQuestions({
   userId,
 }: {
-  userId: string;
+  userId: string | undefined;
 }): Promise<FetchQuestionsResult> {
+  if (!userId) {
+    return {
+      success: false,
+      message: "User id is required",
+      error: "Missing userId",
+    };
+  }
+
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_APP_URL}/api/questions/saved?userId=${userId}`,
@@ -16,11 +24,11 @@ export async function fetchSavedQuestions({
 
     if (!res.ok) {
       const errorText = await res.text();
-      throw new Error(
-        `Failed to fetch saved questions: ${res.status} - ${
-          errorText || "Unknown error"
-        }`
-      );
+      return {
+        success: false,
+        message: `Failed to fetch saved questions: ${res.status}`,
+        error: errorText || "Unknown error",
+      };
     }
 
     const data: FetchQuestionsResult = await res.json();

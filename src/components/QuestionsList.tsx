@@ -42,6 +42,7 @@ export default function QuestionsList({
   const { data, isLoading, isError } = useQuery({
     queryKey: queryKeys.questions(userId, page, status, difficulty),
     queryFn: () => fetchQuestions({ userId, page, limit, status, difficulty }),
+    enabled: !!userId,
   });
 
   if (isLoading)

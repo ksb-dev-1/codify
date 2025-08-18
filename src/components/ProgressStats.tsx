@@ -82,10 +82,15 @@ function SharedLegend() {
   );
 }
 
-export default function ProgressStats({ userId }: { userId: string }) {
+export default function ProgressStats({
+  userId,
+}: {
+  userId: string | undefined;
+}) {
   const { data, isLoading, isError } = useQuery({
     queryKey: queryKeys.questionCounts(userId),
     queryFn: () => fetchQuestionCounts({ userId }),
+    enabled: !!userId,
   });
 
   if (isLoading) return <ProgressStatsSkeleton />;

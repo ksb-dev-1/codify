@@ -18,6 +18,7 @@ export default function PaymentSuccess({ userId }: { userId: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: queryKeys.isPremium(userId),
     queryFn: () => fetchUserPremiumData({ userId }),
+    enabled: !!userId,
   });
 
   if (isLoading) return <PremiumSkeleton text="Payment Success" />;

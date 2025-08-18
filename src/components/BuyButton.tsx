@@ -21,7 +21,7 @@ export default function BuyButton({
   userId,
   email,
 }: {
-  userId: string;
+  userId: string | undefined;
   email: string | null;
 }) {
   const searchParams = useSearchParams();

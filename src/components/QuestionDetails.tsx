@@ -13,6 +13,7 @@ import QuestionDetailsSkeleton from "./skeletons/QuestionDetailsSkeleton";
 import Details from "./Details";
 
 // 3rd party
+
 import { useQuery } from "@tanstack/react-query";
 
 export default function QuestionDetails({
@@ -25,6 +26,7 @@ export default function QuestionDetails({
   const { data, isLoading, isError } = useQuery({
     queryKey: queryKeys.questionDetails(userId, questionId),
     queryFn: () => fetchQuestionDetails({ userId, questionId }),
+    enabled: !!userId,
   });
 
   if (isLoading) return <QuestionDetailsSkeleton />;

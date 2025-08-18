@@ -13,7 +13,7 @@ const config: Config = {
         DEFAULT: "#cbd5e1",
       },
       borderRadius: {
-        DEFAULT: "8px",
+        DEFAULT: "6px",
       },
       boxShadow: {
         "inner-strong": "inset 0 0 4px rgba(0, 0, 0, 0.2)",

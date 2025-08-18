@@ -7,7 +7,7 @@ import { FetchQuestionsResult } from "@/types/types";
 import { DifficultyLevelEnum, QuestionStatusEnum } from "@prisma/client";
 
 interface FetchQuestionsParams {
-  userId: string;
+  userId: string | undefined;
   page: number;
   limit: number;
   status?: QuestionStatusEnum | null;
@@ -21,6 +21,14 @@ export async function fetchQuestions({
   status,
   difficulty,
 }: FetchQuestionsParams): Promise<FetchQuestionsResult> {
+  if (!userId) {
+    return {
+      success: false,
+      message: "User id is required",
+      error: "Missing userId",
+    };
+  }
+
   const params = new URLSearchParams({
     userId,
     page: String(page),

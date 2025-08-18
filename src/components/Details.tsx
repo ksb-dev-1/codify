@@ -29,7 +29,7 @@ export default function Details({
   userId,
 }: {
   questionDetails: QuestionDetails;
-  userId: string;
+  userId: string | undefined;
 }) {
   const {
     id,
@@ -153,7 +153,7 @@ export default function Details({
         {Object.entries(options).map(([key, value]) => {
           let bgColor =
             !isCorrect && status !== "SOLVED"
-              ? "hover:bg-slate-200 cursor-pointer"
+              ? "hover:bg-slate-100 cursor-pointer"
               : "pointer-events-none";
 
           if (status === "SOLVED" && key === correctOption) {

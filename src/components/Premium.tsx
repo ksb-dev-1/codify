@@ -13,16 +13,14 @@ import PremiumSkeleton from "./skeletons/PremiumSkeleton";
 import BuyButton from "./BuyButton";
 
 // 3rd party
+
 import { useQuery } from "@tanstack/react-query";
 
-interface PremiumProps {
-  userId: string;
-}
-
-export default function Premium({ userId }: PremiumProps) {
+export default function Premium({ userId }: { userId: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: queryKeys.isPremium(userId),
     queryFn: () => fetchUserPremiumData({ userId }),
+    enabled: !!userId,
   });
 
   if (isLoading) return <PremiumSkeleton text="Premium" />;

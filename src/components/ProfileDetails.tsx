@@ -13,19 +13,17 @@ import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ProgressStats from "./ProgressStats";
 
-interface ProfileDetailsProps {
-  userId: string;
-  name: string | null | undefined;
-  email: string | null | undefined;
-  image: string | null | undefined;
-}
-
 export default function ProfileDetails({
   userId,
   name,
   email,
   image,
-}: ProfileDetailsProps) {
+}: {
+  userId: string;
+  name: string | null | undefined;
+  email: string | null | undefined;
+  image: string | null | undefined;
+}) {
   const [isEditImageOpen, setIsEditImageOpen] = useState<boolean>(false);
   const [isDeleteAccountOpen, setIsDeleteAccountOpen] =
     useState<boolean>(false);
